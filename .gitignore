@@ -1,0 +1,10 @@
+# gitignore file for Python projects
+__pycache__
+
+# Ignore PDF files
+books/*.pdf
+books/*.tar.gz
+
+# Ignore all extracted books from my scripts
+articles
+*.tar.gz
