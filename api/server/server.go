@@ -1,33 +1,49 @@
 package server
 
 import (
+	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 
 	"scholatheologiae-api/controller"
 	"scholatheologiae-api/models"
 )
 
-func Run() {
+func Run(c *controller.Controller) {
+	// Set Gin mode
+	gin.SetMode(gin.ReleaseMode)
 	server := gin.Default()
+	server.Use(gin.Recovery())
+	rh := NewRouterHandler(c)
 
 	// V1
 	v1 := server.Group("v1")
 	{
-		v1.GET("/health", HandleHealth)
-		v1.GET("/read/:book", HandleRead)
-		v1.GET("/read/:book/:chapter", HandleRead)
-		v1.GET("/read/:book/:chapter/:verse", HandleRead)
+		v1.GET("/health", rh.HandleHealth)
+		v1.GET("/read/:book", rh.HandleRead)
+		v1.GET("/read/:book/:chapter", rh.HandleRead)
+		v1.GET("/read/:book/:chapter/:verse", rh.HandleRead)
 
-		v1.GET("/summa_theologiae", HandleSummaTheologiae)
-		v1.GET("/summa_theologiae/:part", HandleSummaTheologiae)
-		v1.GET("/summa_theologiae/:part/:question", HandleSummaTheologiae)
-		v1.GET("/summa_theologiae/:part/:question/:article", HandleSummaTheologiae)
+		v1.GET("/summa_theologiae", rh.HandleSummaTheologiae)
+		v1.GET("/summa_theologiae/:part", rh.HandleSummaTheologiae)
+		v1.GET("/summa_theologiae/:part/:question", rh.HandleSummaTheologiae)
+		v1.GET("/summa_theologiae/:part/:question/:article", rh.HandleSummaTheologiae)
 	}
 
-	server.Run(":8080")
+	// Graceful shutdown
+	endless.ListenAndServe(":8080", server)
 }
 
-func HandleSummaTheologiae(c *gin.Context) {
+type RouterHandler struct {
+	Controller *controller.Controller
+}
+
+func NewRouterHandler(c *controller.Controller) *RouterHandler {
+	return &RouterHandler{
+		Controller: c,
+	}
+}
+
+func (r *RouterHandler) HandleSummaTheologiae(c *gin.Context) {
 	summa_theologiae := models.SummaTheologiaeRequest{
 		Part:     c.Param("part"),
 		Question: c.Param("question"),
@@ -36,7 +52,7 @@ func HandleSummaTheologiae(c *gin.Context) {
 
 	summa_theologiae.Validate()
 
-	response, err := controller.SummaTheologiae(summa_theologiae)
+	response, err := r.Controller.SummaTheologiae(summa_theologiae)
 	if err != nil {
 		c.AbortWithError(500, err)
 		return
@@ -45,7 +61,7 @@ func HandleSummaTheologiae(c *gin.Context) {
 	c.JSON(200, response)
 }
 
-func HandleRead(c *gin.Context) {
+func (r *RouterHandler) HandleRead(c *gin.Context) {
 	book := c.Param("book")
 	chapter := c.Param("chapter")
 	verse := c.Param("verse")
@@ -57,7 +73,7 @@ func HandleRead(c *gin.Context) {
 	})
 }
 
-func HandleHealth(c *gin.Context) {
+func (r *RouterHandler) HandleHealth(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"status": "ok",
 	})

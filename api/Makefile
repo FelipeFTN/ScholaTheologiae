@@ -1,0 +1,24 @@
+.PHONY: build test clean
+
+BINARY_NAME := schola-theologiae-api
+
+build:
+	# Create the bin directory
+	mkdir --parents bin
+	# Install the dependencies
+	go mod tidy
+	# Build the binary
+	# GOARCH=arm64 - for Apple Silicon or ARM64 archtectures
+	env CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o bin/$(BINARY_NAME) ./
+	# Add execute permissions
+	chmod +x bin/$(BINARY_NAME)
+
+test:
+	# Run the tests
+	go test -v ./...
+	# Run the vet tool
+	go vet ./...
+
+clean:
+	# Remove the bin directory
+	rm --recursive --force ./bin/*
