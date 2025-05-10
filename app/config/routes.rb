@@ -3,9 +3,12 @@ Rails.application.routes.draw do
 
   get "home" => "home#index", as: :home
 
-  get "/articles" => "articles#index", as: :articles_all
+  get "/books" => "books#index", as: :books_all
 
-  get "/articles/:path" => "articles#get", as: :articles_get
+  get "/books/:name" => "books#get", as: :books_get
+
+  # Summa Theologiae specific routes because of the way the data is structured
+  get "/books/summa-theologiae" => "books#summa_theologiae", as: :books_summa_theologiae
 
   root "home#index"
 end
