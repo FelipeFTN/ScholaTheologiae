@@ -3,6 +3,13 @@
   justify-content: space-between;
 
   .books {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+
     #summa_theologiae a {
       display: flex;
       flex-direction: column;
@@ -15,6 +22,38 @@
       }
       .summa_cover {
         height: 412px;
+        /* width: 312px; */
+      }
+    }
+
+    #patristica a {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      align-items: center;
+
+      h1 {
+        color: #4d6c82;
+        text-decoration: underline;
+      }
+      .patristica_cover {
+        height: 312px;
+        /* width: 312px; */
+      }
+    }
+
+    #catecismo_pio_x a {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      align-items: center;
+
+      h1 {
+        color: #4d6c82;
+        text-decoration: underline;
+      }
+      .catecismo_pio_x_cover {
+        height: 312px;
         /* width: 312px; */
       }
     }
