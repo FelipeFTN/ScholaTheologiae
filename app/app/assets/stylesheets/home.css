@@ -8,16 +8,14 @@
       flex-direction: column;
       width: fit-content;
       align-items: center;
-      /* justify-content: center; */
 
       h1 {
-        /* text-align: center; */
         color: #4d6c82;
         text-decoration: underline;
       }
       .summa_cover {
-        height: 612px;
-        width: 512px;
+        height: 412px;
+        /* width: 312px; */
       }
     }
   }
