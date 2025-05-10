@@ -10,6 +10,16 @@
     gap: 30px;
     margin-bottom: 30px;
 
+    h2 {
+      margin-bottom: -10px;
+    }
+    hr {
+      width: 100%;
+      height: 1px;
+      background-color: #4d6c82;
+      border: none;
+    }
+
     #summa_theologiae a {
       display: flex;
       flex-direction: column;
