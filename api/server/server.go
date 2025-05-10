@@ -1,4 +1,4 @@
-package handler
+package server
 
 import (
 	"github.com/gin-gonic/gin"
@@ -7,7 +7,7 @@ import (
 	"scholatheologiae-api/models"
 )
 
-func Server() {
+func Run() {
 	server := gin.Default()
 
 	// V1
@@ -50,8 +50,6 @@ func HandleRead(c *gin.Context) {
 	chapter := c.Param("chapter")
 	verse := c.Param("verse")
 
-	// Here you would typically fetch the requested data from a database or another source
-	// For demonstration purposes, we'll just return the parameters
 	c.JSON(200, gin.H{
 		"book":    book,
 		"chapter": chapter,
