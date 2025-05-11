@@ -42,40 +42,7 @@ func (c *Controller) summaListQuestions(part string) ([]string, error) {
 		return nil, errors.New("Invalid Summa Part")
 	}
 
-	part_directory := fmt.Sprintf("../articles/suma_teologica/%s/questions", part)
-	dir_questions, err := os.ReadDir(part_directory)
-	if err != nil {
-		return nil, err
-	}
-
-	var questions []string
-	for _, q := range dir_questions {
-		if q.IsDir() {
-			continue
-		}
-
-		match_question_num := regexp.MustCompile(`\d+`)
-
-		questions = append(questions, match_question_num.FindString(q.Name()))
-	}
-
-	var nums []int = make([]int, len(questions))
-	for i, s := range questions {
-		num, err := strconv.Atoi(s) // Convert string to int
-		if err != nil {
-			return nil, err
-		}
-
-		nums[i] = num
-	}
-
-	sort.Ints(nums)
-	questions = make([]string, 0)
-	for _, num := range nums {
-		questions = append(questions, strconv.Itoa(num))
-	}
-
-	return questions, nil
+	return c.db.GetSummaTheologiaeQuestions(part)
 }
 
 func (c *Controller) summaGetQuestion(part string, question string) (any, error) {
