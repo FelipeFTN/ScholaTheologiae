@@ -1,0 +1,18 @@
+<%# Nav Bar %>
+<%= render "components/navbar" %>
+
+<div class="main_content">
+
+  <div class="left_cotainer"></div>
+
+  <div class="summa">
+    <h1>Summa Theologiae Parts</h1>
+    <ul>
+      <% @summa_parts.each do |part| %>
+        <li><%= part %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class"right_container"></div>
+</div>

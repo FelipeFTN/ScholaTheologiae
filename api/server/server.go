@@ -25,10 +25,10 @@ func Run(c *controller.Controller) {
 		v1.GET("/read/:book/:chapter", rh.HandleRead)
 		v1.GET("/read/:book/:chapter/:verse", rh.HandleRead)
 
-		v1.GET("/summa_theologiae", rh.HandleSummaTheologiae)
-		v1.GET("/summa_theologiae/:part", rh.HandleSummaTheologiae)
-		v1.GET("/summa_theologiae/:part/:question", rh.HandleSummaTheologiae)
-		v1.GET("/summa_theologiae/:part/:question/:article", rh.HandleSummaTheologiae)
+		v1.GET("/summa-theologiae", rh.HandleSummaTheologiae)
+		v1.GET("/summa-theologiae/:part", rh.HandleSummaTheologiae)
+		v1.GET("/summa-theologiae/:part/:question", rh.HandleSummaTheologiae)
+		v1.GET("/summa-theologiae/:part/:question/:article", rh.HandleSummaTheologiae)
 	}
 
 	// Graceful shutdown
