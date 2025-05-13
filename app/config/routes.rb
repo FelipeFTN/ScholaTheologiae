@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   get "/books/summa-theologiae" => "books#summa_theologiae", as: :books_summa_theologiae
 
   root "home#index"
+
+  # Catch all other routes and return 404
+  match '*path', to: ->(env) { [404, {'Content-Type' => 'text/html'}, [File.read(Rails.root.join('public', '404.html'))]] }, via: :all
 end

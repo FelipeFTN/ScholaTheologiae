@@ -3,13 +3,27 @@
 
 <div class="main_content">
 
-  <div class="left_cotainer"></div>
+  <div class="left_container"></div>
 
   <div class="summa">
-    <h1>Summa Theologiae Parts</h1>
+    <h1 id="title">Suma Teológica</h1>
+    <label>Summa Theologiae</label>
+    <hr>
+    <div class="summa_info">
+      <%= image_tag("summa_theologiae_st_thomas_aquinas.jpg", class: "summa_cover") %>
+      <p>
+        A Suma Teológica é uma obra escrita por São Tomás de Aquino entre 1265 e 1274. É considerada uma das mais importantes obras da teologia cristã e da filosofia ocidental.
+      </p>
+    </div>
+    <h2>Partes</h2>
+    <label>Pars</label>
     <ul>
       <% @summa_parts.each do |part| %>
-        <li><%= part %></li>
+        <li>
+          <a href="<%= "/books/summa_theologiae/#{part}" %>"}>
+            <%= part.sub!('-', ' ') %>
+          </a>
+        </li>
       <% end %>
     </ul>
   </div>

@@ -13,10 +13,16 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: #333;
-  /* background-color: #f9f8e8; */
-  /* background-color: #f4f4f4; */
   background-color: #fcfad9;
 }
 
+hr {
+  width: 90%;
+  height: 1px;
+  background-color: #4d6c82;
+  border: none;
+}
+
 @import "nav_bar.css";
+@import "books.css";
 @import "home.css";
