@@ -4,10 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"regexp"
 	"slices"
-	"sort"
-	"strconv"
 
 	"scholatheologiae-api/constants"
 	"scholatheologiae-api/models"
@@ -42,7 +39,7 @@ func (c *Controller) summaListQuestions(part string) ([]string, error) {
 		return nil, errors.New("Invalid Summa Part")
 	}
 
-	return c.db.GetSummaTheologiaeQuestions(part)
+	return c.db.GetSummaTheologiaeQuestionNums(part)
 }
 
 func (c *Controller) summaGetQuestion(part string, question string) (any, error) {
@@ -55,72 +52,51 @@ func (c *Controller) summaGetQuestion(part string, question string) (any, error)
 		return nil, errors.New("Invalid Summa Part")
 	}
 
-	part_directory := fmt.Sprintf("../articles/suma_teologica/%s/questions/%s", part, question)
-	dir_questions, err := os.ReadDir(part_directory)
+	available_questions, err := c.summaListQuestions(part)
 	if err != nil {
 		return nil, err
 	}
 
-	var articles []string
-	for _, q := range dir_questions {
-		if q.IsDir() {
-			continue
-		}
-
-		match_question_num := regexp.MustCompile(`\d+`)
-
-		articles = append(articles, match_question_num.FindString(q.Name()))
+	if !slices.Contains(available_questions, question) {
+		return nil, errors.New("Invalid Summa Question")
 	}
 
-	var nums []int = make([]int, len(articles))
-	for i, s := range articles {
-		num, err := strconv.Atoi(s) // Convert string to int
-		if err != nil {
-			return nil, err
-		}
-
-		nums[i] = num
+	file_path := fmt.Sprintf("../books/summa_theologiae/%s/questions/question_%s.md", part, question)
+	file_bytes, err := os.ReadFile(file_path)
+	if err != nil {
+		return nil, err
 	}
 
-	sort.Ints(nums)
-	articles = make([]string, 0)
-	for _, num := range nums {
-		articles = append(articles, strconv.Itoa(num))
-	}
-
-	return articles, nil
+	return string(file_bytes), nil
 }
 
 func (c *Controller) summaGetArticle(part string, question string, article string) (any, error) {
-	available_parts, err := c.summaListParts()
-	if err != nil {
-		return nil, err
-	}
+	// available_parts, err := c.summaListParts()
+	// if err != nil {
+	// 	return nil, err
+	// }
+	//
+	// if !slices.Contains(available_parts, part) {
+	// 	return nil, errors.New("Invalid Summa Part")
+	// }
+	//
+	// available_questions, err := c.summaListQuestions(part)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	//
+	// if !slices.Contains(available_questions, question) {
+	// 	return nil, errors.New("Invalid Summa Question")
+	// }
+	//
+	// available_articles, err := c.db.GetSummaTheologiaeArticles(part, question)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	//
+	// if !slices.Contains(available_articles, article) {
+	// 	return nil, errors.New("Invalid Summa Article")
+	// }
 
-	if !slices.Contains(available_parts, part) {
-		return nil, errors.New("Invalid Summa Part")
-	}
-
-	part_directory := fmt.Sprintf("../articles/suma_teologica/%s/questions/%s/articles", part, question)
-	dir_questions, err := os.ReadDir(part_directory)
-	if err != nil {
-		return nil, err
-	}
-
-	var articles []string
-	for _, q := range dir_questions {
-		if q.IsDir() {
-			continue
-		}
-
-		match_question_num := regexp.MustCompile(`\d+`)
-
-		articles = append(articles, match_question_num.FindString(q.Name()))
-	}
-
-	if !slices.Contains(articles, article) {
-		return nil, errors.New("Invalid Summa Article")
-	}
-
-	return c.db.GetSummaTheologiaeArticle(part, question, article)
+	return nil, errors.New("Not yet implemented")
 }

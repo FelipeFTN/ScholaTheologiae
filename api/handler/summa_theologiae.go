@@ -10,7 +10,8 @@ import (
 
 func (h *SQLiteHandler) GetSummaTheologiae(part, question, article string) (string, error) {
 	// Prepare the statement
-	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare("SELECT article_title FROM summa_theologiae WHERE part = ? AND question_num = ? AND article = ?")
+	query := "SELECT article_text FROM summa_theologiae WHERE part = ? AND question_num = ? AND article = ?"
+	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare(query)
 	if err != nil {
 		return "", err
 	}
@@ -31,7 +32,8 @@ func (h *SQLiteHandler) GetSummaTheologiae(part, question, article string) (stri
 
 func (h *SQLiteHandler) GetSummaTheologiaeParts() ([]string, error) {
 	// Prepare the statement
-	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare("SELECT DISTINCT part FROM summa_theologiae")
+	query := "SELECT DISTINCT part FROM summa_theologiae"
+	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare(query)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +62,8 @@ func (h *SQLiteHandler) GetSummaTheologiaeParts() ([]string, error) {
 
 func (h *SQLiteHandler) GetSummaTheologiaeQuestions(part string) ([]string, error) {
 	// Prepare the statement
-	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare("SELECT question_title, question_num FROM summa_theologiae WHERE part = ?")
+	query := "SELECT question_title, question_num FROM summa_theologiae WHERE part = ?"
+	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare(query)
 	if err != nil {
 		return nil, err
 	}
@@ -105,9 +108,40 @@ func (h *SQLiteHandler) GetSummaTheologiaeQuestions(part string) ([]string, erro
 	return questionsSlice, nil
 }
 
+func (h *SQLiteHandler) GetSummaTheologiaeQuestionNums(part string) ([]string, error) {
+	// Prepare the statement
+	query := "SELECT DISTINCT question_num FROM summa_theologiae WHERE part = ? ORDER BY question_num ASC"
+	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare(query)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	// Execute the statement
+	rows, err := stmt.Query(part)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	// Scan the results into a slice
+	var questions []string
+	for rows.Next() {
+		var question string
+		err = rows.Scan(&question)
+		if err != nil {
+			return nil, err
+		}
+		questions = append(questions, question)
+	}
+
+	return questions, nil
+}
+
 func (h *SQLiteHandler) GetSummaTheologiaeArticles(part, question string) ([]string, error) {
 	// Prepare the statement
-	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare("SELECT DISTINCT article FROM summa_theologiae WHERE part = ? AND question = ?")
+	query := "SELECT DISTINCT article FROM summa_theologiae WHERE part = ? AND question_num = ?"
+	stmt, err := h.databases[data.SUMMA_THEOLOGIAE].db.Prepare(query)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +170,8 @@ func (h *SQLiteHandler) GetSummaTheologiaeArticles(part, question string) ([]str
 
 func (s *SQLiteHandler) GetSummaTheologiaeArticle(part, question, article string) (string, error) {
 	// Prepare the statement
-	stmt, err := s.databases[data.SUMMA_THEOLOGIAE].db.Prepare("SELECT article_text FROM summa_theologiae WHERE part = ? AND question = ? AND article = ?")
+	query := "SELECT article_text FROM summa_theologiae WHERE part = ? AND question_num = ? AND article = ?"
+	stmt, err := s.databases[data.SUMMA_THEOLOGIAE].db.Prepare(query)
 	if err != nil {
 		return "", err
 	}

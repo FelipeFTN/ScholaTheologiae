@@ -33,7 +33,7 @@ def map_volume_to_part(pdf_filename):
     
     # Handle the appendix case (e.g., 'suma_teologica_Vol_V_Apendice.pdf')
     if 'Apendice' in pdf_filename:
-        part = f"{part}_appendix"
+        part = f"4.1-supplementum_appendix"
     
     return part
 
@@ -46,7 +46,7 @@ def init_dependencies(book_name):
         sqlite3.Connection: Connection to the SQLite database.
     """
     # Set up SQLite database in the current directory
-    db_path = f'{book_name}.db'
+    db_path = f'data/{book_name}.db'
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
@@ -161,7 +161,7 @@ def main():
     
     # Process each PDF volume
     for pdf_volume in pdf_volumes:
-        pdf_path = os.path.join("books", pdf_volume)
+        pdf_path = os.path.join("../books", pdf_volume)
         print(f"\nProcessing {pdf_path}...")
         process_pdf(book_name, pdf_path, db)
     

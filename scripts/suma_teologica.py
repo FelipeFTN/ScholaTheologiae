@@ -13,7 +13,7 @@ def main():
     Main function to process all PDF volumes.
     """
     book_name = "summa_teologica"
-    output_dir = "../articles"
+    output_dir = "../books"
     pdf_volumes = [
         "suma_teologica_Vol_I.pdf",
         "suma_teologica_Vol_II.pdf",

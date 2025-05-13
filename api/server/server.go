@@ -1,6 +1,8 @@
 package server
 
 import (
+	"log/slog"
+
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 
@@ -54,7 +56,11 @@ func (r *RouterHandler) HandleSummaTheologiae(c *gin.Context) {
 
 	response, err := r.Controller.SummaTheologiae(summa_theologiae)
 	if err != nil {
-		c.AbortWithError(500, err)
+		slog.Error("Error in SummaTheologiae", "error", err)
+		c.JSON(400, gin.H{
+			"status": false,
+			"error":  err.Error(),
+		})
 		return
 	}
 
