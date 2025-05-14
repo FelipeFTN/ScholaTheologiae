@@ -42,6 +42,19 @@ func (c *Controller) summaListQuestions(part string) ([]string, error) {
 	return c.db.GetSummaTheologiaeQuestions(part)
 }
 
+func (c *Controller) summaListQuestionNums(part string) ([]string, error) {
+	available_parts, err := c.summaListParts()
+	if err != nil {
+		return nil, err
+	}
+
+	if !slices.Contains(available_parts, part) {
+		return nil, errors.New("Invalid Summa Part")
+	}
+
+	return c.db.GetSummaTheologiaeQuestionNums(part)
+}
+
 func (c *Controller) summaGetQuestion(part string, question string) (any, error) {
 	available_parts, err := c.summaListParts()
 	if err != nil {
@@ -52,7 +65,7 @@ func (c *Controller) summaGetQuestion(part string, question string) (any, error)
 		return nil, errors.New("Invalid Summa Part")
 	}
 
-	available_questions, err := c.summaListQuestions(part)
+	available_questions, err := c.summaListQuestionNums(part)
 	if err != nil {
 		return nil, err
 	}

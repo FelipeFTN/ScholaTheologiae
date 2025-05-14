@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # This :part might contain a dot, so we need to use a regex to match it
   get "/books/summa-theologiae/:part" => "summa_theologiae#get_questions", constraints: { part: /[^\/]+/ }
 
-  # get "/books/summa-theologiae/:part/:question" => "summa_theologiae_question", as: :summa_theologiae_question
+  get "/books/summa-theologiae/:part/:question" => "summa_theologiae#get_question", constraints: { part: /[^\/]+/, question: /[^\/]+/ }
 
   # Catch all other routes and return 404
   match '*path', to: ->(env) { [ 404, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', '404.html')) ] ] }, via: :all

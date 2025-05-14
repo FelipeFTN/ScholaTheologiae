@@ -1,0 +1,30 @@
+<%# Nav Bar %>
+<%= render "components/navbar" %>
+
+<div class="main_content">
+
+  <div class="left_container"></div>
+
+  <div class="summa">
+    <h1 id="title">Suma Teológica</h1>
+    <label id="subtitle">Summa Theologiae Quaestiones</label>
+    <hr>
+    <div class="questions_header">
+      <div class="back_container">
+        <a href="<%= "/books/summa-theologiae" %>" id="back">
+          <- back
+        </a>
+      </div>
+      <div class="summa_header_info">
+        <h2>Questões</h2>
+        <label>Quaestiones</label>
+      </div>
+      <div class="part_container">
+        <label id="part_name"><%= @part.split("-").last.gsub!("_", " ") %></label>
+      </div>
+    </div>
+    <p><%= @content %></p>
+  </div>
+
+  <div class"right_container"></div>
+</div>
