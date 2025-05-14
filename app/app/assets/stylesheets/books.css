@@ -73,10 +73,54 @@
     gap: 30px;
     margin-bottom: 30px;
 
+    .summa_questions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      list-style: none;
+      gap: 20px;
+      margin-bottom: 30px;
+      margin-top: 25px;
+
+      li {
+        text-decoration: none;
+        font-size: 20px;
+        a:link {
+          color: #4d6c82;
+          text-decoration: none;
+        }
+        a:visited {
+          color: #014475;
+        }
+      }
+      #title {
+        margin-bottom: -30px;
+      }
+      p {
+        text-align: center;
+      }
+    }
+
+    .questions_header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+    }
+
+    #back {
+      text-decoration: none;
+      top: 245px;
+      left: 25px;
+      z-index: 0;
+    }
+
     label {
       margin-top: -30px;
     }
-
     .summa_info {
       display: flex;
       flex-direction: column;

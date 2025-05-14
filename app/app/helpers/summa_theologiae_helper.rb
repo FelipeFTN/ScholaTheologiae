@@ -1,4 +1,4 @@
-module BooksHelper
+module SummaTheologiaeHelper
   require 'net/http'
   require 'json'
 

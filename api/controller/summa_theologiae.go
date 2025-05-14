@@ -39,7 +39,7 @@ func (c *Controller) summaListQuestions(part string) ([]string, error) {
 		return nil, errors.New("Invalid Summa Part")
 	}
 
-	return c.db.GetSummaTheologiaeQuestionNums(part)
+	return c.db.GetSummaTheologiaeQuestions(part)
 }
 
 func (c *Controller) summaGetQuestion(part string, question string) (any, error) {

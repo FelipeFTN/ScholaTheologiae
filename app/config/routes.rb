@@ -6,10 +6,12 @@ Rails.application.routes.draw do
   get "books" => "books#index", as: :books
 
   # Summa Theologiae specific routes because of the way the data is structured
-  get "/books/summa-theologiae" => "books#summa_theologiae", as: :books_summa_theologiae
-
-  root "home#index"
+  get "/books/summa-theologiae" => "summa_theologiae#get_parts"
+  get "/books/summa-theologiae/:part" => "summa_theologiae#get_questions"
+  # get "/books/summa-theologiae/:part/:question" => "summa_theologiae_question", as: :summa_theologiae_question
 
   # Catch all other routes and return 404
-  match '*path', to: ->(env) { [404, {'Content-Type' => 'text/html'}, [File.read(Rails.root.join('public', '404.html'))]] }, via: :all
+  match '*path', to: ->(env) { [ 404, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', '404.html')) ] ] }, via: :all
+
+  root "home#index"
 end

@@ -1,0 +1,39 @@
+<%# Nav Bar %>
+<%= render "components/navbar" %>
+
+<div class="main_content">
+
+  <div class="left_container"></div>
+
+  <div class="summa">
+    <h1 id="title">Suma Teológica</h1>
+    <label>Summa Theologiae Quaestiones</label>
+    <hr>
+    <div class="questions_header">
+      <div class="back_container">
+        <a href="<%= "/books/summa-theologiae" %>" id="back">
+          <- back
+        </a>
+      </div>
+      <div class="summa_header_info">
+        <h2>Questões</h2>
+        <label>Quaestiones</label>
+      </div>
+      <div class="part_container">
+        <label><%= @part.split("-").last.sub!("_", " ") %></label>
+      </div>
+    </div>
+    <ul class="summa_questions">
+      <% @summa_questions.each do |quaestion| %>
+        <% quaestion_num = quaestion.split(':').first %>
+        <li>
+          <a href="<%= "/books/summa-theologiae/#{@part}/#{quaestion_num}" %>"}>
+            <%= quaestion %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class"right_container"></div>
+</div>
