@@ -73,6 +73,10 @@
     gap: 30px;
     margin-bottom: 30px;
 
+    #subtitle {
+      margin-top: -30px;
+    }
+
     .summa_questions {
       display: flex;
       flex-direction: column;
@@ -109,17 +113,18 @@
       justify-content: space-around;
       align-items: center;
       width: 100%;
-    }
 
-    #back {
-      text-decoration: none;
-      top: 245px;
-      left: 25px;
-      z-index: 0;
-    }
+      .back_container {
+        width: 95px;
+        text-align: center;
+        #back {
+          text-decoration: none;
+        }
+      }
 
-    label {
-      margin-top: -30px;
+      .part_container {
+        width: 95px;
+      }
     }
     .summa_info {
       display: flex;

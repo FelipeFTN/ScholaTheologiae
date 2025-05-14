@@ -7,7 +7,7 @@
 
   <div class="summa">
     <h1 id="title">Suma Teológica</h1>
-    <label>Summa Theologiae Quaestiones</label>
+    <label id="subtitle">Summa Theologiae Quaestiones</label>
     <hr>
     <div class="questions_header">
       <div class="back_container">
@@ -20,7 +20,7 @@
         <label>Quaestiones</label>
       </div>
       <div class="part_container">
-        <label><%= @part.split("-").last.sub!("_", " ") %></label>
+        <label id="part_name"><%= @part.split("-").last.gsub!("_", " ") %></label>
       </div>
     </div>
     <ul class="summa_questions">
