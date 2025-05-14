@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   # Summa Theologiae specific routes because of the way the data is structured
   get "/books/summa-theologiae" => "summa_theologiae#get_parts"
-  get "/books/summa-theologiae/:part" => "summa_theologiae#get_questions"
+
+  # This :part might contain a dot, so we need to use a regex to match it
+  get "/books/summa-theologiae/:part" => "summa_theologiae#get_questions", constraints: { part: /[^\/]+/ }
+
   # get "/books/summa-theologiae/:part/:question" => "summa_theologiae_question", as: :summa_theologiae_question
 
   # Catch all other routes and return 404

@@ -33,6 +33,7 @@ class SummaTheologiaeController < ApplicationController
 
   def get_questions
     @part = params[:part]
+    puts "Part: #{@part}"
     @summa_questions = summa_get_questions(@part)
     render "books/summa_theologiae/questions"
   end
