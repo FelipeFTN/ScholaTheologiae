@@ -4,3 +4,7 @@ __pycache__
 # Ignore PDF & MD files
 books/**/
 *.pdf
+
+# Ignore scripts generated data files
+# Those are just for testing
+scripts/data/*

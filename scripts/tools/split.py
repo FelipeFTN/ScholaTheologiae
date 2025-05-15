@@ -1,5 +1,6 @@
 import PyPDF2
 
+# THIS TOOL WAS USING FOR BREAKING THE MASSIVE PDF INTO VOLUMES
 def remove_first_pages(input_pdf_path, output_pdf_path, pages_to_remove=1):
     with open(input_pdf_path, "rb") as infile:
         reader = PyPDF2.PdfReader(infile)
