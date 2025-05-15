@@ -21,6 +21,7 @@
       </div>
       <div class="part_container">
         <label id="part_name"><%= @part.split("-").last.gsub!("_", " ") %></label>
+        <label id="question_number">Q.<%= @question %></label>
       </div>
     </div>
     <p><%= @content %></p>
