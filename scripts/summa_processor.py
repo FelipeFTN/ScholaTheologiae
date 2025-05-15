@@ -134,7 +134,7 @@ def process_pdf(book_name, pdf_path, output_dir):
                         continue
 
                     # Check for a new Article
-                    article_match = re.match(r'^Art\.\s(\d+)\s[─]\s(.+\.)$', line)
+                    article_match = re.match(r'^Art\.\s(\d+).?\s[-―–—]\s(.+\.)$', line)
                     ### There is a case where it is not matching the article because the article title
                     ### is not in the same line as the article number. So we need to check if the line starts with "Art."
                     if article_match:
@@ -146,23 +146,48 @@ def process_pdf(book_name, pdf_path, output_dir):
                         i += 1
                         continue
                     elif line.startswith("Art."):
+                        if "único" in line:
+                            line = line.replace("único", "1")
+                            question_content.append(line)   
+                            i += 1
+                            continue
                         # This is a special case where the article title is not in the same line as the article number
                         # We need to get the next line and add it to the article title
-                        if i + 1 < len(lines):
-                            next_line = lines[i + 1].strip()
-                            if next_line:
-                                # Add Article as a subsection in the Question content
+                        next_line = lines[i + 1].strip()
+                        new_line = f"{line} {next_line}"
+                        if "(" in next_line or ")" in next_line:
+                            question_content.append(line)
+                            i += 1
+                            continue
+                        article_match = re.match(r'^Art\.\s(\d+).?\s[-―–—]\s(.+\.)$', new_line)
+                        if article_match:
+                            article_num = article_match.group(1)
+                            article_title = article_match.group(2)
+                            question_content.append(f"\n## Art. {article_num} — {article_title}")
+                            print(f"Found Article {article_num}: {article_title}")
+                        else:
+                            print(f"Article line not matching: {line}")
+                            if not next_line.startswith('('):
+                                # This is a special case where the article title is not in the same line as the article number
+                                # And the fucking next line doesn't end with a perior "."
+                                # We need to get the next line and add it to the article title
                                 line = f"{line} {next_line}"
-                                article_match = re.match(r'^Art\.\s(\d+)\s[─]\s(.+\.)$', line)
+
+                            third_line = lines[i + 2].strip()
+                            # Just checking another stupid special case
+                            if "(" not in third_line and ")" not in third_line:
+                                new_third_line = f"{line} {new_line} {third_line}"
+                                article_match = re.match(r'^Art\.\s(\d+).?\s[-―–—]\s(.+\.)$', new_third_line)
                                 if article_match:
                                     article_num = article_match.group(1)
                                     article_title = article_match.group(2)
                                     question_content.append(f"\n## Art. {article_num} — {article_title}")
                                     print(f"Found Article {article_num}: {article_title}")
-                                else: print(line)
+                            # If it doesn't match, we need to add the line to the current Question content
+                            question_content.append(line)   
 
-                                i += 2
-                                continue
+                        i += 2
+                        continue
                     
                     # Add the line to the current Question content
                     if current_question:
@@ -195,11 +220,11 @@ def main():
     output_dir = "data"
     pdf_volumes = [
         "suma_teologica_Vol_I.pdf",
-        "suma_teologica_Vol_II.pdf",
-        "suma_teologica_Vol_III.pdf",
-        "suma_teologica_Vol_IV.pdf",
-        "suma_teologica_Vol_V.pdf",
-        "suma_teologica_Vol_V_Apendice.pdf"
+        # "suma_teologica_Vol_II.pdf",
+        # "suma_teologica_Vol_III.pdf",
+        # "suma_teologica_Vol_IV.pdf",
+        # "suma_teologica_Vol_V.pdf",
+        # "suma_teologica_Vol_V_Apendice.pdf"
     ]
     
     # Initialize dependencies
