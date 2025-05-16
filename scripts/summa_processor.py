@@ -75,6 +75,20 @@ def save_question(base_dir, part, question_num, content):
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(content_text)
 
+def matches_invalid(line: str, patterns: list[str]) -> bool:
+    for pattern in patterns:
+        # If the pattern is purely alphanumeric (without dots or symbols), use word-boundary matching
+        if re.match(r'^[\w]+$', pattern):
+            if re.search(rf'\b{re.escape(pattern)}\b', line):
+                # print(f"[DEBUG] Matched word pattern '{pattern}' in line: {line}")
+                return True
+        else:
+            # For symbols or abbreviations (e.g., '(', 'Sent.'), do a simple substring match
+            if pattern in line:
+                # print(f"[DEBUG] Matched symbol pattern '{pattern}' in line: {line}")
+                return True
+    return False
+
 def process_pdf(book_name, pdf_path, output_dir):
     """
     Main function to process the PDF and extract Questions and Articles.
@@ -160,22 +174,24 @@ def process_pdf(book_name, pdf_path, output_dir):
                         first_line = lines[i].strip()
                         second_line = lines[i + 1].strip()
                         third_line = lines[i + 2].strip()
-                        # fourth_line = lines[i + 3].strip()
                         # set fourth line without getting out of index error
                         fourth_line = lines[i + 3].strip() if i + 3 < len(lines) else ""
                         new_line = first_line
-                        if not any(pattern in second_line for pattern in invalid_lines_pattern):
+                        if not matches_invalid(second_line, invalid_lines_pattern):
                             print(f"2. Article {second_line}")
                             new_line = f"{first_line} {second_line}"
                             used_lines = 2
-                        if not any(pattern in third_line for pattern in invalid_lines_pattern):
-                            print(f"3. Article {third_line}")
-                            new_line = f"{first_line} {second_line} {third_line}"
-                            used_lines = 3
-                            if not any(pattern in fourth_line for pattern in invalid_lines_pattern) and len(fourth_line) < 15 and len(fourth_line) > 0:
-                                print(f"4. Article {fourth_line}")
-                                new_line = f"{first_line} {second_line} {third_line} {fourth_line}"
-                                used_lines = 4
+                            if not matches_invalid(third_line, invalid_lines_pattern):
+                                print(f"3. Article {third_line}")
+                                new_line = f"{first_line} {second_line} {third_line}"
+                                used_lines = 3
+                                if 0 < len(fourth_line.split()) < 5 and not matches_invalid(fourth_line):
+                                    print(f"4. Article {fourth_line}")
+                                    new_line = f"{first_line} {second_line} {third_line} {fourth_line}"
+                                    used_lines = 4
+                        # Check if the new line does not ends with "." and add it
+                        if not new_line.endswith("."):
+                            new_line += "."
                         print(f"Generated Article {new_line}")
                         question_content.append(f"\n## {new_line}")
                         i += used_lines
