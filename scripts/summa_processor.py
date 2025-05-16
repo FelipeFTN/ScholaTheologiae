@@ -153,15 +153,16 @@ def process_pdf(book_name, pdf_path, output_dir):
                         # This is a special case where the article title is not in the same line as the article number
                         # We need to get the next line and add it to the article title
                         invalid_lines_pattern = [
-                            "primeiro", "segundo", "terceiro", "quarto", "quinto", "sexto", "sétimo", "oitavo", "nono", "décimo",
-                            "undécimo", "duodécimo", "décimo terceiro", "décimo quarto", "décimo quinto", "décimo sexto",
-                            "décimo sétimo", "décimo oitavo", "décimo nono", "vigésimo", "vigésimo primeiro", "vigésimo segundo",
+                            "discute-se", "Parece que",
                             "(", ")", "Sent.", "dist.", "Verit.", "De Trin.", "Cont. Gent."
                         ]
                         used_lines = 1
                         first_line = lines[i].strip()
                         second_line = lines[i + 1].strip()
                         third_line = lines[i + 2].strip()
+                        # fourth_line = lines[i + 3].strip()
+                        # set fourth line without getting out of index error
+                        fourth_line = lines[i + 3].strip() if i + 3 < len(lines) else ""
                         new_line = first_line
                         if not any(pattern in second_line for pattern in invalid_lines_pattern):
                             print(f"2. Article {second_line}")
@@ -171,8 +172,12 @@ def process_pdf(book_name, pdf_path, output_dir):
                             print(f"3. Article {third_line}")
                             new_line = f"{first_line} {second_line} {third_line}"
                             used_lines = 3
+                            if not any(pattern in fourth_line for pattern in invalid_lines_pattern) and len(fourth_line) < 15 and len(fourth_line) > 0:
+                                print(f"4. Article {fourth_line}")
+                                new_line = f"{first_line} {second_line} {third_line} {fourth_line}"
+                                used_lines = 4
                         print(f"Generated Article {new_line}")
-                        question_content.append(new_line)
+                        question_content.append(f"\n## {new_line}")
                         i += used_lines
                         continue
                     
