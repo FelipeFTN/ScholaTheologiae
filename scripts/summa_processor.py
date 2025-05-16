@@ -58,7 +58,7 @@ def process_pdf(book_name, pdf_path, output_dir, db):
                         
                         # Start a new Question
                         current_question = question_match.group(1)
-                        question_title = question_match.group(2)
+                        question_title = question_match.group(2).replace(" - Traduzir", "")
                         question_content = [f"# Questão {current_question}: {question_title}"]
                         print(f"Question {current_question}: {question_title} on page {page.page_number}")
                         i += 1
@@ -67,28 +67,24 @@ def process_pdf(book_name, pdf_path, output_dir, db):
                     # Check for a new Article - First Line
                     used_lines = 1
                     if line.startswith("Art."):
-                        if "único" in line:
-                            line = line.replace("único", "1")
-                        # This is a special case where the article title is not in the same line as the article number
-                        # We need to get the next line and add it to the article title
                         invalid_lines_pattern = [
                             "discute-se", "Parece que",
                             "(", ")", "Sent.", "dist.", "Verit.", "De Trin.", "Cont. Gent."
                         ]
-                        first_line = lines[i].strip()
-                        second_line = lines[i + 1].strip()
-                        third_line = lines[i + 2].strip()
-                        # set fourth line without getting out of index error
+                        first_line = lines[i].strip().replace("único", "1")
+                        second_line = lines[i + 1].strip() if i + 1 < len(lines) else ""
+                        third_line = lines[i + 2].strip() if i + 2 < len(lines) else ""
                         fourth_line = lines[i + 3].strip() if i + 3 < len(lines) else ""
+
                         new_line = first_line
+
                         if not matches_invalid(second_line, invalid_lines_pattern):
                             new_line = f"{first_line} {second_line}"
                             used_lines = 2
                             if not matches_invalid(third_line, invalid_lines_pattern):
                                 new_line = f"{first_line} {second_line} {third_line}"
                                 used_lines = 3
-                                if 0 < len(fourth_line.split()) < 5 and not matches_invalid(fourth_line):
-                                    print(f"4. Article {fourth_line}")
+                                if 0 < len(fourth_line.split()) < 5 and not matches_invalid(fourth_line, invalid_lines_pattern):
                                     new_line = f"{first_line} {second_line} {third_line} {fourth_line}"
                                     used_lines = 4
                         # Check if the new line does not ends with "." and add it
@@ -105,8 +101,7 @@ def process_pdf(book_name, pdf_path, output_dir, db):
                             i += used_lines
                             continue
                         else:
-                            print(f"[ERROR] Article {line} could not be matched")
-
+                            print(f"[ERROR] Article {new_line} could not be matched")
                     
                     # Add the line to the current Question content
                     # Breaking lines in the content
@@ -143,11 +138,11 @@ def main():
     output_dir = "data"
     pdf_volumes = [
         "suma_teologica_Vol_I.pdf",
-        # "suma_teologica_Vol_II.pdf",
-        # "suma_teologica_Vol_III.pdf",
-        # "suma_teologica_Vol_IV.pdf",
-        # "suma_teologica_Vol_V.pdf",
-        # "suma_teologica_Vol_V_Apendice.pdf"
+        "suma_teologica_Vol_II.pdf",
+        "suma_teologica_Vol_III.pdf",
+        "suma_teologica_Vol_IV.pdf",
+        "suma_teologica_Vol_V.pdf",
+        "suma_teologica_Vol_V_Apendice.pdf"
     ]
     
     # Initialize dependencies
