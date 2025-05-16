@@ -74,7 +74,6 @@ def save_question(base_dir, part, question_num, content):
 
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(content_text)
-    print(f"Saved Question {question_num} to {filepath}")
 
 def process_pdf(book_name, pdf_path, output_dir):
     """
@@ -102,7 +101,6 @@ def process_pdf(book_name, pdf_path, output_dir):
                 text = page.extract_text()
                 if not text:
                     print(f"Empty text on page {page.page_number}")
-                    print(f"Text: {text}")
                     continue
                 
                 # Process each line on the page
@@ -133,8 +131,8 @@ def process_pdf(book_name, pdf_path, output_dir):
                         i += 1
                         continue
 
-                    # Check for a new Article
-                    article_match = re.match(r'^Art\.\s(\d+).?\s[-―–—]\s(.+\.)$', line)
+                    # Check for a new Article - First Line
+                    article_match = re.match(r'^Art\.\s(\d+).?\s[-─―–—]\s(.+\.)$', line)
                     ### There is a case where it is not matching the article because the article title
                     ### is not in the same line as the article number. So we need to check if the line starts with "Art."
                     if article_match:
@@ -145,6 +143,7 @@ def process_pdf(book_name, pdf_path, output_dir):
                         print(f"Found Article {article_num}: {article_title}")
                         i += 1
                         continue
+                    # Found and Article but not matching the regex
                     elif line.startswith("Art."):
                         if "único" in line:
                             line = line.replace("único", "1")
@@ -153,40 +152,28 @@ def process_pdf(book_name, pdf_path, output_dir):
                             continue
                         # This is a special case where the article title is not in the same line as the article number
                         # We need to get the next line and add it to the article title
-                        next_line = lines[i + 1].strip()
-                        new_line = f"{line} {next_line}"
-                        if "(" in next_line or ")" in next_line:
-                            question_content.append(line)
-                            i += 1
-                            continue
-                        article_match = re.match(r'^Art\.\s(\d+).?\s[-―–—]\s(.+\.)$', new_line)
-                        if article_match:
-                            article_num = article_match.group(1)
-                            article_title = article_match.group(2)
-                            question_content.append(f"\n## Art. {article_num} — {article_title}")
-                            print(f"Found Article {article_num}: {article_title}")
-                        else:
-                            print(f"Article line not matching: {line}")
-                            if not next_line.startswith('('):
-                                # This is a special case where the article title is not in the same line as the article number
-                                # And the fucking next line doesn't end with a perior "."
-                                # We need to get the next line and add it to the article title
-                                line = f"{line} {next_line}"
-
-                            third_line = lines[i + 2].strip()
-                            # Just checking another stupid special case
-                            if "(" not in third_line and ")" not in third_line:
-                                new_third_line = f"{line} {new_line} {third_line}"
-                                article_match = re.match(r'^Art\.\s(\d+).?\s[-―–—]\s(.+\.)$', new_third_line)
-                                if article_match:
-                                    article_num = article_match.group(1)
-                                    article_title = article_match.group(2)
-                                    question_content.append(f"\n## Art. {article_num} — {article_title}")
-                                    print(f"Found Article {article_num}: {article_title}")
-                            # If it doesn't match, we need to add the line to the current Question content
-                            question_content.append(line)   
-
-                        i += 2
+                        invalid_lines_pattern = [
+                            "primeiro", "segundo", "terceiro", "quarto", "quinto", "sexto", "sétimo", "oitavo", "nono", "décimo",
+                            "undécimo", "duodécimo", "décimo terceiro", "décimo quarto", "décimo quinto", "décimo sexto",
+                            "décimo sétimo", "décimo oitavo", "décimo nono", "vigésimo", "vigésimo primeiro", "vigésimo segundo",
+                            "(", ")", "Sent.", "dist.", "Verit.", "De Trin.", "Cont. Gent."
+                        ]
+                        used_lines = 1
+                        first_line = lines[i].strip()
+                        second_line = lines[i + 1].strip()
+                        third_line = lines[i + 2].strip()
+                        new_line = first_line
+                        if not any(pattern in second_line for pattern in invalid_lines_pattern):
+                            print(f"2. Article {second_line}")
+                            new_line = f"{first_line} {second_line}"
+                            used_lines = 2
+                        if not any(pattern in third_line for pattern in invalid_lines_pattern):
+                            print(f"3. Article {third_line}")
+                            new_line = f"{first_line} {second_line} {third_line}"
+                            used_lines = 3
+                        print(f"Generated Article {new_line}")
+                        question_content.append(new_line)
+                        i += used_lines
                         continue
                     
                     # Add the line to the current Question content
@@ -220,11 +207,11 @@ def main():
     output_dir = "data"
     pdf_volumes = [
         "suma_teologica_Vol_I.pdf",
-        # "suma_teologica_Vol_II.pdf",
-        # "suma_teologica_Vol_III.pdf",
-        # "suma_teologica_Vol_IV.pdf",
-        # "suma_teologica_Vol_V.pdf",
-        # "suma_teologica_Vol_V_Apendice.pdf"
+        "suma_teologica_Vol_II.pdf",
+        "suma_teologica_Vol_III.pdf",
+        "suma_teologica_Vol_IV.pdf",
+        "suma_teologica_Vol_V.pdf",
+        "suma_teologica_Vol_V_Apendice.pdf"
     ]
     
     # Initialize dependencies
