@@ -56,13 +56,12 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose Heroku-compatible port
-EXPOSE 80
+EXPOSE $PORT
 
 # Set environment
 ENV LD_LIBRARY_PATH=/libyaml/src/.libs
 ENV SECRET_KEY_BASE ""
 ENV RAILS_ENV "production"
-ENV PORT "443"
 
 # Let's build libyaml from scratch before installing dependencies
 
