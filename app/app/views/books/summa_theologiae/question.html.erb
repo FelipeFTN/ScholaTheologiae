@@ -11,7 +11,7 @@
     <hr>
     <div class="questions_header">
       <div class="back_container">
-        <a href="<%= "/books/summa-theologiae" %>" id="back">
+        <a href="<%= "/books/summa-theologiae/#{@part}" %>" id="back">
           <- back
         </a>
       </div>
@@ -21,10 +21,12 @@
       </div>
       <div class="part_container">
         <label id="part_name"><%= @part.split("-").last.gsub!("_", " ") %></label>
-        <label id="question_number">Q.<%= @question %></label>
+        <label id="question_number">Q.<%= @question %> -></label>
       </div>
     </div>
-    <p><%= @content %></p>
+    <div class="content">
+      <%= @content %>
+    </div>
   </div>
 
   <div class"right_container"></div>

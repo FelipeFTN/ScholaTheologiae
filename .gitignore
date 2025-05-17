@@ -8,3 +8,4 @@ books/**/
 # Ignore scripts generated data files
 # Those are just for testing
 scripts/data/*
+*.log

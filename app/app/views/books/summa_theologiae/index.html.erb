@@ -15,17 +15,22 @@
         A Suma Teológica é uma obra escrita por São Tomás de Aquino entre 1265 e 1274. É considerada uma das mais importantes obras da teologia cristã e da filosofia ocidental.
       </p>
     </div>
-    <h2>Partes</h2>
-    <label>Pars</label>
-    <ul>
-      <% @summa_parts.each do |part| %>
-        <li>
-          <a href="<%= "/books/summa-theologiae/#{part}" %>"}>
-            <%= part.sub!('-', ' ') %>
-          </a>
-        </li>
-      <% end %>
-    </ul>
+    <div class="summa_parts">
+      <div id="parts_title">
+        <h2>Partes</h2>
+        <label>Pars</label>
+      </div>
+      <hr>
+      <ul id="parts_list">
+        <% @summa_parts.each do |part| %>
+          <li>
+            <a href="<%= "/books/summa-theologiae/#{part}" %>"}>
+              <%= part.sub!('-', ' ').gsub('_', ' ') %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 
   <div class"right_container"></div>
