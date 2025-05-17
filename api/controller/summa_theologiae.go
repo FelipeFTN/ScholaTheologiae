@@ -74,7 +74,7 @@ func (c *Controller) summaGetQuestion(part string, question string) (any, error)
 		return nil, errors.New("Invalid Summa Question")
 	}
 
-	file_path := fmt.Sprintf("../books/summa_theologiae/%s/questions/question_%s.md", part, question)
+	file_path := fmt.Sprintf("./data/summa_theologiae/%s/questions/question_%s.md", part, question)
 	file_bytes, err := os.ReadFile(file_path)
 	if err != nil {
 		return nil, err

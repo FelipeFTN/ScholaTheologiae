@@ -9,3 +9,8 @@ books/**/
 # Those are just for testing
 scripts/data/*
 *.log
+
+# Ignore API's build & data files
+api/bin/*
+api/data/*
+!api/data/*.go
