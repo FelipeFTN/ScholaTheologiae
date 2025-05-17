@@ -15,7 +15,7 @@ build:
 	go mod tidy
 	@# Build the binary
 	@# GOARCH=arm64 - for Apple Silicon or ARM64 archtectures
-	env CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o bin/$(BINARY_NAME) ./
+	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o bin/schola-theologiae-api main.go
 	@# Add execute permissions
 	chmod +x bin/$(BINARY_NAME)
 
