@@ -36,6 +36,8 @@ RUN apk add --no-cache \
   sqlite-libs \
   tzdata
 
+RUN apk add envsubst
+
 # Set working directory
 WORKDIR /app
 
@@ -88,6 +90,7 @@ RUN rm -rf /usr/src/libyaml
 WORKDIR /app
 
 RUN cd /app/rails && bundle install --gemfile Gemfile
+RUN envsubst < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf
 
 # Start all services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
