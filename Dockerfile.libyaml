@@ -1,0 +1,26 @@
+# Let's build libyaml from scratch before installing dependencies
+FROM frolvlad/alpine-glibc as build-libyaml
+
+RUN apk add --no-cache \
+  autoconf \
+  automake \
+  build-base \
+  cmake \
+  libtool \
+  wget \
+  tar
+
+WORKDIR /usr/src
+ENV LD_LIBRARY_PATH=/libyaml/src/.libs
+
+RUN wget https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz \
+  && tar -xzf yaml-0.2.5.tar.gz
+
+WORKDIR /usr/src/yaml-0.2.5
+RUN ./configure --prefix=/usr && make && make install
+
+# Create tarball archive
+RUN tar -czf /libyaml.tar.gz -C /usr lib include
+
+# Tests
+RUN test -f /usr/include/yaml.h && echo "yaml.h ok"

@@ -1,3 +1,6 @@
+# Environment file
+.env
+
 # gitignore file for Python projects
 __pycache__
 

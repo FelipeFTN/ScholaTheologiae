@@ -16,6 +16,10 @@ RUN gem install bundler && bundle install
 
 COPY ./app .
 
+# Move assets subfolders into assets/*
+RUN mkdir -p public/assets && \
+  find app/assets -type f -exec mv {} public/assets/ \;
+
 # ---------- Final Container ----------
 FROM frolvlad/alpine-glibc
 
@@ -55,9 +59,11 @@ COPY --from=rails-build /app/rails /app/rails
 COPY supervisord.conf /etc/supervisord.conf
 
 # Copy Nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Expose Heroku-compatible port
+ARG PORT
+ENV ENV_PORT $PORT
 EXPOSE $PORT
 
 # Set environment
@@ -65,32 +71,19 @@ ENV LD_LIBRARY_PATH=/libyaml/src/.libs
 ENV SECRET_KEY_BASE ""
 ENV RAILS_ENV "production"
 
-# Let's build libyaml from scratch before installing dependencies
-
 RUN apk add --no-cache \
-  autoconf \
-  automake \
-  build-base \
-  cmake \
-  git \
   libtool \
   perl-dev \
   ruby-dev
 
-RUN mkdir -p /usr/src/libyaml
-WORKDIR /usr/src/libyaml
-# I will just wget the latest release i found
-RUN wget https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz
-RUN tar -xzf yaml-0.2.5.tar.gz
-WORKDIR /usr/src/libyaml/yaml-0.2.5
-RUN ./configure --prefix=/usr
-RUN make && make install
-RUN rm -rf /usr/src/libyaml
-
 WORKDIR /app
 
+# Copy compiled libyaml
+COPY libyaml.tar.gz /tmp/libyaml.tar.gz
+RUN tar -xzf /tmp/libyaml.tar.gz -C /usr && rm /tmp/libyaml.tar.gz
+
 RUN cd /app/rails && bundle install --gemfile Gemfile
-RUN envsubst < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf
+RUN envsubst '${PORT}' < /etc/nginx/nginx.conf > /tmp/nginx.conf && mv /tmp/nginx.conf /etc/nginx/nginx.conf
 
 # Start all services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
