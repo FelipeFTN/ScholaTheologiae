@@ -17,14 +17,15 @@ RUN gem install bundler && bundle install
 COPY ./app .
 
 # Move assets subfolders into assets/*
-RUN mkdir -p public/assets && \
-  find app/assets -type f -exec mv {} public/assets/ \;
+RUN find /app/rails/app/assets -type f -exec cp {} /app/rails/public/ \;
+
+RUN /app/rails/bin/rails assets:precompile
 
 # ---------- Final Container ----------
 FROM frolvlad/alpine-glibc
 
 # Install necessary dependencies
-RUN apk add --no-cache \
+RUN apk add \
   bash \
   nginx \
   supervisor \
@@ -39,8 +40,6 @@ RUN apk add --no-cache \
   linux-headers \
   sqlite-libs \
   tzdata
-
-RUN apk add envsubst
 
 # Set working directory
 WORKDIR /app
@@ -71,7 +70,7 @@ ENV LD_LIBRARY_PATH=/libyaml/src/.libs
 ENV SECRET_KEY_BASE ""
 ENV RAILS_ENV "production"
 
-RUN apk add --no-cache \
+RUN apk add \
   libtool \
   perl-dev \
   ruby-dev
@@ -83,7 +82,9 @@ COPY libyaml.tar.gz /tmp/libyaml.tar.gz
 RUN tar -xzf /tmp/libyaml.tar.gz -C /usr && rm /tmp/libyaml.tar.gz
 
 RUN cd /app/rails && bundle install --gemfile Gemfile
-RUN envsubst '${PORT}' < /etc/nginx/nginx.conf > /tmp/nginx.conf && mv /tmp/nginx.conf /etc/nginx/nginx.conf
+
+# Replace nginx port
+RUN sed -i "s/\${PORT}/$PORT/g" /etc/nginx/nginx.conf
 
 # Start all services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

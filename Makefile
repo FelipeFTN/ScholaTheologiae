@@ -1,4 +1,4 @@
-.PHONY: run libyaml build clean
+.PHONY: run stop libyaml build clean
 
 # Environment variables file
 include .env
@@ -11,6 +11,9 @@ run: build
 		-e PORT=$(PORT):$(PORT) -e SECRET_KEY_BASE=$(SECRET_KEY_BASE) \
 		-p $(PORT) schola-theologiae
 
+stop: 
+	docker stop schola-theo
+	docker container rm schola-theo
 
 libyaml:
 	docker build -f Dockerfile.libyaml -t libyaml-builder .
