@@ -39,17 +39,18 @@ RUN apk add \
   libressl \
   linux-headers \
   sqlite-libs \
+  libtool \
+  perl-dev \
+  ruby-dev \
   tzdata
 
 # Set working directory
 WORKDIR /app
 
-RUN mkdir -p /app/api
-
 # Copy API binary & Data
+RUN mkdir -p /app/api
 COPY --from=api-build /app/api/bin/schola-theologiae-api ./api/schola-theologiae-api 
 COPY --from=api-build /app/api/data ./data
-RUN ls /app/api
 
 # Copy Rails app
 COPY --from=rails-build /app/rails /app/rails
@@ -61,7 +62,8 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Expose Heroku-compatible port
-ARG PORT
+ARG PORT 80
+ENV PORT 80
 ENV ENV_PORT $PORT
 EXPOSE $PORT
 
@@ -69,13 +71,6 @@ EXPOSE $PORT
 ENV LD_LIBRARY_PATH=/libyaml/src/.libs
 ENV SECRET_KEY_BASE ""
 ENV RAILS_ENV "production"
-
-RUN apk add \
-  libtool \
-  perl-dev \
-  ruby-dev
-
-WORKDIR /app
 
 # Copy compiled libyaml
 COPY libyaml.tar.gz /tmp/libyaml.tar.gz
