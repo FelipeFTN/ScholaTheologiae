@@ -8,8 +8,8 @@ build:
 
 run: build
 	docker run --name schola-theo \
-		-e PORT=$(PORT):$(PORT) -e SECRET_KEY_BASE=$(SECRET_KEY_BASE) \
-		-p $(PORT) schola-theologiae
+		-e PORT=$(PORT) -e SECRET_KEY_BASE=$(SECRET_KEY_BASE) \
+		-p $(PORT):$(PORT) schola-theologiae
 
 stop: 
 	docker stop schola-theo
