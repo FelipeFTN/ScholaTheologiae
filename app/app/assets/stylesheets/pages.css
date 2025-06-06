@@ -1,0 +1,49 @@
+/* Here I'll include the common pages styles */
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding: 30px 0;
+  min-height: 60vh;
+}
+
+.content {
+  background: #fffbe6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 32px 24px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #3a3a3a;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
+  color: #afa11b;
+  letter-spacing: 1px;
+}
+
+#subtitle {
+  margin-top: -30px;
+  font-family: 'Tagesschrift', serif;
+  font-size: 1.1rem;
+  color: #bfa14a;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  margin-bottom: 10px;
+}
+
+hr {
+  width: 90%;
+  height: 1px;
+  background-color: #bfa14a;
+  border: none;
+  margin-bottom: 24px;
+}
