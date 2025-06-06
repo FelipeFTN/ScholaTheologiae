@@ -1,16 +1,12 @@
-<div class="main_content">
-
-  <div class="left_container"></div>
-
-  <div class="books">
-    <h1 id="title">Livros</h1>
-    <label>Libri</label>
-    <hr>
-    <%=  render "components/book_list/summa" %>
-    <%=  render "components/book_list/catecismo_pio_x" %>
-    <%=  render "components/book_list/patristica" %>
-  </div>
-
-  <div class"right_container"></div>
-
+<div class="books-main-container">
+  <aside class="books-sidebar"></aside>
+  <section class="books-content">
+    <h1 class="books-title">Livros</h1>
+    <span class="books-subtitle">Libri</span>
+    <hr class="books-divider">
+    <%= render "components/book_list/summa" %>
+    <%= render "components/book_list/catecismo_pio_x" %>
+    <%= render "components/book_list/patristica" %>
+  </section>
+  <aside class="books-sidebar"></aside>
 </div>

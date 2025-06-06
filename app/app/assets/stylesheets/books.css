@@ -1,3 +1,94 @@
+/* --- Unified and modern Books styles --- */
+
+.books-main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px 0;
+  background: #fffbe6;
+  min-height: 80vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.books-sidebar {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.books-content {
+  flex: 3 1 600px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 32px 20px 32px 20px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.books-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
+  color: #3a5a7a;
+  letter-spacing: 1px;
+  margin-bottom: 0.2em;
+}
+
+.books-subtitle {
+  margin-top: -18px;
+  font-family: 'Tagesschrift', serif;
+  font-size: 1.1rem;
+  color: #bfa14a;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.books-divider {
+  width: 90%;
+  height: 1px;
+  background-color: #bfa14a;
+  border: none;
+  margin: 18px 0 24px 0;
+}
+
+@media (max-width: 900px) {
+  .books-main-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0;
+  }
+  .books-sidebar {
+    display: none;
+  }
+  .books-content {
+    max-width: 100vw;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 18px 4vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .books-content {
+    padding: 10px 2vw;
+  }
+  .books-title {
+    font-size: 1.4rem;
+  }
+}
+
+/* Legacy .books index layout (kept for backward compatibility, can be removed when unused) */
 .books {
   display: flex;
   flex-direction: column;
@@ -5,60 +96,38 @@
   align-items: center;
   gap: 30px;
   margin-bottom: 30px;
+}
 
-  #title {
-    margin-bottom: -30px;
-  }
+.books p {
+  text-align: center;
+}
 
-  p {
-    text-align: center;
-  }
+.books #title {
+  margin-bottom: -30px;
+}
 
-  #summa_theologiae a {
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    align-items: center;
+.books #summa_theologiae a,
+.books #patristica a,
+.books #catecismo_pio_x a {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+}
 
-    h1 {
-      color: #4d6c82;
-      text-decoration: underline;
-    }
-    .summa_cover {
-      height: 412px;
-    }
-  }
+.books #summa_theologiae a h1,
+.books #patristica a h1,
+.books #catecismo_pio_x a h1 {
+  color: #4d6c82;
+  text-decoration: underline;
+}
 
-  #patristica a {
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    align-items: center;
-
-    h1 {
-      color: #4d6c82;
-      text-decoration: underline;
-    }
-    .patristica_cover {
-      height: 312px;
-      /* width: 312px; */
-    }
-  }
-
-  #catecismo_pio_x a {
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    align-items: center;
-
-    h1 {
-      color: #4d6c82;
-      text-decoration: underline;
-    }
-    .catecismo_pio_x_cover {
-      height: 312px;
-    }
-  }
+.summa_cover {
+  height: 412px;
+}
+.patristica_cover,
+.catecismo_pio_x_cover {
+  height: 312px;
 }
 
 @import "summa.css";
