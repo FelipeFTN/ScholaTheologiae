@@ -3,16 +3,8 @@
 
 # Exclude HTML files in public directory from language statistics
 # These are typically static files that shouldn't affect language detection
-public/*.html linguist-vendored
-public/**/*.html linguist-vendored
-
-# Exclude compiled/generated assets from language detection
-app/assets/builds/* linguist-generated
-public/assets/* linguist-generated
-
-# Mark vendored dependencies
-app/javascript/vendor/* linguist-vendored
-vendor/* linguist-vendored
+*.html linguist-vendored
+app/public/*.html linguist-vendored
 
 # Ensure proper line endings for different file types
 *.rb text eol=lf
@@ -29,6 +21,7 @@ vendor/* linguist-vendored
 # Dockerfile specific
 Dockerfile text eol=lf
 *.dockerfile text eol=lf
+Dockerfile.* text eol=lf
 
 # Configuration files
 *.conf text eol=lf
@@ -54,9 +47,6 @@ Dockerfile text eol=lf
 *.sqlite binary
 *.sqlite3 binary
 
-# Logs
-*.log text
-
 # Archives containing theological texts
-books/*.tar.gz binary linguist-vendored
+books/*.tar.gz binary linguist-generated
 *.tar.gz binary

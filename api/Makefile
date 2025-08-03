@@ -23,7 +23,7 @@ library:
 		tar xzf "$$file" --directory ./data/library; \
 	done
 	@# Remove the tar.gz files
-	rm --force ./data/library/*.tar.gz
+	rm -f ./data/library/*.tar.gz
 
 test:
 	@# Run the tests
@@ -33,5 +33,5 @@ test:
 
 clean:
 	@# Remove the bin directory
-	rm --recursive --force ./bin/*
-	find ./data/library/ ! -name '.keep' ! -name 'library' | xargs rm --recursive --force 
+	rm -rf ./bin/*
+	find ./data/library/ ! -name '.keep' ! -name 'library' | xargs rm -rf 
