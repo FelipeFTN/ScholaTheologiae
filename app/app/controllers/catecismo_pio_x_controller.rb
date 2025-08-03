@@ -21,6 +21,10 @@ class CatecismoPioXController < ApplicationController
     @part = params[:part]
     @chapter = params[:chapter]
     data = catecismo_get_chapter(@part, @chapter)
+    if data.is_a?(Hash) && data['error']
+      redirect_to action: :get_chapters, part: @part
+      return
+    end
     @content = render_markdown(data)
     render "books/catecismo_pio_x/chapter"
   end

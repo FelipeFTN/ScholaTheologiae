@@ -15,7 +15,7 @@
       </div>
       <div class="part-container">
         <span class="summa-part-name"><%= @part.gsub("_", " ").titleize %></span>
-        <span class="summa-question-number">Cap.<%= @chapter %> &rarr;</span>
+        <span class="summa-question-number">Cap.<%= @chapter %> <a href="<%=Integer(@chapter)+1%>">&rarr;</a></span>
       </div>
     </div>
     <div class="summa-question-content">

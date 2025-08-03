@@ -25,8 +25,10 @@ module SummaTheologiaeHelper
     begin
       uri = URI("#{BASE_URL}/summa-theologiae/#{part}")
       response = Net::HTTP.get(uri)
+
       # Force encoding to UTF-8 to avoid encoding issues
       response = response.force_encoding('UTF-8')
+
       JSON.parse(response)
     rescue StandardError => e
       puts "Error fetching questions for part #{part}: #{e.message}"
@@ -38,11 +40,13 @@ module SummaTheologiaeHelper
     begin
       uri = URI("#{BASE_URL}/summa-theologiae/#{part}/#{question}")
       response = Net::HTTP.get(uri)
+
       # Force encoding to UTF-8 to avoid encoding issues
       response = response.force_encoding('UTF-8')
       
       # Parse as JSON since the API returns escaped JSON string
       parsed_content = JSON.parse(response)
+
       return parsed_content
     rescue StandardError => e
       puts "Error fetching question #{question} for part #{part}: #{e.message}"

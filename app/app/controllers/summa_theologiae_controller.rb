@@ -27,9 +27,6 @@ class SummaTheologiaeController < ApplicationController
       @summa_parts = []
     end
     render "books/summa_theologiae/index"
-    # @part = params[:part]
-    # @question = params[:question]
-    # @question_data = summa_get_question(@part, @question)
   end
 
   def get_questions
@@ -43,6 +40,11 @@ class SummaTheologiaeController < ApplicationController
     @part = params[:part]
     @question = params[:question]
     data = summa_get_question(@part, @question)
+    puts "Part: #{@part}, Question: #{@question}; data: #{data.inspect}"
+    if data.is_a?(Hash) && data['error']
+      redirect_to action: :get_questions, part: @part
+      return
+    end
     @content = render_markdown(data)
     render "books/summa_theologiae/question"
   end
