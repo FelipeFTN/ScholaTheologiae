@@ -5,12 +5,19 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  gap: 24px;
   padding: 24px 0;
   background: #fffbe6;
   min-height: 80vh;
   width: 100%;
   box-sizing: border-box;
+}
+
+.books {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 34px;
 }
 
 .books-sidebar {
@@ -39,7 +46,7 @@
   font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
   color: #3a5a7a;
   letter-spacing: 1px;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.4em;
 }
 
 .books-subtitle {

@@ -6,11 +6,11 @@ import (
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 
-	"scholatheologiae-api/controller"
+	"scholatheologiae-api/controllers"
 	"scholatheologiae-api/models"
 )
 
-func Run(c *controller.Controller) {
+func Run(c *controllers.Controllers) {
 	// Set Gin mode
 	gin.SetMode(gin.ReleaseMode)
 	server := gin.Default()
@@ -22,13 +22,16 @@ func Run(c *controller.Controller) {
 	{
 		v1.GET("/health", rh.HandleHealth)
 		v1.GET("/read/:book", rh.HandleRead)
-		v1.GET("/read/:book/:chapter", rh.HandleRead)
-		v1.GET("/read/:book/:chapter/:verse", rh.HandleRead)
+		v1.GET("/read/:book/:part", rh.HandleRead)
+		v1.GET("/read/:book/:part/:chapter", rh.HandleRead)
+		v1.GET("/read/:book/:part/:chapter/:article", rh.HandleRead)
 
 		v1.GET("/summa-theologiae", rh.HandleSummaTheologiae)
 		v1.GET("/summa-theologiae/:part", rh.HandleSummaTheologiae)
 		v1.GET("/summa-theologiae/:part/:question", rh.HandleSummaTheologiae)
 		v1.GET("/summa-theologiae/:part/:question/:article", rh.HandleSummaTheologiae)
+
+		v1.POST("/search", rh.HandleSearch)
 	}
 
 	// Graceful shutdown
@@ -36,12 +39,12 @@ func Run(c *controller.Controller) {
 }
 
 type RouterHandler struct {
-	Controller *controller.Controller
+	Controllers *controllers.Controllers
 }
 
-func NewRouterHandler(c *controller.Controller) *RouterHandler {
+func NewRouterHandler(c *controllers.Controllers) *RouterHandler {
 	return &RouterHandler{
-		Controller: c,
+		Controllers: c,
 	}
 }
 
@@ -54,7 +57,7 @@ func (r *RouterHandler) HandleSummaTheologiae(c *gin.Context) {
 
 	summa_theologiae.Validate()
 
-	response, err := r.Controller.SummaTheologiae(summa_theologiae)
+	response, err := r.Controllers.SummaTheologiae(summa_theologiae)
 	if err != nil {
 		slog.Error("Error in SummaTheologiae", "error", err)
 		c.JSON(400, gin.H{
@@ -68,15 +71,29 @@ func (r *RouterHandler) HandleSummaTheologiae(c *gin.Context) {
 }
 
 func (r *RouterHandler) HandleRead(c *gin.Context) {
-	book := c.Param("book")
-	chapter := c.Param("chapter")
-	verse := c.Param("verse")
+	book_request := models.BookRequest{
+		Name:    c.Param("book"),
+		Part:    c.Param("part"),
+		Chapter: c.Param("chapter"),
+		Article: c.Param("article"),
+	}
+	book_request.Validate()
 
-	c.JSON(200, gin.H{
-		"book":    book,
-		"chapter": chapter,
-		"verse":   verse,
-	})
+	response, err := r.Controllers.Read(book_request)
+	if err != nil {
+		slog.Error("Error in Read", "error", err)
+		c.JSON(400, gin.H{
+			"status": false,
+			"error":  err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, response)
+}
+
+func (r *RouterHandler) HandleSearch(c *gin.Context) {
+	c.JSON(204, gin.H{})
 }
 
 func (r *RouterHandler) HandleHealth(c *gin.Context) {

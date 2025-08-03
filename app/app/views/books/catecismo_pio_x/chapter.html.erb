@@ -1,0 +1,26 @@
+<!-- Modernized and mobile-friendly Catecismo Pio X chapter page -->
+<div class="summa-main-container">
+  <aside class="summa-sidebar"></aside>
+  <section class="summa-content">
+    <h1 class="summa-title">Catecismo Maior</h1>
+    <span class="summa-subtitle">São Pio X</span>
+    <hr class="summa-divider">
+    <div class="questions-header">
+      <div class="back-container">
+        <a href="<%= "/books/catecismo-pio-x/#{@part}" %>" class="summa-back-link">&larr; Voltar</a>
+      </div>
+      <div class="summa-header-info">
+        <h2>Capítulo</h2>
+        <span class="summa-parts-label">Capitulum</span>
+      </div>
+      <div class="part-container">
+        <span class="summa-part-name"><%= @part.gsub("_", " ").titleize %></span>
+        <span class="summa-question-number">Cap.<%= @chapter %> &rarr;</span>
+      </div>
+    </div>
+    <div class="summa-question-content">
+      <%= @content %>
+    </div>
+  </section>
+  <aside class="summa-sidebar"></aside>
+</div>

@@ -1,0 +1,33 @@
+<!-- Modernized and mobile-friendly Catecismo Pio X chapters list page -->
+<div class="summa-main-container">
+  <aside class="summa-sidebar"></aside>
+  <section class="summa-content">
+    <h1 class="summa-title">Catecismo Maior</h1>
+    <span class="summa-subtitle">São Pio X</span>
+    <hr class="summa-divider">
+    <div class="questions-header">
+      <div class="back-container">
+        <a href="<%= "/books/catecismo-pio-x" %>" class="summa-back-link">&larr; Voltar</a>
+      </div>
+      <div class="summa-header-info">
+        <h2>Capítulos</h2>
+        <span class="summa-parts-label">Capitula</span>
+      </div>
+      <div class="part-container">
+        <span class="summa-part-name"><%= @part.gsub("_", " ").titleize %></span>
+      </div>
+    </div>
+    <ul class="summa-questions-list">
+      <% @catecismo_chapters.each do |chapter| %>
+        <% chapter_num = chapter.split(':').first %>
+        <% chapter_title = chapter.split(':').last.strip %>
+        <li>
+          <a class="summa-part-link" href="<%= "/books/catecismo-pio-x/#{@part}/#{chapter_num}" %>">
+            <%= chapter_title %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+  <aside class="summa-sidebar"></aside>
+</div>

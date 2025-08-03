@@ -1,1 +1,1 @@
-# Free & Open-Source Catholic Knoledge to anyone
+# Free & Open-Source Catholic Knowledge to anyone

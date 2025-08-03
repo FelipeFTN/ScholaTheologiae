@@ -1,5 +1,6 @@
 package constants
 
+// TODO: change this to Enum later on
 const (
 	SUMMA_LIST_PARTS     = "LIST_PARTS"
 	SUMMA_LIST_QUESTIONS = "LIST_QUESTIONS"

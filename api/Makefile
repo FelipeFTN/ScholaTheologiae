@@ -1,14 +1,8 @@
-.PHONY: build test clean
+.PHONY: build library test clean
 
 BINARY_NAME := schola-theologiae-api
 
-build:
-	@# Move the tar.gz from ../books to ./data
-	cp ../books/*.tar.gz ./data
-	@# Uncompress the tar.gz files
-	tar -xzf ./data/*.tar.gz --directory .
-	@# Remove the tar.gz files
-	rm --force ./data/*.tar.gz
+build: library
 	@# Create the bin directory
 	mkdir --parents bin
 	@# Install the dependencies
@@ -19,6 +13,16 @@ build:
 	@# Add execute permissions
 	chmod +x bin/$(BINARY_NAME)
 
+library:
+	@# Copy the tar.gz from ../books to ./data/library
+	cp ../books/*.tar.gz ./data/library
+	@# Uncompress the tar.gz files
+	for file in ./data/library/*.tar.gz; do \
+		tar xzf "$$file" --directory ./data/library; \
+	done
+	@# Remove the tar.gz files
+	rm --force ./data/library/*.tar.gz
+
 test:
 	@# Run the tests
 	go test -v ./...
@@ -28,4 +32,4 @@ test:
 clean:
 	@# Remove the bin directory
 	rm --recursive --force ./bin/*
-	find ./data/* ! -name '*.go' | xargs rm --recursive --force 
+	find ./data/library/ ! -name '.keep' ! -name 'library' | xargs rm --recursive --force 

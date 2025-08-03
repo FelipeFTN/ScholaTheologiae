@@ -15,5 +15,8 @@ scripts/data/*
 
 # Ignore API's build & data files
 api/bin/*
-api/data/*
+api/data/library/**
 !api/data/*.go
+
+# Ignore null-ls files
+.null-ls*

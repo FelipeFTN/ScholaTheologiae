@@ -1,0 +1,37 @@
+<!-- Modernized and mobile-friendly Catecismo Pio X index page -->
+<div class="summa-main-container">
+  <aside class="summa-sidebar"></aside>
+
+  <section class="summa-content">
+    <h1 class="summa-title">Catecismo Maior</h1>
+    <span class="summa-subtitle">São Pio X</span>
+
+    <hr class="summa-divider">
+
+    <div class="summa-info">
+      <%= image_tag("catecismo_sao_pio_x.jpg", class: "summa-cover", skip_pipeline: true) %>
+      <p class="summa-description">
+        O Catecismo Maior de São Pio X é uma obra fundamental da doutrina católica, promulgada pelo Papa São Pio X para a instrução dos fiéis na fé cristã.
+      </p>
+    </div>
+
+    <section class="summa-parts">
+      <div class="summa-parts-header">
+        <h2>Partes</h2>
+        <span class="summa-parts-label">Pars</span>
+      </div>
+      <hr class="summa-divider">
+      <ul class="summa-parts-list">
+        <% @catecismo_parts.each do |part| %>
+          <li>
+            <a class="summa-part-link" href="<%= "/books/catecismo-pio-x/#{part}" %>">
+              <%= part.sub('-', ' ').gsub('_', ' ') %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  </section>
+
+  <aside class="summa-sidebar"></aside>
+</div>

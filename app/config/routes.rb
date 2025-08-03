@@ -20,6 +20,17 @@ Rails.application.routes.draw do
 
   get "/books/summa-theologiae/:part/:question" => "summa_theologiae#get_question", constraints: { part: /[^\/]+/, question: /[^\/]+/ }
 
+  # Catecismo Pio X specific routes following the same pattern
+  get "/books/catecismo-pio-x" => "catecismo_pio_x#index"
+
+  # This :part might contain a dot, so we need to use a regex to match it
+  get "/books/catecismo-pio-x/:part" => "catecismo_pio_x#get_chapters", constraints: { part: /[^\/]+/ }
+
+  get "/books/catecismo-pio-x/:part/:chapter" => "catecismo_pio_x#get_chapter", constraints: { part: /[^\/]+/, chapter: /[^\/]+/ }
+
+  # Patristica route - redirect to maintenance page
+  get "/patristica" => ->(env) { [ 200, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', 'maintenance.html')) ] ] }
+
   # Catch all other routes and return 404
   match '*path', to: ->(env) { [ 404, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', '404.html')) ] ] }, via: :all
 

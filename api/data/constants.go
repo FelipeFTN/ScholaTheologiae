@@ -8,9 +8,9 @@ const (
 )
 
 // SQLiteDBPath is the path to the SQLite database
-var SQLiteMAP = map[string]string{
-	SUMMA_THEOLOGIAE: "./data/summa_theologiae.db",
+var DATABASES = map[string]string{
+	SUMMA_THEOLOGIAE: "./data/library/summa_theologiae/summa_theologiae.db",
+	CATECISMO_PIO_X:  "./data/library/catecismo_pio_x/catecismo_pio_x.db",
 	// Not ready yet
 	// "patristica":       "./data/patristica.db",
-	// "catecismo_pio_x":  "./data/catecismo_pio_x.db",
 }

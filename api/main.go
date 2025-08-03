@@ -5,27 +5,24 @@ import (
 	"log/slog"
 	"os"
 
-	"scholatheologiae-api/controller"
+	"scholatheologiae-api/controllers"
 	"scholatheologiae-api/data"
-	"scholatheologiae-api/handler"
 	"scholatheologiae-api/server"
 )
 
 func main() {
-	// DEPENDENCIES
-
 	// Logger
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
 	slog.SetDefault(logger)
 
-	// SQLite
-	db, err := handler.NewSQLite(data.SQLiteMAP)
+	// Databases & SQLite
+	data, err := data.New()
 	terminateOnError(err)
-	defer db.Close()
+	defer data.SQLite.Close()
 
-	controller := controller.New(db)
+	controllers := controllers.New(data)
 
-	server.Run(controller)
+	server.Run(controllers)
 }
 
 func terminateOnError(err error) {

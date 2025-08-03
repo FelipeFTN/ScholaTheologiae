@@ -1,0 +1,10 @@
+package constants
+
+// TODO: change this to Enum later on
+const (
+	TYPE_LIST_BOOKS    = "LIST_BOOKS"
+	TYPE_LIST_PARTS    = "LIST_PARTS"
+	TYPE_LIST_CHAPTERS = "LIST_CHAPTERS"
+	TYPE_GET_CHAPTER   = "GET_CHAPTER"
+	TYPE_GET_ARTICLE   = "GET_ARTICLE"
+)
