@@ -1,0 +1,100 @@
+# .dockerignore for Schola Theologiae
+# Exclude files that don't need to be in Docker build context
+
+# Git and version control
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+TODO.md
+*.md
+
+# Development files
+.env
+.env.local
+.env.development
+.env.test
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Rails
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/storage/*
+!/storage/.keep
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+vendor/
+
+# Test files
+*_test.go
+test/
+spec/
+
+# Development scripts that aren't needed in container
+run-*.sh
+test-*.sh
+
+# Heroku specific (not needed in Docker build)
+heroku.yml
+
+# Don't copy other Docker files
+Dockerfile*
+docker-compose*
+
+# Backup files
+*.backup
+*.bak
+*.tmp
+
+# Logs
+*.log
+
+# Cache directories
+.cache/
+.parcel-cache/

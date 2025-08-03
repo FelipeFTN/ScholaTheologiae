@@ -14,6 +14,8 @@ build: library
 	chmod +x bin/$(BINARY_NAME)
 
 library:
+	@# Create the library directory if it doesn't exist
+	mkdir -p ./data/library
 	@# Copy the tar.gz from ../books to ./data/library
 	cp ../books/*.tar.gz ./data/library
 	@# Uncompress the tar.gz files

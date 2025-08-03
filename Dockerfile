@@ -1,31 +1,44 @@
 # ---------- Build API ----------
-FROM golang:latest as api-build
+FROM golang:1.21-alpine as api-build
 
 WORKDIR /app/api
-COPY ./api /app/api
+
+# Copy Go module files first for better caching
+COPY ./api/go.mod ./api/go.sum ./
+RUN go mod download
+
+# Copy the rest of the API source code
+COPY ./api .
 COPY ./books/* /app/books/
 
 RUN make build
 
 # ---------- Build Rails ----------
-FROM ruby:3.2 as rails-build
+FROM ruby:3.2-alpine as rails-build
 
 WORKDIR /app/rails
-COPY ./app/Gemfile ./app/Gemfile.lock ./
-RUN gem install bundler && bundle install
 
+# Install build dependencies
+RUN apk add --no-cache build-base nodejs yarn sqlite-dev
+
+# Copy Gemfile and Gemfile.lock first for better caching
+COPY ./app/Gemfile ./app/Gemfile.lock ./
+RUN gem install bundler && bundle install --without development test
+
+# Copy the rest of the Rails application
 COPY ./app .
 
 # Move assets subfolders into assets/*
-RUN find /app/rails/app/assets -type f -exec cp {} /app/rails/public/ \;
+RUN find /app/rails/app/assets -type f -exec cp {} /app/rails/public/ \; 2>/dev/null || true
 
-RUN /app/rails/bin/rails assets:precompile
+# Precompile assets
+RUN RAILS_ENV=production /app/rails/bin/rails assets:precompile
 
 # ---------- Final Container ----------
 FROM frolvlad/alpine-glibc
 
-# Install necessary dependencies
-RUN apk add \
+# Install necessary dependencies in a single layer
+RUN apk add --no-cache \
   bash \
   nginx \
   supervisor \
@@ -42,7 +55,8 @@ RUN apk add \
   libtool \
   perl-dev \
   ruby-dev \
-  tzdata
+  tzdata \
+  && rm -rf /var/cache/apk/*
 
 # Set working directory
 WORKDIR /app
