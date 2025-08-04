@@ -3,7 +3,7 @@ module CatecismoPioXHelper
 
   def catecismo_get_parts
     begin
-      uri = URI("#{BASE_URL}/read/catecismo_pio_x")
+      uri = URI("#{BASE_URL}/books/catecismo_pio_x")
       response = Net::HTTP.get(uri)
       if response.empty?
         puts "No response from server"
@@ -20,7 +20,7 @@ module CatecismoPioXHelper
 
   def catecismo_get_chapters(part)
     begin
-      uri = URI("#{BASE_URL}/read/catecismo_pio_x/#{part}")
+      uri = URI("#{BASE_URL}/books/catecismo_pio_x/#{part}")
       response = Net::HTTP.get(uri)
       # Force encoding to UTF-8 to avoid encoding issues
       response = response.force_encoding('UTF-8')
@@ -39,7 +39,7 @@ module CatecismoPioXHelper
 
   def catecismo_get_chapter(part, chapter)
     begin
-      uri = URI("#{BASE_URL}/read/catecismo_pio_x/#{part}/#{chapter}")
+      uri = URI("#{BASE_URL}/books/catecismo_pio_x/#{part}/#{chapter}")
       response = Net::HTTP.get(uri)
       # Force encoding to UTF-8 to avoid encoding issues
       response = response.force_encoding('UTF-8')

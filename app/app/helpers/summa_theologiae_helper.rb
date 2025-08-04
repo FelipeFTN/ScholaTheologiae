@@ -3,7 +3,7 @@ module SummaTheologiaeHelper
 
   def summa_get_parts
     begin
-      uri = URI("#{BASE_URL}/summa-theologiae")
+      uri = URI("#{BASE_URL}/books/summa_theologiae")
       response = Net::HTTP.get(uri)
       if response.empty?
         puts "No response from server"
@@ -20,13 +20,18 @@ module SummaTheologiaeHelper
 
   def summa_get_questions(part)
     begin
-      uri = URI("#{BASE_URL}/summa-theologiae/#{part}")
+      uri = URI("#{BASE_URL}/books/summa_theologiae/#{part}")
       response = Net::HTTP.get(uri)
 
       # Force encoding to UTF-8 to avoid encoding issues
       response = response.force_encoding('UTF-8')
-
-      JSON.parse(response)
+      chapters_hash = JSON.parse(response)
+      
+      # Convert hash to array of "number: title" strings, similar to Summa format
+      chapters_array = chapters_hash.map { |num, title| "#{num}: #{title}" }
+      
+      # Sort by chapter number
+      chapters_array.sort_by { |chapter| chapter.split(':').first.to_i }
     rescue StandardError => e
       puts "Error fetching questions for part #{part}: #{e.message}"
       return []
@@ -35,7 +40,7 @@ module SummaTheologiaeHelper
 
   def summa_get_question(part, question)
     begin
-      uri = URI("#{BASE_URL}/summa-theologiae/#{part}/#{question}")
+      uri = URI("#{BASE_URL}/books/summa_theologiae/#{part}/#{question}")
       response = Net::HTTP.get(uri)
 
       # Force encoding to UTF-8 to avoid encoding issues

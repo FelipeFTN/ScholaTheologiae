@@ -13,7 +13,7 @@ build: library
 	@# Add execute permissions
 	chmod +x bin/$(BINARY_NAME)
 
-library:
+library: clean
 	@# Create the library directory if it doesn't exist
 	mkdir -p ./data/library
 	@# Copy the tar.gz from ../books to ./data/library

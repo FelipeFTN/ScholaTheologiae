@@ -34,8 +34,15 @@ func (d *Data) GetBooks() ([]string, error) {
 
 func (d *Data) GetBookParts(book_name string) ([]string, error) {
 	// Prepare the statement
-	query := "SELECT DISTINCT part_title FROM " + book_name + " ORDER BY id"
-	stmt, err := d.SQLite.databases[book_name].db.Prepare(query)
+	query := fmt.Sprintf("SELECT DISTINCT part_title FROM %s ORDER BY id", book_name)
+
+	// Check if the database for the book exists
+	database := d.SQLite.databases[book_name]
+	if database.db == nil {
+		return nil, fmt.Errorf("database for book '%s' not found", book_name)
+	}
+
+	stmt, err := database.db.Prepare(query)
 	if err != nil {
 		return nil, err
 	}

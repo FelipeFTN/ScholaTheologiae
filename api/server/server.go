@@ -21,15 +21,10 @@ func Run(c *controllers.Controllers) {
 	v1 := server.Group("v1")
 	{
 		v1.GET("/health", rh.HandleHealth)
-		v1.GET("/read/:book", rh.HandleRead)
-		v1.GET("/read/:book/:part", rh.HandleRead)
-		v1.GET("/read/:book/:part/:chapter", rh.HandleRead)
-		v1.GET("/read/:book/:part/:chapter/:article", rh.HandleRead)
-
-		v1.GET("/summa-theologiae", rh.HandleSummaTheologiae)
-		v1.GET("/summa-theologiae/:part", rh.HandleSummaTheologiae)
-		v1.GET("/summa-theologiae/:part/:question", rh.HandleSummaTheologiae)
-		v1.GET("/summa-theologiae/:part/:question/:article", rh.HandleSummaTheologiae)
+		v1.GET("/books/:name", rh.HandleBooks)
+		v1.GET("/books/:name/:part", rh.HandleBooks)
+		v1.GET("/books/:name/:part/:chapter", rh.HandleBooks)
+		v1.GET("/books/:name/:part/:chapter/:article", rh.HandleBooks)
 
 		v1.POST("/search", rh.HandleSearch)
 	}
@@ -48,31 +43,9 @@ func NewRouterHandler(c *controllers.Controllers) *RouterHandler {
 	}
 }
 
-func (r *RouterHandler) HandleSummaTheologiae(c *gin.Context) {
-	summa_theologiae := models.SummaTheologiaeRequest{
-		Part:     c.Param("part"),
-		Question: c.Param("question"),
-		Article:  c.Param("article"),
-	}
-
-	summa_theologiae.Validate()
-
-	response, err := r.Controllers.SummaTheologiae(summa_theologiae)
-	if err != nil {
-		slog.Error("Error in SummaTheologiae", "error", err)
-		c.JSON(400, gin.H{
-			"status": false,
-			"error":  err.Error(),
-		})
-		return
-	}
-
-	c.JSON(200, response)
-}
-
-func (r *RouterHandler) HandleRead(c *gin.Context) {
+func (r *RouterHandler) HandleBooks(c *gin.Context) {
 	book_request := models.BookRequest{
-		Name:    c.Param("book"),
+		Name:    c.Param("name"),
 		Part:    c.Param("part"),
 		Chapter: c.Param("chapter"),
 		Article: c.Param("article"),

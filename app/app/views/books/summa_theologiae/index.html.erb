@@ -22,10 +22,12 @@
       </div>
       <hr class="summa-divider">
       <ul class="summa-parts-list">
+        <%# SORT part by number x.x  %>
+        <% @summa_parts = @summa_parts.sort_by { |part| part.split('.').map(&:to_i) } %>
         <% @summa_parts.each do |part| %>
           <li>
             <a class="summa-part-link" href="<%= "/books/summa-theologiae/#{part}" %>">
-              <%= part.sub('-', ' ').gsub('_', ' ') %>
+              <%= part.sub('-', ' - ').gsub('_', ' ') %>
             </a>
           </li>
         <% end %>

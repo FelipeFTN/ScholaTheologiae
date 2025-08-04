@@ -18,11 +18,12 @@
       </div>
     </div>
     <ul class="summa-questions-list">
-      <% @summa_questions.each do |quaestion| %>
-        <% quaestion_num = quaestion.split(':').first %>
+      <% @summa_questions.each do |question| %>
+        <% question_num = question.split(':').first %>
+        <% question_title = question.split(':').last.strip %>
         <li>
-          <a class="summa-part-link" href="<%= "/books/summa-theologiae/#{@part}/#{quaestion_num}" %>">
-            <%= quaestion %>
+          <a class="summa-part-link" href="<%= "/books/summa-theologiae/#{@part}/#{question_num}" %>">
+            <%= question_num %>: <%= question_title %>
           </a>
         </li>
       <% end %>
