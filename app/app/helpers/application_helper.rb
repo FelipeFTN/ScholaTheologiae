@@ -1,4 +1,10 @@
 module ApplicationHelper
+  require 'net/http'
+  require 'json'
+
+  # Shared API configuration
+  BASE_URL = 'http://localhost:8080/v1'.freeze
+
   def markdown(text)
     options = {
       filter_html: true,

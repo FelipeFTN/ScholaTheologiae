@@ -1,8 +1,5 @@
 module SummaTheologiaeHelper
-  require 'net/http'
-  require 'json'
-
-  BASE_URL = 'http://localhost:8080/v1'.freeze
+  include ApplicationHelper
 
   def summa_get_parts
     begin

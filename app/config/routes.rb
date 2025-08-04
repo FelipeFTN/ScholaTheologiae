@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "health" => "rails/health#show", as: :health_check
-
+  
   get "home" => "home#index", as: :home
 
   get "books" => "books#index", as: :books
