@@ -22,4 +22,5 @@ body {
 @import "nav_bar.css";
 @import "pages.css";
 @import "books.css";
+@import "book.css";
 @import "home.css";

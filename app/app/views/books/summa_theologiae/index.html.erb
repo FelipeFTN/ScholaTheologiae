@@ -1,32 +1,32 @@
 <!-- Modernized and mobile-friendly Summa Theologiae index page -->
-<div class="summa-main-container">
-  <aside class="summa-sidebar"></aside>
+<div class="book-main-container">
+  <aside class="book-sidebar"></aside>
 
-  <section class="summa-content">
-    <h1 class="summa-title">Suma Teológica</h1>
-    <span class="summa-subtitle">Summa Theologiae</span>
+  <section class="book-content">
+    <h1 class="book-title">Suma Teológica</h1>
+    <span class="book-subtitle">Summa Theologiae</span>
 
-    <hr class="summa-divider">
+    <hr class="book-divider">
 
-    <div class="summa-info">
-      <%= image_tag("summa_theologiae_st_thomas_aquinas.jpg", class: "summa-cover", skip_pipeline: true) %>
-      <p class="summa-description">
+    <div class="book-info">
+      <%= image_tag("summa_theologiae_st_thomas_aquinas.jpg", class: "book-cover", skip_pipeline: true) %>
+      <p class="book-description">
         A Suma Teológica é uma obra escrita por São Tomás de Aquino entre 1265 e 1274. É considerada uma das mais importantes obras da teologia cristã e da filosofia ocidental.
       </p>
     </div>
 
-    <section class="summa-parts">
-      <div class="summa-parts-header">
+    <section class="book-parts">
+      <div class="book-parts-header">
         <h2>Partes</h2>
-        <span class="summa-parts-label">Pars</span>
+        <span class="book-parts-label">Pars</span>
       </div>
-      <hr class="summa-divider">
-      <ul class="summa-parts-list">
+      <hr class="book-divider">
+      <ul class="book-parts-list">
         <%# SORT part by number x.x  %>
         <% @summa_parts = @summa_parts.sort_by { |part| part.split('.').map(&:to_i) } %>
         <% @summa_parts.each do |part| %>
           <li>
-            <a class="summa-part-link" href="<%= "/books/summa-theologiae/#{part}" %>">
+            <a class="book-part-link" href="<%= "/books/summa-theologiae/#{part}" %>">
               <%= part.sub('-', ' - ').gsub('_', ' ') %>
             </a>
           </li>
@@ -35,5 +35,5 @@
     </section>
   </section>
 
-  <aside class="summa-sidebar"></aside>
+  <aside class="book-sidebar"></aside>
 </div>

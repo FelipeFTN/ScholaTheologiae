@@ -1,33 +1,33 @@
-/* --- Unified and modern Summa styles --- */
+/* --- Unified and modern Book styles --- */
 
 /* CSS Variables for consistency */
 :root {
-  --summa-primary-color: #4d6c82;
-  --summa-primary-hover: #2c5aa0;
-  --summa-accent-color: #bfa14a;
-  --summa-title-color: #3a5a7a;
-  --summa-part-name-color: #afa11b;
-  --summa-background: #fffbe6;
-  --summa-content-bg: #fff;
-  --summa-text-color: #3a3a3a;
-  --summa-border-radius: 12px;
-  --summa-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --book-primary-color: #4d6c82;
+  --book-primary-hover: #2c5aa0;
+  --book-accent-color: #bfa14a;
+  --book-title-color: #3a5a7a;
+  --book-part-name-color: #afa11b;
+  --book-background: #fffbe6;
+  --book-content-bg: #fff;
+  --book-text-color: #3a3a3a;
+  --book-border-radius: 12px;
+  --book-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.summa-main-container {
+.book-main-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   gap: 24px;
   padding: 24px 0;
-  background: var(--summa-background);
+  background: var(--book-background);
   min-height: 80vh;
   width: 100%;
   box-sizing: border-box;
 }
 
-.summa-sidebar {
+.book-sidebar {
   flex: 1 1 0;
   overflow: hidden;
   text-overflow: unset;
@@ -38,11 +38,11 @@
   align-items: center;
 }
 
-.summa-content {
+.book-content {
   flex: 3 1 600px;
-  background: var(--summa-content-bg);
-  border-radius: var(--summa-border-radius);
-  box-shadow: var(--summa-shadow);
+  background: var(--book-content-bg);
+  border-radius: var(--book-border-radius);
+  box-shadow: var(--book-shadow);
   padding: 32px 20px 32px 20px;
   max-width: 700px;
   width: 100%;
@@ -53,30 +53,30 @@
   box-sizing: border-box;
 }
 
-.summa-title {
+.book-title {
   text-align: center;
   font-size: 2.2rem;
   font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
-  color: var(--summa-title-color);
+  color: var(--book-title-color);
   letter-spacing: 1px;
   margin-bottom: 0.4em;
 }
 
-.summa-subtitle {
+.book-subtitle {
   margin-top: -18px;
   font-family: 'Tagesschrift', serif;
   font-size: 1.1rem;
-  color: var(--summa-accent-color);
+  color: var(--book-accent-color);
   letter-spacing: 2px;
   text-transform: lowercase;
   margin-bottom: 10px;
   display: block;
 }
 
-.summa-divider {
+.book-divider {
   width: 90%;
   height: 1px;
-  background-color: var(--summa-accent-color);
+  background-color: var(--book-accent-color);
   border: none;
   margin: 18px 0 24px 0;
   display: block;
@@ -84,14 +84,14 @@
   margin-right: auto;
 }
 
-.summa-info {
+.book-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 18px;
 }
 
-.summa-cover {
+.book-cover {
   max-width: 220px;
   width: 100%;
   height: auto;
@@ -100,40 +100,40 @@
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 12px;
-  box-shadow: var(--summa-shadow);
-  background: var(--summa-content-bg);
+  box-shadow: var(--book-shadow);
+  background: var(--book-content-bg);
 }
 
-.summa-description {
+.book-description {
   text-align: center;
   font-size: 1.08rem;
-  color: var(--summa-text-color);
+  color: var(--book-text-color);
   margin: 0 0 8px 0;
 }
 
-.summa-parts {
+.book-parts {
   width: 100%;
   margin-top: 18px;
 }
 
-.summa-parts-header {
+.book-parts-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--summa-content-bg);
+  background-color: var(--book-content-bg);
   border-radius: 8px;
   padding: 8px 0 2px 0;
   margin-bottom: 0.5em;
 }
 
-.summa-parts-label {
+.book-parts-label {
   font-size: 1rem;
-  color: var(--summa-accent-color);
+  color: var(--book-accent-color);
   font-family: 'Tagesschrift', serif;
   margin-top: -8px;
 }
 
-.summa-parts-list {
+.book-parts-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -143,24 +143,24 @@
   gap: 18px;
 }
 
-.summa-part-link {
-  color: var(--summa-primary-color);
+.book-part-link {
+  color: var(--book-primary-color);
   font-size: 1.15rem;
   text-decoration: underline;
   text-underline-offset: 4px;
   transition: color 0.2s;
 }
 
-.summa-part-link:visited {
+.book-part-link:visited {
   color: #014475;
 }
 
-.summa-part-link:hover {
-  color: var(--summa-accent-color);
+.book-part-link:hover {
+  color: var(--book-accent-color);
 }
 
 .questions-header,
-.summa-questions-header {
+.book-questions-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -172,7 +172,7 @@
 }
 
 .questions-header>*,
-.summa-questions-header>* {
+.book-questions-header>* {
   flex: 0 1 auto;
 }
 
@@ -181,9 +181,9 @@
   align-items: flex-start;
 }
 
-.summa-back-link {
+.book-back-link {
   text-decoration: none;
-  color: var(--summa-primary-color);
+  color: var(--book-primary-color);
   font-size: 1rem;
   font-weight: 600;
   padding: 4px 8px;
@@ -191,12 +191,12 @@
   transition: all 0.2s ease;
 }
 
-.summa-back-link:hover {
-  color: var(--summa-primary-hover);
+.book-back-link:hover {
+  color: var(--book-primary-hover);
   background-color: rgba(77, 108, 130, 0.1);
 }
 
-.summa-header-info {
+.book-header-info {
   flex: 1 1 0;
   min-width: 120px;
   text-align: center;
@@ -221,9 +221,9 @@
   text-align: left;
 }
 
-.summa-part-name {
+.book-part-name {
   font-weight: bold;
-  color: var(--summa-part-name-color);
+  color: var(--book-part-name-color);
   font-size: 1.05rem;
   overflow: hidden;
   text-overflow: unset;
@@ -236,14 +236,14 @@
   text-align: center;
 }
 
-.summa-question-number {
-  color: var(--summa-accent-color);
+.book-question-number {
+  color: var(--book-accent-color);
   font-size: 0.98rem;
   text-align: center;
   margin-top: 4px;
 
   a {
-    color: var(--summa-primary-color);
+    color: var(--book-primary-color);
     text-decoration: none;
     font-weight: 600;
     padding: 2px 6px;
@@ -252,19 +252,19 @@
   }
 
   a:hover {
-    color: var(--summa-primary-hover);
+    color: var(--book-primary-hover);
     background-color: rgba(77, 108, 130, 0.1);
   }
 }
 
-.summa-question-content {
+.book-question-content {
   padding: 24px 18px 24px 32px;
   font-size: 1.08rem;
   word-break: break-word;
   white-space: preserve-breaks;
 }
 
-.summa-next-question {
+.book-next-question {
   text-align: right;
   margin-top: 2rem;
   padding-top: 1.5rem;
@@ -274,7 +274,7 @@
   align-items: center;
 
   a {
-    color: var(--summa-primary-color);
+    color: var(--book-primary-color);
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
@@ -289,28 +289,28 @@
   }
 
   a:hover {
-    color: var(--summa-primary-hover);
+    color: var(--book-primary-hover);
     background-color: rgba(77, 108, 130, 0.1);
     transform: translateX(3px);
   }
 }
 
-.summa-question-content h1,
-.summa-question-content h2,
-.summa-question-content h3 {
+.book-question-content h1,
+.book-question-content h2,
+.book-question-content h3 {
   color: #222;
   font-family: inherit;
   font-weight: bold;
 }
 
 /* Center h2 chapter titles */
-.summa-question-content h2 {
+.book-question-content h2 {
   text-align: center;
   margin: 1.5em 0 1em 0;
 }
 
 /* Style h5 elements (##### in markdown) to look better */
-.summa-question-content h5 {
+.book-question-content h5 {
   font-size: 1.1rem;
   font-weight: bold;
   color: #3a5a7a;
@@ -318,19 +318,19 @@
   line-height: 1.3;
 }
 
-.summa-question-content ol,
-.summa-question-content ul {
+.book-question-content ol,
+.book-question-content ul {
   list-style-position: inside;
   padding-left: 0;
   margin-left: 0;
 }
 
-.summa-question-content li {
+.book-question-content li {
   padding-left: 0.5em;
   word-break: break-word;
 }
 
-.summa-questions-list {
+.book-questions-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -341,7 +341,7 @@
   width: 100%;
 }
 
-.summa-questions-list li {
+.book-questions-list li {
   width: 100%;
   max-width: 420px;
   margin: 0 auto;
@@ -352,18 +352,18 @@
 }
 
 @media (max-width: 900px) {
-  .summa-main-container {
+  .book-main-container {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     padding: 8px 0;
   }
 
-  .summa-sidebar {
+  .book-sidebar {
     display: none;
   }
 
-  .summa-content {
+  .book-content {
     max-width: 100vw;
     border-radius: 0;
     box-shadow: none;
@@ -371,7 +371,7 @@
   }
 
   .questions-header,
-  .summa-questions-header {
+  .book-questions-header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -389,7 +389,7 @@
     height: 100%;
   }
 
-  .summa-part-name {
+  .book-part-name {
     max-width: 100%;
     overflow: hidden;
     text-overflow: unset;
@@ -401,7 +401,7 @@
     justify-content: center;
   }
 
-  .summa-header-info {
+  .book-header-info {
     min-width: 80px;
     flex: 1 1 0;
     height: auto;
@@ -422,23 +422,23 @@
 }
 
 @media (max-width: 600px) {
-  .summa-content {
+  .book-content {
     padding: 10px 2vw;
   }
 
-  .summa-title {
+  .book-title {
     font-size: 1.4rem;
   }
 
-  .summa-description {
+  .book-description {
     font-size: 0.98rem;
   }
 
-  .summa-cover {
+  .book-cover {
     max-width: 140px;
   }
 
-  .summa-question-content {
+  .book-question-content {
     padding: 12px 8px 12px 16px;
     font-size: 0.98rem;
     margin-left: 4px;
@@ -447,7 +447,7 @@
     list-style-position: inside;
   }
 
-  .summa-next-question {
+  .book-next-question {
     text-align: center;
     margin-top: 1.5rem;
     display: flex;
@@ -465,14 +465,14 @@
     }
   }
 
-  .summa-question-content ol,
-  .summa-question-content ul {
+  .book-question-content ol,
+  .book-question-content ul {
     list-style-position: inside;
     padding-left: 0;
     margin-left: 0;
   }
 
-  .summa-question-content li {
+  .book-question-content li {
     padding-left: 0.5em;
   }
 }

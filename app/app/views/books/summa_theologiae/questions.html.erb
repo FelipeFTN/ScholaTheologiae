@@ -1,33 +1,33 @@
 <!-- Modernized and mobile-friendly Summa Theologiae questions list page -->
-<div class="summa-main-container">
-  <aside class="summa-sidebar"></aside>
-  <section class="summa-content">
-    <h1 class="summa-title">Suma Teológica</h1>
-    <span class="summa-subtitle">Summa Theologiae</span>
-    <hr class="summa-divider">
+<div class="book-main-container">
+  <aside class="book-sidebar"></aside>
+  <section class="book-content">
+    <h1 class="book-title">Suma Teológica</h1>
+    <span class="book-subtitle">Summa Theologiae</span>
+    <hr class="book-divider">
     <div class="questions-header">
       <div class="back-container">
-        <a href="<%= "/books/summa-theologiae" %>" class="summa-back-link">&larr; Voltar</a>
+        <a href="<%= "/books/summa-theologiae" %>" class="book-back-link">&larr; Voltar</a>
       </div>
-      <div class="summa-header-info">
+      <div class="book-header-info">
         <h2>Questões</h2>
-        <span class="summa-parts-label">Quaestiones</span>
+        <span class="book-parts-label">Quaestiones</span>
       </div>
       <div class="part-container">
-        <span class="summa-part-name"><%= @part.split("-").last.gsub("_", " ") %></span>
+        <span class="book-part-name"><%= @part.split("-").last.gsub("_", " ") %></span>
       </div>
     </div>
-    <ul class="summa-questions-list">
+    <ul class="book-questions-list">
       <% @summa_questions.each do |question| %>
         <% question_num = question.split(':').first %>
         <% question_title = question.split(':').last.strip %>
         <li>
-          <a class="summa-part-link" href="<%= "/books/summa-theologiae/#{@part}/#{question_num}" %>">
+          <a class="book-part-link" href="<%= "/books/summa-theologiae/#{@part}/#{question_num}" %>">
             <%= question_num %>: <%= question_title %>
           </a>
         </li>
       <% end %>
     </ul>
   </section>
-  <aside class="summa-sidebar"></aside>
+  <aside class="book-sidebar"></aside>
 </div>
