@@ -3,7 +3,7 @@
   <aside class="summa-sidebar"></aside>
   <section class="summa-content">
     <h1 class="summa-title">Suma Teológica</h1>
-    <span class="summa-subtitle">Summa Theologiae Quaestiones</span>
+    <span class="summa-subtitle">Summa Theologiae</span>
     <hr class="summa-divider">
     <div class="questions-header">
       <div class="back-container">
@@ -20,6 +20,12 @@
     </div>
     <div class="summa-question-content">
       <%= @content %>
+      
+      <div class="summa-next-question">
+        <a href="<%= "/books/summa-theologiae/#{@part}/#{Integer(@question)+1}" %>">
+          Próximo Capítulo &rarr;
+        </a>
+      </div>
     </div>
   </section>
   <aside class="summa-sidebar"></aside>

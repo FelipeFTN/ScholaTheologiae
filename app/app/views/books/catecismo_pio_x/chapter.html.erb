@@ -20,6 +20,12 @@
     </div>
     <div class="summa-question-content">
       <%= @content %>
+      
+      <div class="summa-next-question">
+        <a href="<%= "/books/catecismo-pio-x/#{@part}/#{Integer(@chapter)+1}" %>">
+          Próximo Capítulo &rarr;
+        </a>
+      </div>
     </div>
   </section>
   <aside class="summa-sidebar"></aside>
