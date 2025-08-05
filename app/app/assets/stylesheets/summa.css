@@ -1,5 +1,19 @@
 /* --- Unified and modern Summa styles --- */
 
+/* CSS Variables for consistency */
+:root {
+  --summa-primary-color: #4d6c82;
+  --summa-primary-hover: #2c5aa0;
+  --summa-accent-color: #bfa14a;
+  --summa-title-color: #3a5a7a;
+  --summa-part-name-color: #afa11b;
+  --summa-background: #fffbe6;
+  --summa-content-bg: #fff;
+  --summa-text-color: #3a3a3a;
+  --summa-border-radius: 12px;
+  --summa-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
 .summa-main-container {
   display: flex;
   flex-direction: row;
@@ -7,7 +21,7 @@
   align-items: flex-start;
   gap: 24px;
   padding: 24px 0;
-  background: #fffbe6;
+  background: var(--summa-background);
   min-height: 80vh;
   width: 100%;
   box-sizing: border-box;
@@ -26,9 +40,9 @@
 
 .summa-content {
   flex: 3 1 600px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: var(--summa-content-bg);
+  border-radius: var(--summa-border-radius);
+  box-shadow: var(--summa-shadow);
   padding: 32px 20px 32px 20px;
   max-width: 700px;
   width: 100%;
@@ -43,7 +57,7 @@
   text-align: center;
   font-size: 2.2rem;
   font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
-  color: #3a5a7a;
+  color: var(--summa-title-color);
   letter-spacing: 1px;
   margin-bottom: 0.4em;
 }
@@ -52,7 +66,7 @@
   margin-top: -18px;
   font-family: 'Tagesschrift', serif;
   font-size: 1.1rem;
-  color: #bfa14a;
+  color: var(--summa-accent-color);
   letter-spacing: 2px;
   text-transform: lowercase;
   margin-bottom: 10px;
@@ -62,7 +76,7 @@
 .summa-divider {
   width: 90%;
   height: 1px;
-  background-color: #bfa14a;
+  background-color: var(--summa-accent-color);
   border: none;
   margin: 18px 0 24px 0;
   display: block;
@@ -86,14 +100,14 @@
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  background: #fff;
+  box-shadow: var(--summa-shadow);
+  background: var(--summa-content-bg);
 }
 
 .summa-description {
   text-align: center;
   font-size: 1.08rem;
-  color: #3a3a3a;
+  color: var(--summa-text-color);
   margin: 0 0 8px 0;
 }
 
@@ -106,7 +120,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--summa-content-bg);
   border-radius: 8px;
   padding: 8px 0 2px 0;
   margin-bottom: 0.5em;
@@ -114,7 +128,7 @@
 
 .summa-parts-label {
   font-size: 1rem;
-  color: #bfa14a;
+  color: var(--summa-accent-color);
   font-family: 'Tagesschrift', serif;
   margin-top: -8px;
 }
@@ -130,7 +144,7 @@
 }
 
 .summa-part-link {
-  color: #4d6c82;
+  color: var(--summa-primary-color);
   font-size: 1.15rem;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -142,7 +156,7 @@
 }
 
 .summa-part-link:hover {
-  color: #bfa14a;
+  color: var(--summa-accent-color);
 }
 
 .questions-header,
@@ -169,7 +183,7 @@
 
 .summa-back-link {
   text-decoration: none;
-  color: #4d6c82;
+  color: var(--summa-primary-color);
   font-size: 1rem;
   font-weight: 600;
   padding: 4px 8px;
@@ -178,7 +192,7 @@
 }
 
 .summa-back-link:hover {
-  color: #2c5aa0;
+  color: var(--summa-primary-hover);
   background-color: rgba(77, 108, 130, 0.1);
 }
 
@@ -209,7 +223,7 @@
 
 .summa-part-name {
   font-weight: bold;
-  color: #afa11b;
+  color: var(--summa-part-name-color);
   font-size: 1.05rem;
   overflow: hidden;
   text-overflow: unset;
@@ -223,13 +237,13 @@
 }
 
 .summa-question-number {
-  color: #bfa14a;
+  color: var(--summa-accent-color);
   font-size: 0.98rem;
   text-align: center;
   margin-top: 4px;
 
   a {
-    color: #4d6c82;
+    color: var(--summa-primary-color);
     text-decoration: none;
     font-weight: 600;
     padding: 2px 6px;
@@ -238,7 +252,7 @@
   }
 
   a:hover {
-    color: #2c5aa0;
+    color: var(--summa-primary-hover);
     background-color: rgba(77, 108, 130, 0.1);
   }
 }
@@ -260,7 +274,7 @@
   align-items: center;
 
   a {
-    color: #4d6c82;
+    color: var(--summa-primary-color);
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
@@ -275,7 +289,7 @@
   }
 
   a:hover {
-    color: #2c5aa0;
+    color: var(--summa-primary-hover);
     background-color: rgba(77, 108, 130, 0.1);
     transform: translateX(3px);
   }
@@ -463,134 +477,4 @@
   }
 }
 
-/* Legacy .summa layout (kept for backward compatibility, can be removed when unused) */
-.summa {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  margin-bottom: 30px;
-}
-
-.summa .summa_info {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  align-items: center;
-}
-
-.summa .summa_cover {
-  height: 412px;
-}
-
-.summa .summa_info p {
-  margin: 15px;
-  width: 320px;
-  text-align: center;
-}
-
-.summa .summa_parts {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  margin-bottom: 30px;
-}
-
-.summa .summa_parts #parts_title {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #fcfad9;
-  margin-bottom: -20px;
-}
-
-.summa .summa_parts #parts_list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 30px;
-  margin-top: 25px;
-}
-
-.summa .summa_parts #parts_list li {
-  text-decoration: none;
-  font-size: 20px;
-}
-
-.summa .summa_parts #parts_list li a:link {
-  color: #4d6c82;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.summa .summa_parts #parts_list li a:visited {
-  color: #014475;
-}
-
-.summa .summa_parts hr {
-  position: relative;
-  width: 120%;
-  height: 1px;
-  top: -35px;
-  z-index: -1;
-  color: Black;
-}
-
-.summa #subtitle {
-  margin-top: -30px;
-}
-
-.summa .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 20px;
-  align-items: center;
-  gap: 30px;
-  margin-bottom: 30px;
-}
-
-.summa .content h1 {
-  text-align: center;
-}
-
-.summa .summa_questions {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  list-style: none;
-  gap: 20px;
-}
-
-.summa .questions_header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-}
-
-.summa .questions_header .back_container {
-  margin-right: 10px;
-  text-align: center;
-}
-
-.summa .questions_header .back_container #back {
-  text-decoration: none;
-}
-
-.summa .questions_header .part_container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 95px;
-}
+/* Legacy styles removed - all functionality replaced with modern layout */

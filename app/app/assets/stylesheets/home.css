@@ -1,21 +1,22 @@
+/* Home page styles - simplified and cleaned up */
 .main_content {
   display: flex;
   justify-content: space-between;
+}
 
-  .about_us {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 30px;
+.about_us {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
 
-    #title {
-      margin-bottom: -30px;
-    }
+.about_us #title {
+  margin-bottom: -30px;
+}
 
-    p {
-      text-align: center;
-    }
-  }
+.about_us p {
+  text-align: center;
 }

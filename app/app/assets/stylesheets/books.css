@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: flex-start;
   padding: 24px 0;
-  background: #fffbe6;
+  background: var(--summa-background, #fffbe6);
   min-height: 80vh;
   width: 100%;
   box-sizing: border-box;
@@ -27,9 +27,9 @@
 
 .books-content {
   flex: 3 1 600px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  background: var(--summa-content-bg, #fff);
+  border-radius: var(--summa-border-radius, 12px);
+  box-shadow: var(--summa-shadow, 0 2px 8px rgba(0,0,0,0.06));
   padding: 32px 20px 32px 20px;
   max-width: 700px;
   width: 100%;
@@ -44,7 +44,7 @@
   text-align: center;
   font-size: 2.2rem;
   font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
-  color: #3a5a7a;
+  color: var(--summa-title-color, #3a5a7a);
   letter-spacing: 1px;
   margin-bottom: 0.4em;
 }
@@ -53,7 +53,7 @@
   margin-top: -18px;
   font-family: 'Tagesschrift', serif;
   font-size: 1.1rem;
-  color: #bfa14a;
+  color: var(--summa-accent-color, #bfa14a);
   letter-spacing: 2px;
   text-transform: lowercase;
   margin-bottom: 10px;
@@ -63,7 +63,7 @@
 .books-divider {
   width: 90%;
   height: 1px;
-  background-color: #bfa14a;
+  background-color: var(--summa-accent-color, #bfa14a);
   border: none;
   margin: 18px 0 24px 0;
 }
@@ -95,22 +95,13 @@
   }
 }
 
-/* Legacy .books index layout (kept for backward compatibility, can be removed when unused) */
+/* Book cover styles - still used in book list components */
 .books {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  margin-bottom: 30px;
-}
-
-.books p {
-  text-align: center;
-}
-
-.books #title {
-  margin-bottom: -30px;
 }
 
 .books #summa_theologiae a,
@@ -125,7 +116,7 @@
 .books #summa_theologiae a h1,
 .books #patristica a h1,
 .books #catecismo_pio_x a h1 {
-  color: #4d6c82;
+  color: var(--summa-primary-color, #4d6c82);
   text-decoration: underline;
 }
 
@@ -136,5 +127,3 @@
 .catecismo_pio_x_cover {
   height: 312px;
 }
-
-@import "summa.css";

@@ -6,25 +6,17 @@
 @import url("https://www.nerdfonts.com/assets/css/webfont.css");
 
 * {
-  font-family: "Cascadia Code", "Roboto", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Cascadia Code", "Roboto", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #333;
   background-color: #fcfad9;
-}
-
-hr {
-  width: 90%;
-  height: 1px;
-  background-color: #4d6c82;
-  border: none;
 }
 
 @import "nav_bar.css";
