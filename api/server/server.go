@@ -26,7 +26,7 @@ func Run(c *controllers.Controllers) {
 		v1.GET("/books/:name/:part/:chapter", rh.HandleBooks)
 		v1.GET("/books/:name/:part/:chapter/:article", rh.HandleBooks)
 
-		v1.POST("/search", rh.HandleSearch)
+		v1.GET("/search", rh.HandleSearch)
 	}
 
 	// Graceful shutdown
@@ -62,11 +62,47 @@ func (r *RouterHandler) HandleBooks(c *gin.Context) {
 		return
 	}
 
+	if response == nil {
+		c.JSON(404, gin.H{
+			"status": false,
+			"error":  "book not found",
+		})
+		return
+	}
+
 	c.JSON(200, response)
 }
 
 func (r *RouterHandler) HandleSearch(c *gin.Context) {
-	c.JSON(204, gin.H{})
+	query := c.Query("q")
+	if query == "" {
+		c.JSON(400, gin.H{
+			"status": false,
+			"error":  "query parameter 'q' is required",
+		})
+
+		return
+	}
+
+	response, err := r.Controllers.Search(query)
+	if err != nil {
+		slog.Error("Error in Search", "error", err)
+		c.JSON(400, gin.H{
+			"status": false,
+			"error":  err.Error(),
+		})
+		return
+	}
+
+	if response == nil {
+		c.JSON(404, gin.H{
+			"status": false,
+			"error":  "no results found",
+		})
+		return
+	}
+
+	c.JSON(200, response)
 }
 
 func (r *RouterHandler) HandleHealth(c *gin.Context) {

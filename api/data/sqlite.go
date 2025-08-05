@@ -29,14 +29,21 @@ func NewSQLite(dbConnections map[string]string) (*SQLite, error) {
 			return nil, fmt.Errorf("database file does not exist: %s", path)
 		}
 
-		// Open the SQLite database
-		db, err := sql.Open("sqlite3", path)
+		// Open the SQLite database with UTF-8 encoding
+		connectionString := path + "?_encoding=UTF8&_loc=auto"
+		db, err := sql.Open("sqlite3", connectionString)
 		if err != nil {
 			return nil, err
 		}
 		// Check if the database is reachable
 		if err := db.Ping(); err != nil {
 			return nil, fmt.Errorf("failed to connect to database: %s", err)
+		}
+
+		// Set UTF-8 encoding pragma
+		_, err = db.Exec("PRAGMA encoding = 'UTF-8'")
+		if err != nil {
+			return nil, fmt.Errorf("failed to set UTF-8 encoding: %s", err)
 		}
 
 		// Insert the database connection into the map with the key name

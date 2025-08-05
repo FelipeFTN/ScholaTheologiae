@@ -9,7 +9,7 @@ type BookRequest struct {
 	Name    string
 	Part    string
 	Chapter string
-	Article string // not used yet
+	Article string
 	Type    string
 }
 

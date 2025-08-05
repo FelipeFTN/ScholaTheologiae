@@ -2,7 +2,7 @@ package data
 
 // BOOKS
 const (
-	SUMMA_THEOLOGIAE = "summa_theologiae"
+	SUMMA_THEOLOGIAE = "tmp_summa"
 	PATRISTICA       = "patristica"
 	CATECISMO_PIO_X  = "catecismo_pio_x"
 )
