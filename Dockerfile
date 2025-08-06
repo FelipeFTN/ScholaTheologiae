@@ -5,6 +5,9 @@ WORKDIR /app/api
 COPY ./api /app/api
 COPY ./books/* /app/books/
 
+# Install sqlite3
+RUN apt-get update && apt-get install -y sqlite3 libsqlite3-dev
+
 RUN make build
 
 # ---------- Build Rails ----------
@@ -19,7 +22,8 @@ COPY ./app .
 # Move assets subfolders into assets/*
 RUN find /app/rails/app/assets -type f -exec cp {} /app/rails/public/ \;
 
-RUN /app/rails/bin/rails assets:precompile
+# Don't know if this is necessary, so i will comment it out for now
+# RUN /app/rails/bin/rails assets:precompile
 
 # ---------- Final Container ----------
 FROM frolvlad/alpine-glibc
@@ -76,9 +80,6 @@ COPY libyaml.tar.gz /tmp/libyaml.tar.gz
 RUN tar -xzf /tmp/libyaml.tar.gz -C /usr && rm /tmp/libyaml.tar.gz
 
 RUN cd /app/rails && bundle install --gemfile Gemfile
-
-# Replace nginx port
-# RUN sed -i "s/\${PORT}/$PORT/g" /etc/nginx/nginx.conf
 
 # Start all services
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
