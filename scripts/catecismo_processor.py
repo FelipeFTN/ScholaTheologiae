@@ -15,9 +15,10 @@ def sqlite_connection(db_path):
         CREATE TABLE IF NOT EXISTS catecismo_pio_x (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             part_title TEXT,
-            part_subtitle TEXT,
             chapter_number INTEGER NOT NULL,
-            chapter_title TEXT NOT NULL
+            chapter_title TEXT NOT NULL,
+            article_title TEXT,
+            article_number INTEGER
         );
     ''')
 

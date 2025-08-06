@@ -33,7 +33,6 @@ def init_dependencies(base_path, book_name):
         CREATE TABLE IF NOT EXISTS summa_theologiae (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             part_title TEXT,
-            part_subtitle TEXT,
             chapter_number INTEGER NOT NULL,
             chapter_title TEXT NOT NULL,
             article_title TEXT,
@@ -42,7 +41,6 @@ def init_dependencies(base_path, book_name):
     ''')
     conn.commit()
     return conn
-
 
 def save_db_metadata(db, part, question_num, question_title, article_num, article_title):
     """

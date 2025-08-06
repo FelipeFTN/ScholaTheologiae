@@ -5,25 +5,23 @@ import (
 	"scholatheologiae-api/models"
 )
 
+// Search performs an accent-insensitive search across all book databases
 func (d *Data) Search(query string) ([]models.SearchResult, error) {
-	// Prepare the statement for searching across all book databases
-	// There is no master yet, so we will search in all databases
 	var results []models.SearchResult
+
 	for book_name, database := range d.SQLite.databases {
 		if database.db == nil {
-			// This should not happen
 			slog.Error("Database for book not found", "book", book_name)
 			continue
 		}
 
-		slog.Info("Searching in book database", "book", book_name, "query", query)
-		// Prepare the statement
+		// Search using our custom accent-insensitive function
 		stmt, err := database.db.Prepare(`
 			SELECT id, part_title, chapter_title, chapter_number
 			FROM ` + book_name + ` 
-			WHERE LOWER(chapter_title) LIKE LOWER(?)
-			GROUP BY id, part_title, chapter_title, chapter_number
-			ORDER BY id
+			WHERE accent_insensitive_like(chapter_title, ?)
+			GROUP BY part_title, chapter_title, chapter_number
+			ORDER BY chapter_title
 			LIMIT 50
 		`)
 
@@ -32,15 +30,16 @@ func (d *Data) Search(query string) ([]models.SearchResult, error) {
 		}
 		defer stmt.Close()
 
-		// normalizedQuery := removeAccents(query)
-		// Execute the statement
-		rows, err := stmt.Query("%" + query + "%")
+		// Execute the search
+		rows, err := stmt.Query(query)
 		if err != nil {
+			slog.Error("Query execution failed", "error", err.Error())
 			return nil, err
 		}
 		defer rows.Close()
 
-		// Scan the results into a slice
+		// Collect results for this database
+		var dbResults []models.SearchResult
 		for rows.Next() {
 			var result models.SearchResult
 			result.Book = book_name
@@ -48,8 +47,10 @@ func (d *Data) Search(query string) ([]models.SearchResult, error) {
 			if err != nil {
 				return nil, err
 			}
-			results = append(results, result)
+			dbResults = append(dbResults, result)
 		}
+
+		results = append(results, dbResults...)
 	}
 
 	if len(results) == 0 {

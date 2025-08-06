@@ -5,8 +5,8 @@ type SearchResult struct {
 	Book          string `json:"book"`
 	ChapterTitle  string `json:"chapter_title"`
 	ChapterNumber int    `json:"chapter_number"`
-	Article       string `json:"article,omitempty"`
+	ArticleTitle  string `json:"article,omitempty"`
+	ArticleNumber int    `json:"article_number,omitempty"`
 	Content       string `json:"content,omitempty"`
 	PartTitle     string `json:"part_title,omitempty"`
-	PartSubtitle  string `json:"part_subtitle,omitempty"`
 }
