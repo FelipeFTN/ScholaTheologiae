@@ -6,7 +6,7 @@ COPY ./api /app/api
 COPY ./books/* /app/books/
 
 # Install sqlite3
-RUN apt-get update && apt-get install -y sqlite3 libsqlite3-dev
+RUN apt-get update && apt-get install -y libsqlite3-dev
 
 RUN make build
 
@@ -23,7 +23,8 @@ COPY ./app .
 RUN find /app/rails/app/assets -type f -exec cp {} /app/rails/public/ \;
 
 # Don't know if this is necessary, so i will comment it out for now
-# RUN /app/rails/bin/rails assets:precompile
+# Update: It is necessary.
+RUN /app/rails/bin/rails assets:precompile
 
 # ---------- Final Container ----------
 FROM frolvlad/alpine-glibc
