@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="pt-BR">
 
   <head>
@@ -9,176 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <meta name="robots" content="noindex, nofollow">
-
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        font-size: 16px;
-      }
-
-      body {
-        background: #fcfad9;
-        color: #333;
-        display: flex;
-        flex-direction: column;
-        font-family: "Cascadia Code", "Roboto", sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        -webkit-text-size-adjust: 100%;
-      }
-
-      .navbar {
-        display: flex;
-        width: 100vw;
-        height: 70px;
-        color: #ffffff;
-        background-color: #333;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
-      .navbar .logo {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #ffffff;
-      }
-
-      .navbar .logo a {
-        color: #ffffff;
-        text-decoration: none;
-      }
-
-      .navbar .logo a:hover {
-        text-decoration: underline;
-      }
-
-      main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        padding: 2rem;
-        text-align: center;
-        gap: 2rem;
-      }
-
-      .error-container {
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .error-number {
-        font-size: 8rem;
-        font-weight: 700;
-        color: #4d6c82;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-      }
-
-      .error-title {
-        font-size: 2rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 1rem;
-      }
-
-      .error-message {
-        font-size: 1.1rem;
-        color: #666;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-      }
-
-      .error-quote {
-        font-style: italic;
-        color: #4d6c82;
-        font-size: 1rem;
-        margin: 2rem 0;
-        padding: 1rem;
-        border-left: 4px solid #4d6c82;
-        background-color: rgba(77, 108, 130, 0.1);
-        border-radius: 0 8px 8px 0;
-      }
-
-      .error-quote cite {
-        display: block;
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #333;
-      }
-
-      .back-button {
-        display: inline-block;
-        padding: 12px 24px;
-        background-color: #4d6c82;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: background-color 0.3s ease;
-      }
-
-      .back-button:hover {
-        background-color: #3a5266;
-        text-decoration: none;
-      }
-
-      .additional-links {
-        margin-top: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
-      }
-
-      .additional-links a {
-        color: #4d6c82;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 8px 16px;
-        border: 2px solid #4d6c82;
-        border-radius: 6px;
-        transition: all 0.3s ease;
-      }
-
-      .additional-links a:hover {
-        background-color: #4d6c82;
-        color: white;
-      }
-
-      @media (max-width: 768px) {
-        .error-number {
-          font-size: 4rem;
-        }
-        
-        .error-title {
-          font-size: 1.5rem;
-        }
-        
-        .additional-links {
-          flex-direction: column;
-          align-items: center;
-        }
-      }
-
-    </style>
+    <link rel="stylesheet" href="/styles/static.css">
 
   </head>
 
@@ -193,17 +23,17 @@
     </div>
 
     <main>
-      <div class="error-container">
-        <div class="error-number">404</div>
+      <div class="container">
+        <div class="number">404</div>
         
-        <h1 class="error-title">Página não encontrada</h1>
+        <h1 class="title">Página não encontrada</h1>
         
-        <p class="error-message">
+        <p class="message">
           A página que você está procurando não existe ou foi movida. 
           Talvez você tenha digitado o endereço incorretamente ou o link esteja desatualizado.
         </p>
 
-        <div class="error-quote">
+        <div class="quote">
           "Buscai e achareis; batei e abrir-se-vos-á."
           <cite>— Mateus 7:7</cite>
         </div>
@@ -219,7 +49,6 @@
         </div>
       </div>
     </main>
-
   </body>
 
 </html>

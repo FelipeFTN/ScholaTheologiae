@@ -158,6 +158,10 @@
   text-transform: lowercase;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 12px rgba(191, 161, 74, 0.3);
+
+  i {
+    font-size: 18px;
+  }
 }
 
 .search-submit-btn:hover {
@@ -169,10 +173,6 @@
 .search-submit-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(191, 161, 74, 0.3);
-}
-
-.search-submit-btn i {
-  font-size: 18px;
 }
 
 #search-results {
@@ -212,10 +212,10 @@
 
   .search-modal-header {
     padding: 24px 32px;
-  }
 
-  .search-modal-header h3 {
-    font-size: 1.6rem;
+    h3 {
+      font-size: 1.6rem;
+    }
   }
 
   .search-modal-body {
@@ -252,10 +252,10 @@
 
   .search-modal-header {
     padding: 16px 20px;
-  }
 
-  .search-modal-header h3 {
-    font-size: 1.2rem;
+    h3 {
+      font-size: 1.2rem;
+    }
   }
 
   .search-modal-body {
@@ -293,15 +293,15 @@
   padding: 28px 24px;
   margin-bottom: 24px;
   box-shadow: 0 4px 16px rgba(191, 161, 74, 0.15);
-}
 
-.search-header-section h1 {
-  font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
-  font-size: 2rem;
-  color: #bfa14a;
-  text-align: center;
-  margin: 0 0 16px 0;
-  letter-spacing: 1px;
+  h1 {
+    font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
+    font-size: 2rem;
+    color: #bfa14a;
+    text-align: center;
+    margin: 0 0 16px 0;
+    letter-spacing: 1px;
+  }
 }
 
 .search-query-display {
@@ -368,15 +368,15 @@
   align-items: center;
   justify-content: center;
   min-width: 50px;
+
+  i {
+    font-size: 18px;
+  }
 }
 
 .search-btn-inline:hover {
   background: linear-gradient(135deg, #afa11b 0%, #9a931a 100%);
   transform: translateY(-2px);
-}
-
-.search-btn-inline i {
-  font-size: 18px;
 }
 
 .search-results-content {
@@ -397,6 +397,13 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+
+  p {
+    font-family: 'Cascadia Code', 'Roboto', sans-serif;
+    color: #6b5d3a;
+    font-size: 1.1rem;
+    margin: 0;
+  }
 }
 
 .loading-spinner {
@@ -416,13 +423,6 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-.search-loading p {
-  font-family: 'Cascadia Code', 'Roboto', sans-serif;
-  color: #6b5d3a;
-  font-size: 1.1rem;
-  margin: 0;
 }
 
 .results-header {
@@ -509,6 +509,21 @@
 .search-no-results {
   padding: 60px 24px;
   text-align: center;
+
+  h2 {
+    font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
+    font-size: 1.8rem;
+    color: #6b5d3a;
+    margin: 0 0 12px 0;
+  }
+
+  p {
+    font-family: 'Cascadia Code', 'Roboto', sans-serif;
+    color: #888;
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.4;
+  }
 }
 
 .search-no-results .empty-icon {
@@ -517,44 +532,29 @@
   margin-bottom: 24px;
 }
 
-.search-no-results h2 {
-  font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
-  font-size: 1.8rem;
-  color: #6b5d3a;
-  margin: 0 0 12px 0;
-}
-
-.search-no-results p {
-  font-family: 'Cascadia Code', 'Roboto', sans-serif;
-  color: #888;
-  font-size: 1.1rem;
-  margin: 0;
-  line-height: 1.4;
-}
-
 .search-empty-state {
   padding: 60px 24px;
   text-align: center;
+
+  h2 {
+    font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
+    font-size: 1.8rem;
+    color: #6b5d3a;
+    margin: 0 0 12px 0;
+  }
+
+  p {
+    font-family: 'Cascadia Code', 'Roboto', sans-serif;
+    color: #888;
+    font-size: 1.1rem;
+    margin: 0;
+  }
 }
 
 .empty-icon {
   font-size: 64px;
   color: #d4c49a;
   margin-bottom: 24px;
-}
-
-.search-empty-state h2 {
-  font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
-  font-size: 1.8rem;
-  color: #6b5d3a;
-  margin: 0 0 12px 0;
-}
-
-.search-empty-state p {
-  font-family: 'Cascadia Code', 'Roboto', sans-serif;
-  color: #888;
-  font-size: 1.1rem;
-  margin: 0;
 }
 
 /* Mobile adjustments for search results page */
@@ -565,10 +565,10 @@
 
   .search-header-section {
     padding: 20px 16px;
-  }
 
-  .search-header-section h1 {
-    font-size: 1.6rem;
+    h1 {
+      font-size: 1.6rem;
+    }
   }
 
   .search-input-group {
@@ -592,13 +592,13 @@
 
   .search-empty-state {
     padding: 40px 16px;
+
+    h2 {
+      font-size: 1.5rem;
+    }
   }
 
   .empty-icon {
     font-size: 48px;
-  }
-
-  .search-empty-state h2 {
-    font-size: 1.5rem;
   }
 }

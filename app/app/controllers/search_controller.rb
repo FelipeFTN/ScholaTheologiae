@@ -15,7 +15,6 @@ class SearchController < ApplicationController
     # Only search if we have a decent query
     if @query.present? && @query.length >= 2
       @results = search_texts(@query)
-      Rails.logger.info "Search: '#{@query}' found #{@results.length} results"
     end
   end
 end

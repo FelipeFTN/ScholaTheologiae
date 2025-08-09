@@ -1,236 +1,52 @@
 <!doctype html>
-
 <html lang="pt-BR">
 
-  <head>
+<head>
+  <title>Em Manutenção - Schola Theologiae</title>
 
-    <title>Em Manutenção - Schola Theologiae</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="styles/static.css">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, width=device-width">
-    <meta name="robots" content="noindex, nofollow">
+</head>
 
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+<body>
+  <!-- Maintenance page for Schola Theologiae -->
 
-      *, *::before, *::after {
-        box-sizing: border-box;
-      }
+  <div class="navbar">
+    <div class="logo">
+      <a href="/home">Schola Theologiae</a>
+    </div>
+  </div>
 
-      * {
-        margin: 0;
-        padding: 0;
-      }
+  <main>
+    <div class="container">
+      <div class="tools-icon">🔧</div>
 
-      html {
-        font-size: 16px;
-      }
+      <h1 class="title">Em Manutenção</h1>
 
-      body {
-        background: #fcfad9;
-        color: #333;
-        display: flex;
-        flex-direction: column;
-        font-family: "Cascadia Code", "Roboto", sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        -webkit-text-size-adjust: 100%;
-      }
+      <p class="message">
+        Esta seção está temporariamente em manutenção. Estamos trabalhando para
+        melhorar a experiência e adicionar novos conteúdos teológicos.
+      </p>
 
-      .navbar {
-        display: flex;
-        width: 100vw;
-        height: 70px;
-        color: #ffffff;
-        background-color: #333;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        text-align: center;
-      }
+      <div class="quote">
+        "Toda obra boa, para ser perfeita, necessita de tempo e paciência."
+        <cite>— São Francisco de Sales</cite>
+      </div>
 
-      .navbar .logo {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #ffffff;
-      }
+      <div style="margin: 2rem 0;">
+        <a href="/books/" class="back-button">Voltar aos Livros</a>
+        <a href="/home" class="secondary-button">Página Inicial</a>
+      </div>
 
-      .navbar .logo a {
-        color: #ffffff;
-        text-decoration: none;
-      }
-
-      .navbar .logo a:hover {
-        text-decoration: underline;
-      }
-
-      main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        padding: 2rem;
-        text-align: center;
-        gap: 2rem;
-      }
-
-      .maintenance-container {
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .maintenance-icon {
-        font-size: 6rem;
-        color: #4d6c82;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-      }
-
-      .maintenance-title {
-        font-size: 2.5rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 1rem;
-      }
-
-      .maintenance-message {
-        font-size: 1.2rem;
-        color: #666;
-        margin-bottom: 2rem;
-        line-height: 1.6;
-      }
-
-      .maintenance-quote {
-        font-style: italic;
-        color: #4d6c82;
-        font-size: 1rem;
-        margin: 2rem 0;
-        padding: 1rem;
-        border-left: 4px solid #4d6c82;
-        background-color: rgba(77, 108, 130, 0.1);
-        border-radius: 0 8px 8px 0;
-      }
-
-      .maintenance-quote cite {
-        display: block;
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #333;
-      }
-
-      .back-button {
-        display: inline-block;
-        padding: 12px 24px;
-        background-color: #4d6c82;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: background-color 0.3s ease;
-        margin-right: 1rem;
-      }
-
-      .back-button:hover {
-        background-color: #3a5266;
-        text-decoration: none;
-      }
-
-      .secondary-button {
-        display: inline-block;
-        padding: 12px 24px;
-        background-color: transparent;
-        color: #4d6c82;
-        text-decoration: none;
-        border: 2px solid #4d6c82;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-
-      .secondary-button:hover {
-        background-color: #4d6c82;
-        color: white;
-      }
-
-      .additional-info {
-        margin-top: 2rem;
-        padding: 1rem;
-        background-color: rgba(77, 108, 130, 0.05);
-        border-radius: 8px;
-        font-size: 0.95rem;
-        color: #555;
-      }
-
-      .tools-icon {
-        display: inline-block;
-        margin-bottom: 1rem;
-        font-size: 3rem;
-        color: #4d6c82;
-      }
-
-      @media (max-width: 768px) {
-        .maintenance-title {
-          font-size: 2rem;
-        }
-        
-        .maintenance-icon {
-          font-size: 4rem;
-        }
-        
-        .back-button, .secondary-button {
-          display: block;
-          margin: 0.5rem 0;
-          text-align: center;
-        }
-      }
-
-    </style>
-
-  </head>
-
-  <body>
-
-    <!-- Maintenance page for Schola Theologiae -->
-
-    <div class="navbar">
-      <div class="logo">
-        <a href="/">Schola Theologiae</a>
+      <div class="additional-info">
+        <strong>Em breve:</strong> A seção Patrística será lançada com uma coleção completa
+        dos escritos dos Santos Padres da Igreja, organizados por período histórico e tema teológico.
       </div>
     </div>
-
-    <main>
-      <div class="maintenance-container">
-        <div class="tools-icon">🔧</div>
-        
-        <h1 class="maintenance-title">Em Manutenção</h1>
-        
-        <p class="maintenance-message">
-          Esta seção está temporariamente em manutenção. Estamos trabalhando para 
-          melhorar a experiência e adicionar novos conteúdos teológicos.
-        </p>
-
-        <div class="maintenance-quote">
-          "Toda obra boa, para ser perfeita, necessita de tempo e paciência."
-          <cite>— São Francisco de Sales</cite>
-        </div>
-
-        <div style="margin: 2rem 0;">
-          <a href="/books/" class="back-button">Voltar aos Livros</a>
-          <a href="/" class="secondary-button">Página Inicial</a>
-        </div>
-
-        <div class="additional-info">
-          <strong>Em breve:</strong> A seção Patrística será lançada com uma coleção completa 
-          dos escritos dos Santos Padres da Igreja, organizados por período histórico e tema teológico.
-        </div>
-      </div>
-    </main>
-
-  </body>
+  </main>
+</body>
 
 </html>
