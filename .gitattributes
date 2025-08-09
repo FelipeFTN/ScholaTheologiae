@@ -11,7 +11,7 @@ app/public/*.html linguist-vendored
 *.rb text eol=lf
 *.go text eol=lf
 *.js text eol=lf
-*.css text eol=lf
+*.css linguist-detectable=false
 *.html text eol=lf
 *.md text eol=lf
 *.yml text eol=lf
