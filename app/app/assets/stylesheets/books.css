@@ -1,129 +1,220 @@
-/* --- Unified and modern Books styles --- */
+/* Books Page Styles */
 
+/* Layout */
 .books-main-container {
+  background: linear-gradient(135deg, #fcfad9 0%, #f8f5e4 100%);
+  min-height: 100vh;
+  padding: 2rem 1rem;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  padding: 24px 0;
-  background: var(--book-background, #fffbe6);
-  min-height: 80vh;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.books {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 34px;
 }
 
 .books-sidebar {
-  flex: 1 1 0;
-  min-width: 0;
+  flex: 1;
+  max-width: 200px;
 }
 
 .books-content {
-  flex: 3 1 600px;
-  background: var(--book-content-bg, #fff);
-  border-radius: var(--book-border-radius, 12px);
-  box-shadow: var(--book-shadow, 0 2px 8px rgba(0,0,0,0.06));
-  padding: 32px 20px 32px 20px;
-  max-width: 700px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
+  flex: 2;
+  max-width: 900px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid #f0ead6;
+  padding: 3rem 2rem;
+  margin: 0 1rem;
 }
 
+/* Header */
 .books-title {
+  font-family: 'Tagesschrift', 'Eagle Lake', serif;
+  font-size: 3rem;
+  color: #8b4513;
   text-align: center;
-  font-size: 2.2rem;
-  font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
-  color: var(--book-title-color, #3a5a7a);
-  letter-spacing: 1px;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .books-subtitle {
-  margin-top: -18px;
-  font-family: 'Tagesschrift', serif;
-  font-size: 1.1rem;
-  color: var(--book-accent-color, #bfa14a);
-  letter-spacing: 2px;
-  text-transform: lowercase;
-  margin-bottom: 10px;
+  font-family: 'Eagle Lake', serif;
+  font-size: 1.2rem;
+  color: #d4af37;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 2rem;
   display: block;
 }
 
 .books-divider {
-  width: 90%;
-  height: 1px;
-  background-color: var(--book-accent-color, #bfa14a);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
   border: none;
-  margin: 18px 0 24px 0;
+  margin: 0 auto 3rem auto;
 }
 
-@media (max-width: 900px) {
+/* Books Grid */
+.books {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+/* Book Cards */
+.book-card {
+  background: linear-gradient(135deg, #f8f5e4 0%, #f0ead6 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e8dcc0;
+  transition: all 0.3s ease;
+  max-width: 350px;
+  position: relative;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  border-color: #d4af37;
+}
+
+.book-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.book-card h1 {
+  font-family: 'MedievalSharp', serif;
+  font-size: 1.6rem;
+  color: #8b4513;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.book-card:hover h1 {
+  color: #d4af37;
+}
+
+/* Book Covers */
+.book-cover {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+  display: block;
+}
+
+.book-card:hover .book-cover {
+  transform: scale(1.05);
+}
+
+#summa_theologiae .book-cover {
+  height: 280px;
+  object-fit: cover;
+}
+
+#catecismo_pio_x .book-cover,
+#patristica .book-cover {
+  height: 240px;
+  object-fit: cover;
+}
+
+/* Book Info */
+.book-description {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.book-action {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #8b4513, #a0522d);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.book-action:hover {
+  background: linear-gradient(135deg, #a0522d, #8b4513);
+  transform: translateY(-2px);
+}
+
+.coming-soon {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  /* left: 0.3rem; */
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Mobile */
+@media (max-width: 1024px) {
   .books-main-container {
     flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 8px 0;
+    padding: 1rem;
   }
+
   .books-sidebar {
     display: none;
   }
+
   .books-content {
-    max-width: 100vw;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 18px 4vw;
+    margin: 0;
+    padding: 2rem 1.5rem;
   }
 }
 
-@media (max-width: 600px) {
-  .books-content {
-    padding: 10px 2vw;
-  }
+@media (max-width: 768px) {
   .books-title {
-    font-size: 1.4rem;
+    font-size: 2.2rem;
+  }
+
+  .books-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .books {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .book-card {
+    padding: 1.5rem;
   }
 }
 
-/* Book cover styles - still used in book list components */
-.books {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-}
+@media (max-width: 480px) {
+  .books-title {
+    font-size: 1.8rem;
+  }
 
-.books #summa_theologiae a,
-.books #patristica a,
-.books #catecismo_pio_x a {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  align-items: center;
-}
+  .book-card {
+    padding: 1rem;
+  }
 
-.books #summa_theologiae a h1,
-.books #patristica a h1,
-.books #catecismo_pio_x a h1 {
-  color: var(--book-primary-color, #4d6c82);
-  text-decoration: underline;
-}
-
-.summa_cover {
-  height: 412px;
-}
-.patristica_cover,
-.catecismo_pio_x_cover {
-  height: 312px;
+  #summa_theologiae .book-cover,
+  #catecismo_pio_x .book-cover,
+  #patristica .book-cover {
+    height: 200px;
+  }
 }

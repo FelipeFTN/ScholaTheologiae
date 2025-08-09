@@ -1,13 +1,121 @@
-<%# Nav Bar %>
-<%= render "components/navbar" %>
-
 <div class="page home">
-  <h1>Sobre nós</h1>
-  <label id="subtitle">de nobis</label>
-  <hr>
-  <div class="daily-content">
-    <p>
-      Uma iniciativa dedicada a promover o conhecimento e a compreensão da tradição católica, disponibilizando obras clássicas, textos teológicos e recursos para o crescimento espiritual. Nosso objetivo é facilitar o acesso à riqueza da fé e incentivar a vivência diária dos valores cristãos.
-    </p>
-  </div>
+  <!-- Hero Section -->
+  <section class="home-hero">
+    <h1>Schola Theologiae</h1>
+    <div class="subtitle">Tradição · Sabedoria · Fé</div>
+    <div class="description">
+      Uma biblioteca digital dedicada à preservação e difusão da rica tradição teológica católica. 
+      Explore textos clássicos, opere de santos doutores e recursos essenciais para o crescimento espiritual e intelectual.
+    </div>
+  </section>
+
+  <!-- Topic Search Section -->
+  <section class="topic-search-section">
+    <h2>🔍 Busca por Tópicos</h2>
+    <p>Explore temas fundamentais da teologia católica através de nossa coleção</p>
+    
+    <div class="topic-tags">
+      <button class="topic-tag" onclick="searchTopic('matrimônio')">Matrimônio</button>
+      <button class="topic-tag" onclick="searchTopic('sacramento')">Sacramentos</button>
+      <button class="topic-tag" onclick="searchTopic('batismo')">Batismo</button>
+      <button class="topic-tag" onclick="searchTopic('eucaristia')">Eucaristia</button>
+      <button class="topic-tag" onclick="searchTopic('penitência')">Penitência</button>
+      <button class="topic-tag" onclick="searchTopic('graça')">Graça</button>
+      <button class="topic-tag" onclick="searchTopic('virtude')">Virtudes</button>
+      <button class="topic-tag" onclick="searchTopic('pecado')">Pecado</button>
+      <button class="topic-tag" onclick="searchTopic('oração')">Oração</button>
+      <button class="topic-tag" onclick="searchTopic('fé')">Fé</button>
+      <button class="topic-tag" onclick="searchTopic('esperança')">Esperança</button>
+      <%# <button class="topic-tag" onclick="searchTopic('caridade')">Caridade</button> %>
+      <button class="topic-tag" onclick="searchTopic('trindade')">Santíssima Trindade</button>
+      <%# <button class="topic-tag" onclick="searchTopic('igreja')">Igreja</button> %>
+      <%# <button class="topic-tag" onclick="searchTopic('moral')">Moral</button> %>
+    </div>
+  </section>
+
+  <!-- Books Preview Section -->
+  <section class="books-preview">
+    <div class="book-preview-card">
+      <h3>📖 Summa Theologica</h3>
+      <p>
+        A obra-prima de São Tomás de Aquino, considerada uma das maiores sínteses teológicas da história. 
+        Explore questões fundamentais sobre Deus, a criação, a moral cristã e a vida eterna através da 
+        metodologia escolástica perfeita do Doutor Angélico.
+      </p>
+      <a href="/books/summa-theologiae" class="book-link">
+        <i class="nf nf-md-book_open_page_variant"></i>
+        Explorar Summa
+      </a>
+    </div>
+
+    <div class="book-preview-card">
+      <h3>✝️ Catecismo de São Pio X</h3>
+      <p>
+        O catecismo clássico que formou gerações de católicos com sua clareza e precisão doutrinal. 
+        Uma fonte confiável para compreender os fundamentos da fé católica de forma simples e direta, 
+        ideal para catequese e formação pessoal.
+      </p>
+      <a href="/books/catecismo-pio-x" class="book-link">
+        <i class="nf nf-md-cross"></i>
+        Estudar Catecismo
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2>✨ Recursos Disponíveis</h2>
+    
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="icon">🔍</div>
+        <h3>Busca Avançada</h3>
+        <p>Encontre passagens específicas em toda nossa biblioteca com busca inteligente</p>
+      </div>
+      
+      <div class="feature-item">
+        <div class="icon">📚</div>
+        <h3>Textos Clássicos</h3>
+        <p>Acesso completo a obras fundamentais da tradição católica</p>
+      </div>
+      
+      <div class="feature-item">
+        <div class="icon">🎯</div>
+        <h3>Navegação Intuitiva</h3>
+        <p>Interface moderna e responsiva para uma experiência de leitura superior</p>
+      </div>
+      
+      <div class="feature-item">
+        <div class="icon">⭐</div>
+        <h3>Conteúdo Confiável</h3>
+        <p>Textos autênticos e aprovados pela tradição da Igreja Católica</p>
+      </div>
+      
+      <div class="feature-item">
+        <div class="icon">📖</div>
+        <h3>Estudo Sistemático</h3>
+        <p>Organize seus estudos com estrutura clara e referências cruzadas</p>
+      </div>
+      
+      <div class="feature-item">
+        <div class="icon">🙏</div>
+        <h3>Formação Espiritual</h3>
+        <p>Recursos para aprofundar sua vida de fé e conhecimento de Deus</p>
+      </div>
+    </div>
+  </section>
 </div>
+
+<script>
+// Topic search functionality
+function searchTopic(topic) {
+  // Add visual feedback
+  event.target.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    event.target.style.transform = '';
+  }, 150);
+  
+  // Navigate to search results
+  window.location.href = `/search/results?q=${encodeURIComponent(topic)}`;
+}
+</script>
