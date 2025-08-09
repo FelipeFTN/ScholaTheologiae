@@ -26,6 +26,21 @@
   <body>
     <%# Nav Bar %>
     <%= render "components/navbar" %>
+    
+    <%# Search Modal %>
+    <div id="search-modal" class="search-modal-overlay">
+      <div class="search-modal-content">
+        <div class="search-modal-header">
+          <h3>Buscar</h3>
+          <button id="close-search" class="close-btn">&times;</button>
+        </div>
+        <div class="search-modal-body">
+          <input type="text" id="search-input" placeholder="Digite sua busca..." autocomplete="off">
+          <div id="search-results"></div>
+        </div>
+      </div>
+    </div>
+    
     <%= yield %>
   </body>
 </html>

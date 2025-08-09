@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   get "books" => "books#index", as: :books
 
+  # Search routes
+  get "search" => "search#index", as: :search
+  get "search/results" => "search#results", as: :search_results
+
   get "divine_office" => "divine_office#index", as: :divine_office
   get "calendar" => "calendar#index", as: :calendar
   get "daily_liturgy" => "daily_liturgy#index", as: :daily_liturgy
