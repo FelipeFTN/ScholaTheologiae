@@ -1,17 +1,87 @@
-<%# Search results view - will be used later when implementing API integration %>
 <% content_for :title, "Resultados da Busca - Schola Theologiae" %>
 
-<div class="page">
-  <div class="content">
-    <h1>Resultados da Busca</h1>
-    <p id="subtitle">resultados para "<%= @query %>"</p>
-    <hr>
-    
-    <% if @query.present? %>
-      <p>Buscando por: <strong><%= @query %></strong></p>
-      <p><em>Em breve os resultados da API serão exibidos aqui.</em></p>
-    <% else %>
-      <p>Nenhuma busca especificada.</p>
-    <% end %>
+<div class="search-results-page">
+  <div class="search-results-container">
+    <div class="search-header-section">
+      <h1>Resultados da Busca</h1>
+      <% if @query.present? %>
+        <div class="search-query-display">
+          <span class="search-query-label">Buscando por:</span>
+          <span class="search-query-text">"<%= @query %>"</span>
+        </div>
+      <% end %>
+      
+      <!-- Search form for new searches -->
+      <form class="search-form-inline" action="/search/results" method="get">
+        <div class="search-input-group">
+          <input type="text" name="q" value="<%= @query %>" placeholder="Digite uma nova busca..." class="search-input-inline">
+          <button type="submit" class="search-btn-inline">
+            <i class="nf nf-md-magnify"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="search-results-content">
+      <% if @query.present? %>
+        <!-- Show loading spinner briefly for nice UX -->
+        <div class="search-status">
+          <div class="search-loading">
+            <div class="loading-spinner"></div>
+            <p>Buscando nos textos sagrados...</p>
+          </div>
+        </div>
+        
+        <% if @query.length >= 2 %>
+          <% if @results.any? %>
+            <!-- Search results -->
+            <div class="search-results-section">
+              <div class="results-header">
+                <span class="results-count">
+                  <%= pluralize(@results.length, 'resultado encontrado', 'resultados encontrados') %>
+                </span>
+              </div>
+              
+              <% @results.each do |result| %>
+                <a href="<%= result[:url] %>" class="search-result-card">
+                  <h3 class="result-title"><%= result[:title] %></h3>
+                  <div class="result-meta">
+                    <span class="result-source"><%= result[:book] %></span>
+                    <span class="result-location"><%= result[:part] %></span>
+                  </div>
+                </a>
+              <% end %>
+            </div>
+          <% else %>
+            <!-- No results found -->
+            <div class="search-no-results">
+              <div class="empty-icon">
+                <i class="nf nf-md-book_search"></i>
+              </div>
+              <h2>Nenhum resultado encontrado</h2>
+              <p>Não encontramos resultados para "<%= @query %>". Tente usar termos diferentes ou verifique a ortografia.</p>
+            </div>
+          <% end %>
+        <% else %>
+          <!-- Query too short -->
+          <div class="search-no-results">
+            <div class="empty-icon">
+              <i class="nf nf-md-text_search"></i>
+            </div>
+            <h2>Termo muito curto</h2>
+            <p>Digite pelo menos 2 caracteres para realizar a busca.</p>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- No query yet -->
+        <div class="search-empty-state">
+          <div class="empty-icon">
+            <i class="nf nf-md-book_search"></i>
+          </div>
+          <h2>Realize uma busca</h2>
+          <p>Digite um termo acima para buscar nos textos sagrados.</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

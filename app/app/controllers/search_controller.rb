@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
 class SearchController < ApplicationController
+  include SearchHelper
+
+  # Just a placeholder for search page/modal
   def index
-    # This will be the search page/modal
   end
 
+  # Handle search requests and show results
   def results
-    # This will handle the search results
-    @query = params[:q]
-    # For now, we'll just render the results without calling the API
-    # We'll implement the API call later
+    @query = params[:q]&.strip
+    @results = []
+    
+    # Only search if we have a decent query
+    if @query.present? && @query.length >= 2
+      @results = search_texts(@query)
+      Rails.logger.info "Search: '#{@query}' found #{@results.length} results"
+    end
   end
 end

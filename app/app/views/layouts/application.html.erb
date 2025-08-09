@@ -35,7 +35,15 @@
           <button id="close-search" class="close-btn">&times;</button>
         </div>
         <div class="search-modal-body">
-          <input type="text" id="search-input" placeholder="Digite sua busca..." autocomplete="off">
+          <form id="search-form" action="/search/results" method="get">
+            <div class="search-input-wrapper">
+              <input type="text" name="q" id="search-input" placeholder="Digite sua busca..." autocomplete="off">
+              <button type="submit" class="search-submit-btn">
+                <i class="nf nf-md-magnify"></i>
+                <span>Buscar</span>
+              </button>
+            </div>
+          </form>
           <div id="search-results"></div>
         </div>
       </div>
