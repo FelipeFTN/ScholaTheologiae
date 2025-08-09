@@ -1,6 +1,6 @@
-/* --- Unified and modern Book styles --- */
+/* Book Page Styles */
 
-/* CSS Variables for consistency */
+/* CSS Variables */
 :root {
   --book-primary-color: #4d6c82;
   --book-primary-hover: #2c5aa0;
@@ -14,38 +14,31 @@
   --book-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+/* Main Layout */
 .book-main-container {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   gap: 24px;
-  padding: 24px 0;
+  /* padding: 24px 0; */
   background: var(--book-background);
   min-height: 80vh;
-  width: 100%;
   box-sizing: border-box;
 }
 
 .book-sidebar {
-  flex: 1 1 0;
-  overflow: hidden;
-  text-overflow: unset;
-  width: 100%;
-  height: 38px;
-  line-height: 1.2;
+  flex: 1;
   display: flex;
   align-items: center;
 }
 
 .book-content {
-  flex: 3 1 600px;
+  flex: 3;
+  max-width: 700px;
   background: var(--book-content-bg);
   border-radius: var(--book-border-radius);
   box-shadow: var(--book-shadow);
-  padding: 32px 20px 32px 20px;
-  max-width: 700px;
-  width: 100%;
+  padding: 32px 20px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -53,24 +46,43 @@
   box-sizing: border-box;
 }
 
+/* Header */
+.book-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.book-back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .book-title {
   text-align: center;
   font-size: 2.2rem;
-  font-family: 'Skranji', 'MedievalSharp', 'Eagle Lake', serif;
+  font-family: 'Tagesschrift', 'Skranji', serif;
   color: var(--book-title-color);
   letter-spacing: 1px;
   margin-bottom: 0.4em;
 }
 
 .book-subtitle {
-  margin-top: -18px;
   font-family: 'Tagesschrift', serif;
   font-size: 1.1rem;
   color: var(--book-accent-color);
   letter-spacing: 2px;
   text-transform: lowercase;
-  margin-bottom: 10px;
-  display: block;
+  margin: -18px 0 10px 0;
 }
 
 .book-divider {
@@ -78,12 +90,10 @@
   height: 1px;
   background-color: var(--book-accent-color);
   border: none;
-  margin: 18px 0 24px 0;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 18px auto 24px auto;
 }
 
+/* Book Info */
 .book-info {
   display: flex;
   flex-direction: column;
@@ -94,7 +104,6 @@
 .book-cover {
   max-width: 220px;
   width: 100%;
-  height: auto;
   min-width: 120px;
   min-height: 120px;
   object-fit: cover;
@@ -111,6 +120,7 @@
   margin: 0 0 8px 0;
 }
 
+/* Parts Section */
 .book-parts {
   width: 100%;
   margin-top: 18px;
@@ -159,26 +169,23 @@
   color: var(--book-accent-color);
 }
 
+/* Questions Header and Navigation */
 .questions-header,
 .book-questions-header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-bottom: 18px;
-  gap: 0;
-  flex-wrap: wrap;
-}
-
-.questions-header>*,
-.book-questions-header>* {
-  flex: 0 1 auto;
+  padding: 0 12px;
+  gap: 12px;
 }
 
 .back-container {
   flex: 0 0 auto;
-  align-items: flex-start;
+  width: 85px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .book-back-link {
@@ -197,43 +204,40 @@
 }
 
 .book-header-info {
-  flex: 1 1 0;
-  min-width: 120px;
+  flex: 1;
   text-align: center;
-  word-break: break-word;
-  margin-left: 0;
-  margin-right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
+/* Part Container - Fixed Overflow Issues */
 .part-container {
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  min-width: 100px;
-  max-width: 115px;
   width: 115px;
-  height: 100%;
+  min-width: 80px;
+  max-width: 140px;
+  text-align: center;
   overflow: hidden;
-  text-align: left;
 }
 
 .book-part-name {
   font-weight: bold;
   color: var(--book-part-name-color);
   font-size: 1.05rem;
-  overflow: hidden;
-  text-overflow: unset;
-  max-width: 100%;
-  width: 100%;
   line-height: 1.2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  max-width: 100%;
 }
 
 .book-question-number {
@@ -241,58 +245,29 @@
   font-size: 0.98rem;
   text-align: center;
   margin-top: 4px;
-
-  a {
-    color: var(--book-primary-color);
-    text-decoration: none;
-    font-weight: 600;
-    padding: 2px 6px;
-    border-radius: 3px;
-    transition: all 0.2s ease;
-  }
-
-  a:hover {
-    color: var(--book-primary-hover);
-    background-color: rgba(77, 108, 130, 0.1);
-  }
 }
 
+.book-question-number a {
+  color: var(--book-primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.book-question-number a:hover {
+  color: var(--book-primary-hover);
+  background-color: rgba(77, 108, 130, 0.1);
+}
+
+/* Question Content */
 .book-question-content {
   padding: 24px 18px 24px 32px;
   font-size: 1.08rem;
   word-break: break-word;
-  white-space: preserve-breaks;
-}
-
-.book-next-question {
-  text-align: right;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e0e0e0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  a {
-    color: var(--book-primary-color);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 8px 12px;
-    padding-top: 0px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-  }
-
-  a:hover {
-    color: var(--book-primary-hover);
-    background-color: rgba(77, 108, 130, 0.1);
-    transform: translateX(3px);
-  }
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .book-question-content h1,
@@ -301,15 +276,14 @@
   color: #222;
   font-family: inherit;
   font-weight: bold;
+  word-wrap: break-word;
 }
 
-/* Center h2 chapter titles */
 .book-question-content h2 {
   text-align: center;
   margin: 1.5em 0 1em 0;
 }
 
-/* Style h5 elements (##### in markdown) to look better */
 .book-question-content h5 {
   font-size: 1.1rem;
   font-weight: bold;
@@ -328,8 +302,41 @@
 .book-question-content li {
   padding-left: 0.5em;
   word-break: break-word;
+  overflow-wrap: break-word;
 }
 
+/* Next Question Navigation */
+.book-next-question {
+  text-align: right;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.book-next-question a {
+  color: var(--book-primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 12px 0 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.book-next-question a:hover {
+  color: var(--book-primary-hover);
+  background-color: rgba(77, 108, 130, 0.1);
+  transform: translateX(3px);
+}
+
+/* Questions List */
 .book-questions-list {
   list-style: none;
   padding: 0;
@@ -347,16 +354,17 @@
   margin: 0 auto;
   text-align: center;
   word-break: break-word;
+  overflow-wrap: break-word;
   display: flex;
   justify-content: center;
 }
 
+/* Tablet Styles */
 @media (max-width: 900px) {
   .book-main-container {
     flex-direction: column;
-    align-items: stretch;
     gap: 0;
-    padding: 8px 0;
+    /* padding: 18px 0; */
   }
 
   .book-sidebar {
@@ -365,67 +373,39 @@
 
   .book-content {
     max-width: 100vw;
-    border-radius: 0;
-    box-shadow: none;
     padding: 18px 4vw;
   }
 
   .questions-header,
   .book-questions-header {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0;
-    width: 100%;
-    text-align: center;
-    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .back-container {
+    width: 85px;
   }
 
   .part-container {
-    align-items: center;
-    max-width: 100%;
-    min-width: 100px;
-    width: 115px;
-    height: 100%;
+    width: 80px;
+    min-width: 60px;
+    max-width: 100px;
   }
 
   .book-part-name {
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: unset;
-    width: 100%;
-    height: 38px;
-    line-height: 1.2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 0.9rem;
+    line-height: 1.1;
   }
 
   .book-header-info {
-    min-width: 80px;
-    flex: 1 1 0;
-    height: auto;
-    max-height: 48px;
+    min-width: 0;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .part-container {
-    align-items: center;
-    align-self: flex-start;
+    margin: 0 auto;
   }
 }
 
+/* Mobile Styles */
 @media (max-width: 600px) {
-  .book-content {
-    padding: 10px 2vw;
-  }
-
   .book-title {
     font-size: 1.4rem;
   }
@@ -441,40 +421,37 @@
   .book-question-content {
     padding: 12px 8px 12px 16px;
     font-size: 0.98rem;
-    margin-left: 4px;
-    overflow-x: auto;
-    word-break: break-word;
-    list-style-position: inside;
   }
 
   .book-next-question {
     text-align: center;
     margin-top: 1.5rem;
-    display: flex;
     justify-content: center;
-    align-items: center;
-
-    a {
-      font-size: 0.95rem;
-      padding: 10px 16px;
-      padding-top: 0px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-    }
   }
 
-  .book-question-content ol,
-  .book-question-content ul {
-    list-style-position: inside;
-    padding-left: 0;
-    margin-left: 0;
+  .book-next-question a {
+    font-size: 0.95rem;
+    padding: 10px 16px 0 16px;
   }
 
-  .book-question-content li {
-    padding-left: 0.5em;
+  .questions-header,
+  .book-questions-header {
+    gap: 4px;
+    padding: 0 4px;
+  }
+
+  .back-container {
+    width: 85px;
+  }
+
+  .part-container {
+    width: 75px;
+    min-width: 50px;
+    max-width: 85px;
+  }
+
+  .book-part-name {
+    font-size: 0.8rem;
+    line-height: 1.0;
   }
 }
-
-/* Legacy styles removed - all functionality replaced with modern layout */
