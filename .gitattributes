@@ -3,8 +3,9 @@
 
 # Exclude HTML files in public directory from language statistics
 # These are typically static files that shouldn't affect language detection
-*.html linguist-vendored
 app/public/*.html linguist-vendored
+./app/app/assets/stylesheets/*.css linguist-detectable=false
+
 
 # Ensure proper line endings for different file types
 *.rb text eol=lf
