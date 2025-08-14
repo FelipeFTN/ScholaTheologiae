@@ -1,18 +1,12 @@
 # Git attributes file for Schola Theologiae
 # This file helps Git and GitHub properly identify and handle different file types
 
-# Exclude HTML files in public directory from language statistics
-# These are typically static files that shouldn't affect language detection
-app/public/*.html linguist-vendored
-./app/app/assets/stylesheets/*.css linguist-detectable=false
-
-
 # Ensure proper line endings for different file types
 *.rb text eol=lf
 *.go text eol=lf
 *.js text eol=lf
 *.css linguist-detectable=false
-*.html text eol=lf
+*.html linguist-detectable=false
 *.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
