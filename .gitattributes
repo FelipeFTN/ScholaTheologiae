@@ -5,8 +5,9 @@
 *.rb text eol=lf
 *.go text eol=lf
 *.js text eol=lf
-*.css linguist-detectable=false
-*.html linguist-detectable=false
+*.css -linguist-detectable
+*.html -linguist-detectable
+*.erb text eol=lf
 *.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
