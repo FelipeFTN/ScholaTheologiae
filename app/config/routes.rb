@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   # Catch all other routes and return 404
   match '*path', to: ->(env) { [ 404, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', '404.html')) ] ] }, via: :all
 
-  # root "home#index" # We are not using this page yet
-  root "books#index"
+  root "home#index" # We are not using this page yet
+  # root "books#index"
 end

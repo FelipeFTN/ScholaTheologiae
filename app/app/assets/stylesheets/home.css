@@ -3,10 +3,11 @@
 /* Hero */
 .home-hero {
   background: linear-gradient(135deg, #f8f5e4 0%, #f0ead6 100%);
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   text-align: center;
   border-bottom: 3px solid #d4af37;
   margin-bottom: 3rem;
+  width: 100%;
 }
 
 .home-hero h1 {
@@ -34,11 +35,26 @@
   color: #555;
 }
 
+.explore-books {
+  display: inline-block;
+  color: #d4af37;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  width: 100%;
+  font-weight: 500;
+}
+
+.explore-books a {
+  text-decoration: underline;
+  color: #d4af37;
+}
+
 /* Topic Search */
 .topic-search-section {
   background: white;
   border-radius: 15px;
   padding: 2.5rem;
+  width: 75%;
   margin-bottom: 3rem;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   border: 2px solid #f0ead6;
@@ -90,6 +106,7 @@
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
+  width: 75%;
 }
 
 .book-preview-card {
@@ -142,7 +159,7 @@
   background: linear-gradient(135deg, #f8f5e4 0%, #f0ead6 100%);
   border-radius: 15px;
   padding: 2.5rem;
-  margin-bottom: 3rem;
+  width: 45%;
 }
 
 .features-section h2 {
@@ -200,6 +217,7 @@
   }
 
   .topic-search-section {
+    width: 100%;
     padding: 1rem;
     margin-bottom: 2rem;
   }
@@ -231,6 +249,7 @@
   }
 
   .features-section {
+    width: 100%;
     padding: 1.5rem 1rem;
   }
 
@@ -280,6 +299,7 @@
   }
 
   .books-preview {
+    width: 100%;
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
