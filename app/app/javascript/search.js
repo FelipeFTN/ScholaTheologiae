@@ -1,6 +1,5 @@
 // Search modal functionality
-document.addEventListener('DOMContentLoaded', function() {
-  
+function initializeSearchModal() {
   // Get all the elements we need
   const searchIcon = document.getElementById('search-icon');
   const searchModal = document.getElementById('search-modal');
@@ -12,25 +11,51 @@ document.addEventListener('DOMContentLoaded', function() {
   // Bail out if modal doesn't exist
   if (!searchModal || !searchIcon) return;
   
-  // Open modal and focus input
-  searchIcon.addEventListener('click', function() {
-    searchModal.classList.add('show');
-    searchInput?.focus();
-  });
-  
   // Close modal function
   function closeModal() {
     searchModal.classList.remove('show');
     if (searchInput) searchInput.value = '';
   }
+
+  // Remove any existing event listeners by cloning elements
+  const newSearchIcon = searchIcon.cloneNode(true);
+  searchIcon.parentNode.replaceChild(newSearchIcon, searchIcon);
   
-  // Close with X button
-  closeSearch?.addEventListener('click', closeModal);
-  
-  // Close when clicking outside
-  searchModal.addEventListener('click', function(e) {
-    if (e.target === searchModal) closeModal();
+  // Open modal and focus input
+  newSearchIcon.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    searchModal.classList.add('show');
+    searchInput?.focus();
   });
+  
+  // Close with X button - prevent event bubbling
+  if (closeSearch) {
+    const newCloseSearch = closeSearch.cloneNode(true);
+    closeSearch.parentNode.replaceChild(newCloseSearch, closeSearch);
+    
+    newCloseSearch.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeModal();
+    });
+  }
+  
+  // Close when clicking outside - but not when clicking inside modal content
+  searchModal.addEventListener('click', function(e) {
+    // Only close if clicking the overlay itself, not the content
+    if (e.target === searchModal || e.target.classList.contains('search-modal-overlay')) {
+      closeModal();
+    }
+  });
+  
+  // Prevent modal from closing when clicking inside content
+  const modalContent = searchModal.querySelector('.search-modal-content');
+  if (modalContent) {
+    modalContent.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
   
   // Close with Escape key
   document.addEventListener('keydown', function(e) {
@@ -69,4 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
       searchButton.disabled = true;
     });
   }
-});
+}
+
+// Initialize on page load and on Turbo navigation
+document.addEventListener('DOMContentLoaded', initializeSearchModal);
+document.addEventListener('turbo:load', initializeSearchModal);
