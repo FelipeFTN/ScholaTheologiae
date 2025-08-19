@@ -30,9 +30,9 @@ def insert_into_database(cursor, chapters):
         # Insert items in the database
         cursor.execute('''
             INSERT INTO catecismo_pio_x (
-                part_title, part_subtitle, chapter_number, chapter_title
-            ) VALUES (?, ?, ?, ?);
-        ''', (item['part_title'], item['part_subtitle'], item['chapter_number'], item['chapter_title']))
+                part_title, chapter_number, chapter_title
+            ) VALUES (?, ?, ?);
+        ''', (item['part_title'], item['chapter_number'], item['chapter_title']))
 
 def ensure_directory_exists(part_title):
     # Replace spaces with underscores for directory name
