@@ -7,7 +7,7 @@ module ApplicationHelper
 
   def markdown(text)
     options = {
-      filter_html: true,
+      filter_html: false, # Changed to false to allow HTML tags like <ul>, <li>
       # hard_wrap: true, # Removed to prevent <br> after each line
       link_attributes: { rel: 'nofollow', target: "_blank" },
       space_after_headers: true,
@@ -21,6 +21,10 @@ module ApplicationHelper
   end
 
   def render_markdown(text)
+    # Decode HTML entities that come escaped from the API
+    require 'cgi'
+    text = CGI.unescapeHTML(text)
+    
     # Split the text into lines
     lines = text.split("\n")
 
