@@ -65,6 +65,7 @@ module SearchHelper
     case book
     when 'summa_theologiae' then 'Summa Theologica'
     when 'catecismo_pio_x' then 'Catecismo de Pio X'
+    when 'confissoes' then 'Confissões'
     else book.humanize
     end
   end
@@ -92,6 +93,8 @@ module SearchHelper
       "/books/summa-theologiae/#{part}/#{chapter}"
     when 'catecismo_pio_x'
       "/books/catecismo-pio-x/#{part}/#{chapter}"
+    when 'confissoes'
+      "/books/confissoes/#{part}/#{chapter}"
     else
       "/books/"
     end

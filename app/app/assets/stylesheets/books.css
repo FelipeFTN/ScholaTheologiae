@@ -132,6 +132,7 @@
 }
 
 #catecismo_pio_x .book-cover,
+#confissoes .book-cover,
 #patristica .book-cover {
   height: 260px;
   object-fit: cover;
@@ -257,6 +258,7 @@
   }
   
   #catecismo_pio_x .book-cover,
+  #confissoes .book-cover,
   #patristica .book-cover {
     height: 240px;
   }
@@ -302,6 +304,7 @@
   
   #summa_theologiae .book-cover,
   #catecismo_pio_x .book-cover,
+  #confissoes .book-cover,
   #patristica .book-cover {
     height: 220px;
   }

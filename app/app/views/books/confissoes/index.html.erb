@@ -1,0 +1,62 @@
+<!-- Modernized and mobile-friendly Confissões index page -->
+<div class="book-main-container">
+  <aside class="book-sidebar"></aside>
+
+  <section class="book-content">
+    <div class="book-header">
+      <div class="book-back-button">
+        <a href="/books/" class="book-back-link">
+          <i class="nf nf-md-arrow_left"></i>
+        </a>
+      </div>
+
+      <div class="book-title-container">
+        <h1 class="book-title">Confissões</h1>
+        <span class="book-subtitle">Santo Agostinho</span>
+      </div>
+
+      <div style="width: 10px;"></div>
+    </div>
+
+    <hr class="book-divider">
+
+    <div class="book-info">
+      <%= image_tag("confissoes_cover.png", class: "book-cover", skip_pipeline: true) %>
+      <p class="book-description">
+        As Confissões de Santo Agostinho, obra-prima da literatura cristã e da autobiografia espiritual, retrata a jornada de conversão e a busca por Deus do grande Doutor da Igreja.
+      </p>
+    </div>
+
+    <section class="book-parts">
+      <div class="book-parts-header">
+        <h2>Livros</h2>
+        <span class="book-parts-label">Libri</span>
+      </div>
+      <hr class="book-divider">
+      
+      <% @confissoes_parts.each_with_index do |part, index| %>
+        <div class="confissoes-book-section">
+          <h3 class="confissoes-book-title">
+            Livro <%= (index + 1).to_roman %> - <%= part.gsub('_', ' ').titleize %>
+          </h3>
+          
+          <ul class="confissoes-chapters-list">
+            <% chapters = @confissoes_books[part] || [] %>
+            <% chapters.each do |chapter| %>
+              <% chapter_num = chapter.split(':').first %>
+              <% chapter_title = chapter.split(':').last.strip %>
+              <li>
+                <a class="confissoes-chapter-link" href="<%= "/books/confissoes/#{part}/#{chapter_num}" %>">
+                  <span class="chapter-number"><%= chapter_num %></span>
+                  <span class="chapter-title"><%= chapter_title %></span>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </section>
+  </section>
+
+  <aside class="book-sidebar"></aside>
+</div>

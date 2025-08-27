@@ -55,3 +55,17 @@ def save_content(content, content_name):
     # Write to file
     with open(output_path, 'w', encoding='utf-8') as file:
         file.write(content_text)
+
+def save_chapter_content(content, content_name='catecismo_pio_x'):
+    # Define the output directory and file path
+    part_key = 'part' if 'part' in content else 'part_title'
+    dir_name = ensure_directory_exists(content[part_key], content_name)
+    chapter_number = content['chapter_number']
+    output_path = f'data/{content_name}/{dir_name}/chapter_{chapter_number}.md'
+    
+    # Join chapter's content lines, preserving empty lines
+    content_text = '\n'.join(content['chapter_content']).strip()
+    
+    # Write to file
+    with open(output_path, 'w', encoding='utf-8') as file:
+        file.write(content_text)

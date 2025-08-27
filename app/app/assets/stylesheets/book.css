@@ -359,6 +359,80 @@
   justify-content: center;
 }
 
+/* Confissões-specific styles */
+.confissoes-book-section {
+  margin-bottom: 2.5rem;
+  background: rgba(248, 245, 228, 0.4);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e8dcc0;
+}
+
+.confissoes-book-title {
+  font-family: 'Tagesschrift', 'Skranji', serif;
+  font-size: 1.4rem;
+  color: var(--book-title-color);
+  text-align: center;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--book-accent-color);
+}
+
+.confissoes-chapters-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.8rem;
+}
+
+.confissoes-chapters-list li {
+  margin: 0;
+}
+
+.confissoes-chapter-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  border: 1px solid #f0ead6;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  min-height: 50px;
+}
+
+.confissoes-chapter-link:hover {
+  background: rgba(248, 245, 228, 0.9);
+  border-color: var(--book-accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chapter-number {
+  flex-shrink: 0;
+  background: var(--book-accent-color);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.chapter-title {
+  flex-grow: 1;
+  color: var(--book-primary-color);
+  font-size: 1rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
 /* Tablet Styles */
 @media (max-width: 900px) {
   .book-main-container {
@@ -453,5 +527,38 @@
   .book-part-name {
     font-size: 0.8rem;
     line-height: 1.0;
+  }
+}
+
+/* Mobile responsive for Confissões */
+@media (max-width: 768px) {
+  .confissoes-chapters-list {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  
+  .confissoes-chapter-link {
+    padding: 0.7rem 0.8rem;
+    gap: 0.6rem;
+    min-height: 45px;
+  }
+  
+  .chapter-number {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+  
+  .chapter-title {
+    font-size: 0.9rem;
+  }
+  
+  .confissoes-book-title {
+    font-size: 1.2rem;
+  }
+  
+  .confissoes-book-section {
+    padding: 1rem;
+    margin-bottom: 2rem;
   }
 }

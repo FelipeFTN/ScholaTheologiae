@@ -2,67 +2,92 @@ import os
 import re
 import sqlite3
 
-from utils import sqlite_connection, roman_to_int, save_content
+from utils import sqlite_connection, roman_to_int, save_content, save_chapter_content
 
 def parse_markdown(markdown_content):
     lines = markdown_content.split('\n')
-
-    parts = []
-    content = {
+    
+    chapters = []
+    current_content = {
         'part_title': '',
         'chapter_number': 0,
         'chapter_title': '',
+        'chapter_content': [],
         'content': []
     }
-
+    
     for line in lines:
         # Check for part "LIVRO" detected
         if line.startswith('# LIVRO'):
-            if content['part_title'] and content['chapter_title']:
-                parts.append(content)
-                content = {
-                    'part_title': '',
-                    'chapter_number': 0,
-                    'chapter_title': '',
-                    'content': []
-                }
-            content['part_title'] = line.replace('# ', '').strip().lower().replace(' ', '_')
-            print("[-] Processing Part: " + str(content['part_title']))
-            continue
+            # Save previous content if exists
+            if current_content['part_title'] and current_content['chapter_title']:
+                save_chapter_content(current_content, 'confissoes')
+                save_content(current_content, 'confissoes')
+                chapters.append({
+                    'part_title': current_content['part_title'],
+                    'chapter_number': current_content['chapter_number'],
+                    'chapter_title': current_content['chapter_title']
+                })
+            
+            # Start new part
+            current_content = {
+                'part_title': line.replace('# ', '').strip().lower().replace(' ', '_'),
+                'chapter_number': 0,
+                'chapter_title': '',
+                'chapter_content': [],
+                'content': []
+            }
+            print("[-] Processing Part: " + current_content['part_title'])
+            current_content['content'].append(line)
 
         # Check for chapter "CAPÍTULO I..." detected
         elif line.startswith('## CAPÍTULO'):
+            # Save previous chapter if exists
+            if current_content['chapter_title']:
+                save_chapter_content(current_content, 'confissoes')
+                chapters.append({
+                    'part_title': current_content['part_title'],
+                    'chapter_number': current_content['chapter_number'],
+                    'chapter_title': current_content['chapter_title']
+                })
+
             chapter_match = re.match(r'## CAPÍTULO (\w+)', line)
             if chapter_match:
                 roman_numeral = chapter_match.group(1)
-                content['chapter_number'] = roman_to_int(roman_numeral)
+                current_content['chapter_number'] = roman_to_int(roman_numeral)
+                current_content['chapter_content'] = [line]  # Start fresh chapter content
+            current_content['content'].append(line)
 
         # Check for chapter title detected
         elif line.startswith('### '):
-            content['chapter_title'] = line.replace('### ', '').strip()
-            print("[-] Processing Chapter: " + str(content['chapter_number']) + ": " + str(content['chapter_title']))
-            if content['part_title'] and content['chapter_number']:
-                parts.append(content)
-                content = {
-                    'part_title': content['part_title'],
-                    'chapter_number': content['chapter_number'],
-                    'chapter_title': '',
-                    'content': []
-                }
+            current_content['chapter_title'] = line.replace('### ', '').strip()
+            print("[-] Processing Chapter: " + str(current_content['chapter_number']) + ": " + current_content['chapter_title'])
+            current_content['chapter_content'].append(line)
+            current_content['content'].append(line)
 
-        # Add line to part content
-        content['content'].append(line)
+        # Add line to appropriate content
+        else: 
+            current_content['chapter_content'].append(line)
+            current_content['content'].append(line)
 
-    if content['chapter_title']:
-        parts.append(content)
+    # Save final content
+    if current_content['chapter_title']:
+        save_chapter_content(current_content, 'confissoes')
+        chapters.append({
+            'part_title': current_content['part_title'],
+            'chapter_number': current_content['chapter_number'],
+            'chapter_title': current_content['chapter_title']
+        })
+    if current_content['part_title']:
+        save_content(current_content, 'confissoes')
 
-    return parts
+    return chapters
 
-def insert_into_database(cursor, parts):
-    for part in parts:
-        part_title = part['part_title']
-        chapter_number = part['chapter_number']
-        chapter_title = part['chapter_title']
+def insert_into_database(cursor, chapters):
+    for chapter in chapters:
+        part_title = chapter['part_title']
+        chapter_number = chapter['chapter_number']
+        chapter_title = chapter['chapter_title']
 
         # Insert chapter
         cursor.execute('''
@@ -82,14 +107,10 @@ def main():
     conn, cursor = sqlite_connection(db_path, "confissoes")
 
     # Parse markdown content
-    parts = parse_markdown(markdown_content)
+    chapters = parse_markdown(markdown_content)
 
     # Insert data into database
-    insert_into_database(cursor, parts)
-
-    # Save parts to markdown files
-    for part in parts:
-        save_content(part, 'confissoes')
+    insert_into_database(cursor, chapters)
 
     # Commit and close
     conn.commit()

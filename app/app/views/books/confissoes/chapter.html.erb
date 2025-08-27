@@ -1,0 +1,34 @@
+<!-- Modernized and mobile-friendly Confissões chapter page -->
+<div class="book-main-container">
+  <aside class="book-sidebar"></aside>
+  <section class="book-content">
+    <h1 class="book-title">Confissões</h1>
+    <span class="book-subtitle">Santo Agostinho</span>
+    <hr class="book-divider">
+    <div class="questions-header">
+      <div class="back-container">
+        <a href="<%= "/books/confissoes" %>" class="book-back-link">
+          <i class="nf nf-md-arrow_left"></i>
+        </a>
+      </div>
+      <div class="book-header-info">
+        <h2>Capítulo</h2>
+        <span class="book-parts-label">Capitulum</span>
+      </div>
+      <div class="part-container">
+        <span class="book-part-name"><%= @part.gsub("_", " ").titleize %></span>
+        <span class="book-question-number">Cap.<%= @chapter %></span>
+      </div>
+    </div>
+    <div class="book-question-content">
+      <%= @content %>
+      
+      <div class="book-next-question">
+        <a href="<%= "/books/confissoes/#{@part}/#{Integer(@chapter)+1}" %>">
+          Próximo Capítulo &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+  <aside class="book-sidebar"></aside>
+</div>

@@ -63,3 +63,25 @@ module ApplicationHelper
     markdown(cleaned_text)
   end
 end
+
+# Add Roman numeral conversion to Integer class
+class Integer
+  def to_roman
+    return "" if self <= 0
+    
+    values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+    numerals = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+    
+    result = ""
+    num = self
+    
+    values.each_with_index do |value, index|
+      while num >= value
+        result += numerals[index]
+        num -= value
+      end
+    end
+    
+    result
+  end
+end

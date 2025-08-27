@@ -32,6 +32,10 @@ Rails.application.routes.draw do
 
   get "/books/catecismo-pio-x/:part/:chapter" => "catecismo_pio_x#get_chapter", constraints: { part: /[^\/]+/, chapter: /[^\/]+/ }
 
+  # Confissões specific routes
+  get "/books/confissoes" => "confissoes#index"
+  get "/books/confissoes/:part/:chapter" => "confissoes#get_chapter", constraints: { part: /[^\/]+/, chapter: /[^\/]+/ }
+
   # Patristica route - redirect to maintenance page
   get "/patristica" => ->(env) { [ 200, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', 'maintenance.html')) ] ] }
 
