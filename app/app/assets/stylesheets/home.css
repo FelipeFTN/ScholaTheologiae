@@ -35,18 +35,52 @@
   color: #555;
 }
 
-.explore-books {
-  display: inline-block;
-  color: #d4af37;
-  text-decoration: none;
-  padding: 0.8rem 1.5rem;
-  width: 100%;
-  font-weight: 500;
+.explore-books-container {
+  margin-top: 2rem;
+  text-align: center;
 }
 
-.explore-books a {
-  text-decoration: underline;
-  color: #d4af37;
+.explore-books-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  background: linear-gradient(135deg, #d4af37, #f4d03f);
+  color: #2c2c2c;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+  border: none;
+  transition: all 0.3s ease;
+  font-family: 'Cascadia Code', 'Roboto', sans-serif;
+}
+
+.explore-books-btn:hover {
+  background: linear-gradient(135deg, #f4d03f, #d4af37);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.explore-books-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.explore-books-btn .btn-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.explore-books-btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+.explore-books-btn i:first-child {
+  font-size: 1.2rem;
 }
 
 /* Topic Search */
@@ -220,6 +254,18 @@
     padding: 0 0.5rem;
   }
 
+  .explore-books-btn {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+    gap: 0.6rem;
+    border-radius: 20px;
+  }
+
+  .explore-books-btn i:first-child,
+  .explore-books-btn .btn-arrow {
+    font-size: 1rem;
+  }
+
   .topic-search-section {
     width: 100%;
     padding: 1rem;
@@ -289,6 +335,11 @@
     font-size: 1.05rem;
   }
 
+  .explore-books-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
   .topic-search-section {
     padding: 1.5rem;
   }
@@ -330,6 +381,17 @@
 
 /* Touch improvements for mobile */
 @media (hover: none) and (pointer: coarse) {
+  .explore-books-btn {
+    padding: 1rem 2rem;
+    min-height: 50px;
+    font-size: 1rem;
+  }
+
+  .explore-books-btn:active {
+    transform: translateY(0);
+    background: linear-gradient(135deg, #f4d03f, #d4af37);
+  }
+
   .topic-tag {
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
