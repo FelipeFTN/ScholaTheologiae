@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "daily_meditation" => "daily_meditation#index", as: :daily_meditation
   get "caminho" => "caminho#index", as: :caminho
   get "via_sacra" => "via_sacra#index", as: :via_sacra
+  get "exame_maturidade" => "exame_maturidade#index", as: :exame_maturidade
 
   # Summa Theologiae specific routes because of the way the data is structured
   get "/books/summa-theologiae" => "summa_theologiae#get_parts"
