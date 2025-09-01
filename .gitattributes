@@ -6,8 +6,8 @@
 *.go text eol=lf
 *.js text eol=lf
 *.css -linguist-detectable
-*.html linguist-detectable
-*.erb text eol=lf linguist-language=HTML+ERB
+*.html -linguist-detectable
+*.html.erb -linguist-detectable
 *.md text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
