@@ -56,7 +56,7 @@ def save_content(content, content_name):
     with open(output_path, 'w', encoding='utf-8') as file:
         file.write(content_text)
 
-def save_chapter_content(content, content_name='catecismo_pio_x'):
+def save_chapter_content(content, content_name):
     # Define the output directory and file path
     part_key = 'part' if 'part' in content else 'part_title'
     dir_name = ensure_directory_exists(content[part_key], content_name)

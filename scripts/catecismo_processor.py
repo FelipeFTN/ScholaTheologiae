@@ -2,6 +2,8 @@ import os
 import re
 import sqlite3
 
+from utils import save_chapter_content
+
 def sqlite_connection(db_path):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -61,19 +63,6 @@ def save_content(content):
     with open(output_path, 'w', encoding='utf-8') as file:
         file.write(content_text)
 
-def save_chapter_content(content):
-    # Define the output directory and file path
-    dir_name = ensure_directory_exists(content['part'])
-    chapter_number = content['chapter_number']
-    output_path = f'data/catecismo_pio_x/{dir_name}/chapter_{chapter_number}.md'
-    
-    # Join chapter's content lines, preserving empty lines
-    content_text = '\n'.join(content['chapter_content']).strip()
-    
-    # Write to file
-    with open(output_path, 'w', encoding='utf-8') as file:
-        file.write(content_text)
-
 def parse_markdown(file_content):
     lines = file_content.split('\n')
 
@@ -88,7 +77,7 @@ def parse_markdown(file_content):
             if content['part'] != '':
                 # Part already inserted, so it's the end of a part and the beginning of another
                 save_content(content)
-                save_chapter_content(content)
+                save_chapter_content(content, 'catecismo_pio_x')
                 # Clear content for next stuff to be inserted
                 content = {'part': '', 'content': [], 'chapter_content': [], 'chapter_title': '', 'chapter_number': 0}
             # Add new part to content
@@ -97,7 +86,7 @@ def parse_markdown(file_content):
 
         if line.startswith("## "):
             if content['chapter_title'] != '':
-                save_chapter_content(content)
+                save_chapter_content(content, 'catecismo_pio_x')
                 # Clear chapter_content for next stuff to be inserted
                 content['chapter_content'] = []
 
@@ -120,7 +109,7 @@ def parse_markdown(file_content):
             content['chapter_content'].append(line)
 
     save_content(content)
-    save_chapter_content(content)
+    save_chapter_content(content, 'catecismo_pio_x')
 
     return chapters
 
