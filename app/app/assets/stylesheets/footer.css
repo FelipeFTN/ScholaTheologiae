@@ -1,9 +1,11 @@
-/* Footer Styles */
+/* ===================================
+   Footer Styles
+   =================================== */
 
 .site-footer {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, var(--color-nav-bg-dark) 0%, #2d2d2d 100%);
   color: #e0e0e0;
-  margin-top: 0rem;
+  margin-top: 0;
   position: relative;
 }
 
@@ -14,13 +16,13 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #d4af37, #f4d03f, #d4af37);
+  background: linear-gradient(90deg, var(--color-accent), #f4d03f, var(--color-accent));
 }
 
 /* Footer Bottom */
 .footer-bottom {
-  border-top: 1px solid #d4af37;
-  padding: 2rem 0;
+  border-top: 1px solid var(--color-accent);
+  padding: var(--spacing-xl) 0;
   background: rgba(0,0,0,0.2);
   width: 100%;
 }
@@ -30,15 +32,15 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--spacing-xl);
 }
 
 .copyright {
-  color: #999;
+  color: var(--color-text-tertiary);
   font-size: 0.85rem;
 }
 
@@ -48,9 +50,9 @@
 }
 
 .dedication {
-  margin-top: 0.5rem;
-  color: #d4af37;
-  font-family: 'Eagle Lake', serif;
+  margin-top: var(--spacing-sm);
+  color: var(--color-accent);
+  font-family: var(--font-decorative);
   font-size: 0.8rem;
 }
 
@@ -67,11 +69,11 @@
   color: #bbb;
   text-decoration: none;
   font-size: 0.85rem;
-  transition: color 0.3s ease;
+  transition: color var(--transition-normal);
 }
 
 .footer-links a:hover {
-  color: #d4af37;
+  color: var(--color-accent);
 }
 
 .separator {
