@@ -61,6 +61,7 @@
   transition: all var(--transition-normal);
   font-family: var(--font-primary);
   cursor: pointer;
+  will-change: transform, box-shadow;
 }
 
 .explore-books-btn:hover {
@@ -156,7 +157,8 @@
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-lg);
   border: 2px solid var(--color-background-tertiary);
-  transition: transform var(--transition-normal);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  will-change: transform;
 }
 
 .book-preview-card:hover {
@@ -189,6 +191,7 @@
   font-weight: 500;
   transition: all var(--transition-normal);
   width: fit-content;
+  will-change: transform;
 }
 
 .book-preview-card .book-link:hover {
