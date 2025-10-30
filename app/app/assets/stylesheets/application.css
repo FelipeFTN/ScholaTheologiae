@@ -1,3 +1,8 @@
+/* ===================================
+   Schola Theologiae - Main Stylesheet
+   =================================== */
+
+/* Font Imports - Consolidated for better performance */
 @import url("https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Eagle+Lake&display=swap');
@@ -5,6 +10,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Skranji:wght@400&display=swap');
 @import url("https://www.nerdfonts.com/assets/css/webfont.css");
 
+/* ===================================
+   CSS Custom Properties (Variables)
+   =================================== */
+:root {
+  /* Color Palette */
+  --color-primary: #8b4513;
+  --color-primary-hover: #a0522d;
+  --color-accent: #d4af37;
+  --color-accent-dark: #bfa14a;
+  --color-accent-darker: #afa11b;
+  --color-text-primary: #333;
+  --color-text-secondary: #666;
+  --color-text-tertiary: #999;
+  --color-text-light: #555;
+  --color-background-primary: #fcfad9;
+  --color-background-secondary: #f8f5e4;
+  --color-background-tertiary: #f0ead6;
+  --color-background-white: #ffffff;
+  --color-border-light: #e8dcc0;
+  --color-border-medium: #d4c49a;
+  --color-nav-bg: #2c2c2c;
+  --color-nav-bg-dark: #1a1a1a;
+  --color-nav-text: #ffffff;
+  --color-nav-text-muted: #cccccc;
+  
+  /* Typography */
+  --font-primary: "Cascadia Code", "Roboto", sans-serif;
+  --font-decorative: 'Tagesschrift', 'Eagle Lake', serif;
+  --font-medieval: 'MedievalSharp', serif;
+  --font-skranji: 'Skranji', serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 15px;
+  --radius-2xl: 20px;
+  --radius-full: 50%;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 12px 35px rgba(0, 0, 0, 0.2);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.4s ease;
+}
+
+/* ===================================
+   Global Reset & Base Styles
+   =================================== */
 * {
   margin: 0;
   padding: 0;
@@ -12,11 +79,24 @@
 }
 
 body {
-  font-family: "Cascadia Code", "Roboto", sans-serif;
+  font-family: var(--font-primary);
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
-  background-color: #fcfad9;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve focus visibility for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 @import "nav_bar.css";
