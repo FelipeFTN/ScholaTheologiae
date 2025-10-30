@@ -23,7 +23,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= yield(:body_class) %>">
     <%# Nav Bar %>
     <%= render "components/navbar" %>
     

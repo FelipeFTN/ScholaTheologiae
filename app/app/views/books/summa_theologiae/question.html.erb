@@ -1,4 +1,5 @@
 <!-- Modernized and mobile-friendly Summa Theologiae question page -->
+<% content_for :body_class, 'book-page' %>
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
   <section class="book-content">
@@ -18,7 +19,7 @@
         <span class="book-question-number">Q.<%= @question %> <a href="<%=Integer(@question)+1%>">&rarr;</a></span>
       </div>
     </div>
-    <div class="book-question-content">
+    <div class="book-question-content" data-text-marker="true">
       <%= @content %>
       
       <div class="book-next-question">
