@@ -25,5 +25,6 @@ body {
 @import "book.css";
 @import "home.css";
 @import "search.css";
+@import "text_marker.css";
 @import "footer.css";
 @import "exame_maturidade.css";
