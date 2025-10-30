@@ -377,7 +377,7 @@
 }
 
 /* Confissões-specific styles */
-.confissoes-book-section {
+.book-section {
   margin-bottom: 2.5rem;
   background: rgba(248, 245, 228, 0.4);
   border-radius: 12px;
@@ -385,7 +385,7 @@
   border: 1px solid #e8dcc0;
 }
 
-.confissoes-book-title {
+.book-title {
   font-family: 'Tagesschrift', 'Skranji', serif;
   font-size: 1.4rem;
   color: var(--book-title-color);
@@ -395,7 +395,7 @@
   border-bottom: 2px solid var(--book-accent-color);
 }
 
-.confissoes-chapters-list {
+.chapters-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -404,13 +404,12 @@
   gap: 0.8rem;
 }
 
-.confissoes-chapters-list li {
+.chapters-list li {
   margin: 0;
 }
 
 /* Chapter/Question Links with circular numbers (used by Confissões, Catecismo, and Summa) */
-.chapter-link,
-.confissoes-chapter-link {
+.chapter-link {
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -423,8 +422,7 @@
   min-height: 50px;
 }
 
-.chapter-link:hover,
-.confissoes-chapter-link:hover {
+.chapter-link:hover {
   background: rgba(248, 245, 228, 0.9);
   border-color: var(--book-accent-color);
   transform: translateY(-2px);
@@ -552,13 +550,12 @@
 
 /* Mobile responsive for Confissões */
 @media (max-width: 768px) {
-  .confissoes-chapters-list {
+  .chapters-list {
     grid-template-columns: 1fr;
     gap: 0.6rem;
   }
   
-  .chapter-link,
-  .confissoes-chapter-link {
+  .chapter-link {
     padding: 0.7rem 0.8rem;
     gap: 0.6rem;
     min-height: 45px;
@@ -574,11 +571,11 @@
     font-size: 0.9rem;
   }
   
-  .confissoes-book-title {
+  .book-title {
     font-size: 1.2rem;
   }
   
-  .confissoes-book-section {
+  .book-section {
     padding: 1rem;
     margin-bottom: 2rem;
   }

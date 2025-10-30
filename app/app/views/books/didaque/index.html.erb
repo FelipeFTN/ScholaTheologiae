@@ -1,4 +1,4 @@
-<!-- Modernized and mobile-friendly Confissões index page -->
+<!-- Modernized and mobile-friendly Didaqué index page -->
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
 
@@ -11,8 +11,8 @@
       </div>
 
       <div class="book-title-container">
-        <h1 class="book-title">Confissões</h1>
-        <span class="book-subtitle">Santo Agostinho</span>
+        <h1 class="book-title">Didaqué</h1>
+        <span class="book-subtitle">Instrução dos Doze Apóstolos</span>
       </div>
 
       <div style="width: 10px;"></div>
@@ -21,9 +21,9 @@
     <hr class="book-divider">
 
     <div class="book-info">
-      <%= image_tag("confissoes_cover.png", class: "book-cover", skip_pipeline: true) %>
+      <%= image_tag("didaque_cover.png", class: "book-cover", skip_pipeline: true) %>
       <p class="book-description">
-        As Confissões de Santo Agostinho, obra-prima da literatura cristã e da autobiografia espiritual, retrata a jornada de conversão e a busca por Deus do grande Doutor da Igreja.
+        A Didaqué, também conhecida como "O Ensino dos Doze Apóstolos", é um antigo manual cristão que oferece orientações práticas sobre a vida cristã, incluindo ensinamentos sobre moralidade, liturgia e disciplina eclesiástica.
       </p>
     </div>
 
@@ -34,19 +34,24 @@
       </div>
       <hr class="book-divider">
       
-      <% @confissoes_parts.each_with_index do |part, index| %>
+      <% @didaque_parts.each_with_index do |part, index| %>
         <div class="book-section">
           <h3 class="book-title">
-            Livro <%= (index + 1).to_roman %> - <%= part.gsub('_', ' ').titleize %>
+            <% is_introduction = index == 0 %>
+            <% if is_introduction %>
+              <%= part.gsub('_', ' ').titleize %>
+            <% else %>
+              Livro <%= (index).to_roman %> - <%= part.gsub('_', ' ').titleize %>
+            <% end %>
           </h3>
           
           <ul class="chapters-list">
-            <% chapters = @confissoes_books[part] || [] %>
+            <% chapters = @didaque_books[part] || [] %>
             <% chapters.each do |chapter| %>
               <% chapter_num = chapter.split(':').first %>
               <% chapter_title = chapter.split(':').last.strip %>
               <li>
-                <a class="chapter-link" href="<%= "/books/confissoes/#{part}/#{chapter_num}" %>">
+                <a class="chapter-link" href="<%= "/books/didaque/#{part}/#{chapter_num}" %>">
                   <span class="chapter-number"><%= chapter_num %></span>
                   <span class="chapter-title"><%= chapter_title %></span>
                 </a>

@@ -37,12 +37,15 @@ Rails.application.routes.draw do
   get "/books/confissoes" => "confissoes#index"
   get "/books/confissoes/:part/:chapter" => "confissoes#get_chapter", constraints: { part: /[^\/]+/, chapter: /[^\/]+/ }
 
+  get "/books/didaque" => "didaque#index"
+  get "/books/didaque/:part/:chapter" => "didaque#get_chapter", constraints: { part: /[^\/]+/, chapter: /[^\/]+/ }
+
   # Patristica route - redirect to maintenance page
   get "/patristica" => ->(env) { [ 200, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', 'maintenance.html')) ] ] }
 
   # Catch all other routes and return 404
   match '*path', to: ->(env) { [ 404, { 'Content-Type' => 'text/html' }, [ File.read(Rails.root.join('public', '404.html')) ] ] }, via: :all
 
-  root "home#index" # We are not using this page yet
+  root "home#index"
   # root "books#index"
 end

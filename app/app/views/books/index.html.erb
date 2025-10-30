@@ -5,9 +5,14 @@
     <span class="books-subtitle">Bibliotheca</span>
     <hr class="books-divider">
     <div class="books">
-      <%= render "components/book_list/summa" %>
-      <%= render "components/book_list/catecismo_pio_x" %>
-      <%= render "components/book_list/confissoes" %>
+      <div class="book-row">
+        <%= render "components/book_list/summa" %>
+        <%= render "components/book_list/confissoes" %>
+      </div>
+      <div class="book-row">
+        <%= render "components/book_list/didaque" %>
+        <%= render "components/book_list/catecismo_pio_x" %>
+      </div>
       <%= render "components/book_list/patristica" %>
     </div>
   </section>
