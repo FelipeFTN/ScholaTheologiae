@@ -19,12 +19,12 @@
         <span class="book-part-name"><%= @part.gsub("_", " ").titleize %></span>
       </div>
     </div>
-    <ul class="confissoes-chapters-list">
+    <ul class="chapters-list">
       <% @catecismo_chapters.each do |chapter| %>
         <% chapter_num = chapter.split(':').first %>
         <% chapter_title = chapter.split('- ').last.strip %>
         <li>
-          <a class="confissoes-chapter-link" href="<%= "/books/catecismo-pio-x/#{@part}/#{chapter_num}" %>">
+          <a class="chapter-link" href="<%= "/books/catecismo-pio-x/#{@part}/#{chapter_num}" %>">
             <span class="chapter-number"><%= chapter_num.to_i.to_roman %></span>
             <span class="chapter-title"><%= chapter_title %></span>
           </a>

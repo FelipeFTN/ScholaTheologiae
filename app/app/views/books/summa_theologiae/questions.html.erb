@@ -19,12 +19,12 @@
         <span class="book-part-name"><%= @part.split("-").last.gsub("_", " ") %></span>
       </div>
     </div>
-    <ul class="confissoes-chapters-list">
+    <ul class="chapters-list">
       <% @summa_questions.each do |question| %>
         <% question_num = question.split(':').first %>
         <% question_title = question.split(':').last.strip %>
         <li>
-          <a class="confissoes-chapter-link" href="<%= "/books/summa-theologiae/#{@part}/#{question_num}" %>">
+          <a class="chapter-link" href="<%= "/books/summa-theologiae/#{@part}/#{question_num}" %>">
             <span class="chapter-number"><%= question_num %></span>
             <span class="chapter-title"><%= question_title %></span>
           </a>

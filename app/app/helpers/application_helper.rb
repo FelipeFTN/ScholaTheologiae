@@ -15,9 +15,12 @@ module ApplicationHelper
     }
 
     renderer = Redcarpet::Render::HTML.new(options)
-    markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+    markdown = Redcarpet::Markdown.new(renderer, autolink: true, footnotes: true)
 
-    markdown.render(text).html_safe
+    # Render the markdown and improve footnote structure
+    html = markdown.render(text)
+    
+    html.html_safe
   end
 
   def render_markdown(text)

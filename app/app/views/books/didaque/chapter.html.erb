@@ -17,13 +17,13 @@
       </div>
       <div class="part-container">
         <span class="book-part-name"><%= @part.gsub("_", " ").titleize %></span>
-        <span class="book-question-number">Cap.<%= @chapter %></span>
+        <span class="book-chapter-number">Cap.<%= @chapter %></span>
       </div>
     </div>
-    <div class="book-question-content">
+    <div class="book-chapter-content">
       <%= @content %>
       
-      <div class="book-next-question">
+      <div class="book-next-chapter">
         <a href="<%= "/books/didaque/#{@part}/#{Integer(@chapter)+1}" %>">
           Próximo Capítulo &rarr;
         </a>

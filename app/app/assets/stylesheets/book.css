@@ -87,7 +87,7 @@
 
 .book-divider {
   width: 90%;
-  height: 1px;
+  height: 1.5px;
   background-color: var(--book-accent-color);
   border: none;
   margin: 18px auto 24px auto;
@@ -188,7 +188,7 @@
 
 /* Questions Header and Navigation */
 .questions-header,
-.book-questions-header {
+.book-chapters-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -257,14 +257,14 @@
   max-width: 100%;
 }
 
-.book-question-number {
+.book-chapter-number {
   color: var(--book-accent-color);
   font-size: 0.98rem;
   text-align: center;
   margin-top: 4px;
 }
 
-.book-question-number a {
+.book-chapter-number a {
   color: var(--book-primary-color);
   text-decoration: none;
   font-weight: 600;
@@ -273,35 +273,39 @@
   transition: all 0.2s ease;
 }
 
-.book-question-number a:hover {
+.book-chapter-number a:hover {
   color: var(--book-primary-hover);
   background-color: rgba(77, 108, 130, 0.1);
 }
 
 /* Question Content */
-.book-question-content {
+.book-chapter-content {
   padding: 24px 18px 24px 32px;
   font-size: 1.08rem;
   word-break: break-word;
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
+.book-chapter-content ol,
+.book-chapter-content li {
+  white-space: normal;
+}
 
-.book-question-content h1,
-.book-question-content h2,
-.book-question-content h3 {
+.book-chapter-content h1,
+.book-chapter-content h2,
+.book-chapter-content h3 {
   color: #222;
   font-family: inherit;
   font-weight: bold;
   word-wrap: break-word;
 }
 
-.book-question-content h2 {
+.book-chapter-content h2 {
   text-align: center;
   margin: 1.5em 0 1em 0;
 }
 
-.book-question-content h5 {
+.book-chapter-content h5 {
   font-size: 1.1rem;
   font-weight: bold;
   color: #3a5a7a;
@@ -309,23 +313,76 @@
   line-height: 1.3;
 }
 
-.book-question-content ol,
-.book-question-content ul {
+.book-chapter-content ol,
+.book-chapter-content ul {
   list-style-position: inside;
   padding-left: 0;
   margin-left: 0;
 }
 
-.book-question-content li {
+.book-chapter-content li {
   padding-left: 0.5em;
   word-break: break-word;
   overflow-wrap: break-word;
 }
+/* Footnotes styling */
+.book-chapter-content .footnotes {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.book-chapter-content .footnotes ol {
+  margin: 0;
+  padding: 0;
+  list-style-position: outside;
+  padding-left: 1.5em;
+}
+
+.book-chapter-content .footnotes li {
+  margin: 0.25em 0;
+  padding-left: 0;
+  line-height: 1.4;
+  font-size: 0.95em;
+}
+
+.book-chapter-content .footnotes p {
+  margin: 0;
+  display: inline;
+}
+
+/* Alternative footnote selectors for different RedCarpet output */
+.book-chapter-content ol[id^="fn:"],
+.book-chapter-content ol.footnotes {
+  margin: 1rem 0;
+  padding-left: 1.5em;
+  list-style-position: outside;
+}
+
+.book-chapter-content ol[id^="fn:"] li,
+.book-chapter-content ol.footnotes li {
+  margin: 0.25em 0;
+  padding-left: 0;
+  line-height: 1.4;
+  font-size: 0.95em;
+}
+
+/* Footnote references (superscript links) */
+.book-chapter-content sup a,
+.book-chapter-content a[href^="#fn:"] {
+  text-decoration: none;
+  color: var(--book-accent-color);
+  font-weight: bold;
+}
+
+.book-chapter-content sup a:hover,
+.book-chapter-content a[href^="#fn:"]:hover {
+  color: var(--book-primary-hover);
+}
 
 /* Next Question Navigation */
-.book-next-question {
+.book-next-chapter {
   text-align: right;
-  margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #e0e0e0;
   display: flex;
@@ -333,7 +390,7 @@
   align-items: center;
 }
 
-.book-next-question a {
+.book-next-chapter a {
   color: var(--book-primary-color);
   text-decoration: none;
   font-weight: 600;
@@ -347,14 +404,14 @@
   line-height: 1;
 }
 
-.book-next-question a:hover {
+.book-next-chapter a:hover {
   color: var(--book-primary-hover);
   background-color: rgba(77, 108, 130, 0.1);
   transform: translateX(3px);
 }
 
 /* Questions List */
-.book-questions-list {
+.book-chapters-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -365,7 +422,7 @@
   width: 100%;
 }
 
-.book-questions-list li {
+.book-chapters-list li {
   width: 100%;
   max-width: 420px;
   margin: 0 auto;
@@ -469,7 +526,7 @@
   }
 
   .questions-header,
-  .book-questions-header {
+  .book-chapters-header {
     gap: 8px;
     padding: 0 8px;
   }
@@ -510,24 +567,24 @@
     max-width: 140px;
   }
 
-  .book-question-content {
+  .book-chapter-content {
     padding: 12px 8px 12px 16px;
     font-size: 0.98rem;
   }
 
-  .book-next-question {
+  .book-next-chapter {
     text-align: center;
     margin-top: 1.5rem;
     justify-content: center;
   }
 
-  .book-next-question a {
+  .book-next-chapter a {
     font-size: 0.95rem;
     padding: 10px 16px 0 16px;
   }
 
   .questions-header,
-  .book-questions-header {
+  .book-chapters-header {
     gap: 4px;
     padding: 0 4px;
   }
