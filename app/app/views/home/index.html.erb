@@ -21,25 +21,26 @@
   <section class="topic-search-section">
     <h2>🔍 Busca por Tópicos</h2>
     <p>Explore temas fundamentais da teologia católica através de nossa coleção</p>
+  <p class="topic-instruction">Clique em um dos tópicos abaixo para ver resultados relacionados — artigos, citações e referências sobre o tema. Você também pode usar o ícone da lupa na barra de busca para pesquisar palavras-chave.</p>
     
-    <div class="topic-tags">
-      <button class="topic-tag" onclick="searchTopic('matrimônio')">Matrimônio</button>
-      <button class="topic-tag" onclick="searchTopic('sacramento')">Sacramentos</button>
-      <button class="topic-tag" onclick="searchTopic('batismo')">Batismo</button>
-      <button class="topic-tag" onclick="searchTopic('mandamentos')">Mandamentos</button>
-      <button class="topic-tag" onclick="searchTopic('eucaristia')">Eucaristia</button>
-      <button class="topic-tag" onclick="searchTopic('penitência')">Penitência</button>
-      <button class="topic-tag" onclick="searchTopic('graça')">Graça</button>
-      <button class="topic-tag" onclick="searchTopic('virtude')">Virtudes</button>
-      <button class="topic-tag" onclick="searchTopic('pecado')">Pecado</button>
-      <button class="topic-tag" onclick="searchTopic('amor')">Amor</button>
-      <button class="topic-tag" onclick="searchTopic('oração')">Oração</button>
-      <button class="topic-tag" onclick="searchTopic('fé')">Fé</button>
-      <button class="topic-tag" onclick="searchTopic('esperança')">Esperança</button>
-      <%# <button class="topic-tag" onclick="searchTopic('caridade')">Caridade</button> %>
-      <button class="topic-tag" onclick="searchTopic('ordem')">Ordem</button>
-      <%# <button class="topic-tag" onclick="searchTopic('igreja')">Igreja</button> %>
-      <%# <button class="topic-tag" onclick="searchTopic('moral')">Moral</button> %>
+    <div class="topic-tags" role="list">
+      <a role="listitem" class="topic-tag" href="#" data-topic="matrimônio" title="Pesquisar Matrimonio" aria-label="Pesquisar Matrimonio">Matrimônio</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="sacramento" title="Pesquisar Sacramentos" aria-label="Pesquisar Sacramentos">Sacramentos</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="batismo" title="Pesquisar Batismo" aria-label="Pesquisar Batismo">Batismo</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="mandamentos" title="Pesquisar Mandamentos" aria-label="Pesquisar Mandamentos">Mandamentos</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="eucaristia" title="Pesquisar Eucaristia" aria-label="Pesquisar Eucaristia">Eucaristia</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="penitência" title="Pesquisar Penitencia" aria-label="Pesquisar Penitencia">Penitência</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="graça" title="Pesquisar Graça" aria-label="Pesquisar Graca">Graça</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="virtude" title="Pesquisar Virtudes" aria-label="Pesquisar Virtudes">Virtudes</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="pecado" title="Pesquisar Pecado" aria-label="Pesquisar Pecado">Pecado</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="amor" title="Pesquisar Amor" aria-label="Pesquisar Amor">Amor</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="oração" title="Pesquisar Oração" aria-label="Pesquisar Oracao">Oração</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="fé" title="Pesquisar Fé" aria-label="Pesquisar Fe">Fé</a>
+      <a role="listitem" class="topic-tag" href="#" data-topic="esperança" title="Pesquisar Esperança" aria-label="Pesquisar Esperanca">Esperança</a>
+      <%# <a class="topic-tag" href="#" data-topic="caridade">Caridade</a> %>
+      <a role="listitem" class="topic-tag" href="#" data-topic="ordem" title="Pesquisar Ordem" aria-label="Pesquisar Ordem">Ordem</a>
+      <%# <a class="topic-tag" href="#" data-topic="igreja">Igreja</a> %>
+      <%# <a class="topic-tag" href="#" data-topic="moral">Moral</a> %>
     </div>
   </section>
 
@@ -141,15 +142,34 @@
 </div>
 
 <script>
-// Topic search functionality
-function searchTopic(topic) {
-  // Add visual feedback
-  event.target.style.transform = 'scale(0.95)';
-  setTimeout(() => {
-    event.target.style.transform = '';
-  }, 150);
-  
-  // Navigate to search results
-  window.location.href = `/search/results?q=${encodeURIComponent(topic)}`;
-}
+// Topic search functionality (delegated)
+document.addEventListener('DOMContentLoaded', function () {
+  const container = document.querySelector('.topic-tags');
+  if (!container) return;
+
+  function navigateToTopic(topic) {
+    window.location.href = `/search/results?q=${encodeURIComponent(topic)}`;
+  }
+
+  // Click and keyboard support
+  container.addEventListener('click', function (e) {
+    const el = e.target.closest('.topic-tag');
+    if (!el) return;
+    e.preventDefault();
+    // small visual feedback
+    el.style.transform = 'scale(0.96)';
+    setTimeout(() => el.style.transform = '', 120);
+    const topic = el.dataset.topic;
+    if (topic) navigateToTopic(topic);
+  });
+
+  container.addEventListener('keydown', function (e) {
+    const el = e.target.closest('.topic-tag');
+    if (!el) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      el.click();
+    }
+  });
+});
 </script>

@@ -185,6 +185,8 @@
   font-weight: 500;
   transition: all 0.3s ease;
   width: fit-content;
+  /* Align to the right of the card container */
+  align-self: flex-end;
 }
 
 .book-preview-card .book-link:hover {
@@ -194,10 +196,12 @@
 
 /* Features Section */
 .features-section {
-  background: linear-gradient(135deg, #f8f5e4 0%, #f0ead6 100%);
+  /* Use a neutral solid background and a stronger external shadow (no gradient) */
+  background: #ffffff;
   border-radius: 15px;
   padding: 2.5rem;
   width: 75%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
 }
 
 .features-section h2 {
@@ -216,6 +220,16 @@
 .feature-item {
   text-align: center;
   padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.03);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
 }
 
 .feature-item .icon {
@@ -288,6 +302,11 @@
 
   .book-preview-card {
     padding: 1rem;
+  }
+
+  /* On narrow screens keep the button centered for better layout */
+  .book-preview-card .book-link {
+    align-self: center;
   }
 
   .book-preview-card h3 {
