@@ -57,11 +57,10 @@
 
 /* Books Grid */
 .books {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  /* Use a vertical flow of rows. Each `.book-row` will handle column layout. */
+  display: flex;
+  flex-direction: column;
   gap: 2.5rem;
-  justify-items: center;
-  align-items: start;
   padding: 0 1rem;
 }
 
@@ -75,10 +74,11 @@
   border: 2px solid #e8dcc0;
   transition: all 0.3s ease;
   width: 100%;
-  max-width: 380px;
+  /* Let the grid cell determine card width so multiple columns align cleanly */
+  max-width: none;
   display: flex;
   flex-direction: column;
-  flex: 1; /* Allow cards to grow equally in flex container */
+  align-self: stretch;
   height: 100%;
   min-height: 480px;
 }
@@ -90,11 +90,13 @@
 }
 
 .book-row {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  justify-content: center;
-  align-items: stretch; /* Changed from center to stretch for equal height */
+  /* Each row becomes a responsive grid. Use `auto-fit` so it collapses to 1 column on smaller screens. */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+  justify-items: stretch;
+  width: 100%;
 }
 
 .book-card a {
@@ -227,7 +229,6 @@
   }
   
   .books {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     padding: 0;
   }
@@ -254,7 +255,7 @@
   }
 
   .book-row {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
   
@@ -359,13 +360,19 @@
     padding: 3rem;
   }
   
-  .books {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
+  /* Desktop: prefer 2-column rows so book rows with two cards look balanced. */
+  .book-row {
+    grid-template-columns: repeat(2, minmax(360px, 1fr));
+    gap: 2.5rem;
   }
-  
+
   .book-card {
-    max-width: 420px;
     min-height: 520px;
   }
+}
+
+/* Center standalone cards directly under .books (eg. patristica) */
+.books > .book-card {
+  max-width: 1000px;
+  margin: 0 auto;
 }
