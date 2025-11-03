@@ -1,0 +1,149 @@
+/* Styles for Via Sacra page */
+
+.via-sacra {
+  max-width: 980px;
+  margin: 2.5rem auto;
+  padding: 2rem;
+  background: #fffaf0;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.06);
+  /* Use the site's primary body font to match the home page */
+  /* font-family: "Cascadia Code", "Roboto", sans-serif; */
+  font-family: 'Times New Roman', serif;
+  color: #2f2f2f;
+}
+
+.via-sacra h1 {
+  font-family: 'MedievalSharp', serif;
+  color: #8b4513;
+  font-size: 2.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.via-sacra #subtitle {
+  display: block;
+  font-style: italic;
+  color: #a77b3b;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.via-sacra hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  margin: 1rem 0 1.5rem 0;
+}
+
+.via-sacra .content {
+  line-height: 1.75;
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+
+.via-sacra .intro {
+  background: #fffaf0;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid #d4af37;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.via-sacra .station-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.station {
+  background: white;
+  border-radius: 10px;
+  padding: 1.25rem 1.25rem;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.05);
+}
+
+.station h3 {
+  margin: 0 0 0.5rem 0;
+  color: #6b3f12;
+}
+
+.station .verse {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.station .meditation {
+  margin-bottom: 0.75rem;
+}
+
+.station .prayer {
+  background: #f8f5e8;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  border-left: 4px solid #d4af37;
+  color: #333;
+}
+
+/* Images inside stations */
+.station img {
+  display: block;
+  max-width: 100%;
+  width: 420px; /* preferred visual width on desktop */
+  height: auto;
+  margin: 1rem auto 0.25rem auto; /* center horizontally */
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .station img {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0.75rem;
+  }
+}
+
+.via-sacra .prayer-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.via-sacra .btn-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.via-sacra .btn {
+  padding: 0.6rem 1rem;
+  background: #8b4513;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.via-sacra .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12);} 
+
+/* Responsive */
+@media (min-width: 900px) {
+  .via-sacra .station-list { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .via-sacra { padding: 1rem; margin: 1rem; }
+  .via-sacra h1 { font-size: 1.9rem; }
+  .station { padding: 1rem; }
+  .via-sacra .btn-row { justify-content: center; }
+}

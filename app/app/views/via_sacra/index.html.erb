@@ -2,10 +2,170 @@
   <h1>Via Sacra</h1>
   <label id="subtitle">via crucis</label>
   <hr>
+
   <div class="content">
-    <p>
-      A Via Sacra é uma tradição de oração que recorda os passos de Cristo rumo ao Calvário. Aqui você encontrará roteiros, meditações e recursos para vivenciar este caminho de fé.
-    </p>
-    <%# Em breve: integração com roteiros e meditações da Via Sacra. %>
+    <div class="intro">
+      <p>A Via Sacra é uma prática devocional que acompanha os passos de Nosso Senhor Jesus Cristo até o Calvário. Ela nos convida a lembrar, meditar e unir nossas dores às dele, crescendo em amor, reparação e conversão. Abaixo está um roteiro tradicional com 14 estações, uma meditação breve para cada estação e orações recomendadas.</p>
+    </div>
+
+    <section class="opening-prayers">
+      <h2>Abertura (orações iniciais)</h2>
+      <div class="prayer-list">
+        <div class="prayer">
+          <strong>Início:</strong> Em nome do Pai, e do Filho, e do Espírito Santo. Amém.
+        </div>
+        <div class="prayer">
+          <strong>Ato penitencial:</strong> Senhor, tende piedade de nós. Cristo, tende piedade de nós.
+        </div>
+        <div class="prayer">
+          <strong>Oração inicial:</strong> Ó Deus, que por amor dos homens entregastes Vosso Filho unigênito à morte na Cruz, concedei-nos que, meditando em sua paixão, mereçamos participar de sua ressurreição. Por Cristo, Senhor nosso. Amém.
+        </div>
+      </div>
+    </section>
+
+    <section class="stations">
+      <h2>As 14 Estações</h2>
+      <div class="station-list">
+        <!-- Station 1 -->
+        <article class="station">
+          <h3>1ª Estação — Jesus é condenado à morte</h3>
+          <div class="verse">"...vão, pois, crucificá-lo." (Jo 19:16 — resumo temático)</div>
+          <div class="meditation">Meditamos sobre a injustiça sofrida por Cristo, que aceita a condenação por amor a nós. Pergunte-se: onde recuso a vontade de Deus por medo ou interesse próprio?</div>
+          <div class="prayer">Senhor Jesus, dai-me fé para aceitar as provações e coragem para seguir-Te fielmente.</div>
+          <%= image_tag("via_sacra/1.png", alt: "Jeusus é condenado à morte", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 2 -->
+        <article class="station">
+          <h3>2ª Estação — Jesus carrega a cruz</h3>
+          <div class="verse">"Tomou, pois, Jesus a cruz e saiu..." (Jo 19:17 — tema)</div>
+          <div class="meditation">Cristo toma a cruz por nós. Medite sobre os fardos que carregas e oferece-os ao Senhor.</div>
+          <div class="prayer">Senhor, ajuda-me a unir meus sofrimentos aos Teus para redenção do mundo.</div>
+          <%= image_tag("via_sacra/2.png", alt: "Jesus carrega a cruz", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 3 -->
+        <article class="station">
+          <h3>3ª Estação — Jesus cai pela primeira vez</h3>
+          <div class="verse">"Ele foi ferido por nossas transgressões..." (Is 53:5 — analogia)</div>
+          <div class="meditation">A queda de Cristo nos mostra sua humanidade e compaixão. Levanta-te com Ele e confia na sua força.</div>
+          <div class="prayer">Senhor Jesus, levanta-me quando eu cair; dá-me força para perseverar.</div>
+          <%= image_tag("via_sacra/3.png", alt: "Jesus cai pela primeira vez", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 4 -->
+        <article class="station">
+          <h3>4ª Estação — Jesus encontra sua Mãe</h3>
+          <div class="verse">"E sua mãe estava lá, aos pés da cruz." (Jo 19:25 — tema)</div>
+          <div class="meditation">Contemple o silêncio doloroso de Maria e aprenda a aceitar a vontade de Deus em humildade.</div>
+          <div class="prayer">Ó Maria, Mãe dolorosa, alcançai-me coragem e amor para permanecer fiel a Cristo.</div>
+          <%= image_tag("via_sacra/4.png", alt: "Jesus encontra sua Mãe", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 5 -->
+        <article class="station">
+          <h3>5ª Estação — Simão Cirineu ajuda Jesus a carregar a cruz</h3>
+          <div class="verse">"Constriçaram um certo Simão, cireneu... para que levasse a cruz após Jesus." (Mt 27:32)</div>
+          <div class="meditation">Deus usa pessoas comuns para nos ajudar. Onde sou chamado a ser apoio para os outros?</div>
+          <div class="prayer">Senhor, dai-me olhos para ver as necessidades do próximo e mãos para servi-lo.</div>
+          <%= image_tag("via_sacra/5.png", alt: "Simão ajuda Jesus a carregar a cruz", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 6 -->
+        <article class="station">
+          <h3>6ª Estação — Verônica enxuga o rosto de Jesus</h3>
+          <div class="verse">A face de Cristo revelada no rosto ensopado.</div>
+          <div class="meditation">Pequenos atos de amor refletem a face do Senhor. Que sinais dou de compaixão hoje?</div>
+          <div class="prayer">Senhor, faz com que minhas mãos levem alívio e que meu rosto revele Tua misericórdia.</div>
+          <%= image_tag("via_sacra/6.png", alt: "Verônica enxuga o rosto de Jesus", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 7 -->
+        <article class="station">
+          <h3>7ª Estação — Jesus cai pela segunda vez</h3>
+          <div class="verse">A paixão continua; Cristo não hesita em seguir por amor a nós.</div>
+          <div class="meditation">As quedas repetidas lembram-nos que a perseverança é virtude. Confie no auxílio divino.</div>
+          <div class="prayer">Senhor, aumenta em mim a graça da perseverança e do abandono em Ti.</div>
+          <%= image_tag("via_sacra/7.png", alt: "Jesus cai pela segunda vez", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 8 -->
+        <article class="station">
+          <h3>8ª Estação — Jesus consola as mulheres de Jerusalém</h3>
+          <div class="verse">"Não choreis por mim; chorai por vós mesmos e vossos filhos." (Lc 23:28)</div>
+          <div class="meditation">Cristo olha pelos que sofrem e nos chama à conversão. Como respondo ao chamado ao arrependimento?</div>
+          <div class="prayer">Ó Senhor, concede-nos arrependimento sincero e mudança de vida.</div>
+          <%= image_tag("via_sacra/8.png", alt: "Jesus consola as mulheres de Jerusalém", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 9 -->
+        <article class="station">
+          <h3>9ª Estação — Jesus cai pela terceira vez</h3>
+          <div class="verse">Cristo não desistiu; sua entrega culmina em amor infinito.</div>
+          <div class="meditation">Aceite as limitações humanas e confie que Deus completa em você o que falta.</div>
+          <div class="prayer">Senhor, quando eu fraquejar, sustenta-me com Teu amor eterno.</div>
+          <%= image_tag("via_sacra/9.png", alt: "Jesus cai pela terceira vez", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 10 -->
+        <article class="station">
+          <h3>10ª Estação — Jesus é despojado de suas vestes</h3>
+          <div class="verse">"Despojaram-no de suas vestes e o revestiram de púrpura." (Mc 15:17)</div>
+          <div class="meditation">Cristo é humilhado por nós; oferto a Deus minhas possessões e ego para ser revestido de sua graça.</div>
+          <div class="prayer">Senhor, livra-me do apego às coisas e veste-me com Teus dons.</div>
+          <%= image_tag("via_sacra/10.png", alt: "Jesus é despojado de suas vestes", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 11 -->
+        <article class="station">
+          <h3>11ª Estação — Jesus é pregado na cruz</h3>
+          <div class="verse">"Então o crucificaram." (Mc 15:24)</div>
+          <div class="meditation">Ao ver Jesus pregado, contemple o amor que vence o ódio e a violência; agradeça pelo dom da redenção.</div>
+          <div class="prayer">Senhor Jesus, que eu saiba amar como Tu amaste, até a doação total.</div>
+          <%= image_tag("via_sacra/11.png", alt: "Jesus é pregado na cruz", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 12 -->
+        <article class="station">
+          <h3>12ª Estação — Jesus morre na cruz</h3>
+          <div class="verse">"Pai, nas tuas mãos entrego o meu espírito." (Lc 23:46)</div>
+          <div class="meditation">A morte de Jesus é a entrega completa: ofereça a Deus tudo o que és e tens.</div>
+          <div class="prayer">Senhor, aceita minha vida e mortifica em mim tudo que te afasta.</div>
+          <%= image_tag("via_sacra/12.png", alt: "Jesus morre na cruz", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 13 -->
+        <article class="station">
+          <h3>13ª Estação — Jesus é descido da cruz e entregue à mãe</h3>
+          <div class="verse">A dor da despedida e o consolo materno convém contemplar.</div>
+          <div class="meditation">Medite sobre o cuidado materno de Maria e ofereça a ela as dores e esperanças do mundo.</div>
+          <div class="prayer">Maria, Mãe compassiva, acolhei em vossos braços os filhos do mundo.</div>
+          <%= image_tag("via_sacra/13.png", alt: "Jesus é descido da cruz e entregue à mãe", skip_pipeline: true) %>
+        </article>
+
+        <!-- Station 14 -->
+        <article class="station">
+          <h3>14ª Estação — Jesus é sepultado</h3>
+          <div class="verse">"Depositaram-no no sepulcro." (Mt 27:59-60)</div>
+          <div class="meditation">Na sepultura, contemple a esperança da ressurreição: a cruz não é o fim, mas porta para a vida eterna.</div>
+          <div class="prayer">Senhor ressuscita em nós a esperança viva e faz-nos caminhar para a vida eterna.</div>
+          <%= image_tag("via_sacra/14.png", alt: "Jesus é sepultado", skip_pipeline: true) %>
+        </article>
+
+      </div>
+    </section>
+    <br>
+    <section class="conclusion">
+      <h2>Conclusão e orações finais</h2>
+      <div class="prayer-list">
+        <div class="prayer"><strong>Salve Rainha:</strong> Salve, Rainha, Mãe de misericórdia...</div>
+        <div class="prayer"><strong>Oração final:</strong> Senhor Jesus, que a meditação de vossa paixão nos torne participantes do mistério pascal; fortalecei nossa fé e conduzi-nos à vida eterna. Amém.</div>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn" href="/books">Ir para Biblioteca</a>
+        <a class="btn" href="/">Voltar ao Início</a>
+      </div>
+    </section>
   </div>
 </div>
