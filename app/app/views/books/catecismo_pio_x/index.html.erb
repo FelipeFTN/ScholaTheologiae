@@ -33,15 +33,28 @@
         <span class="book-parts-label">Pars</span>
       </div>
       <hr class="book-divider">
-      <ul class="book-parts-list">
-        <% @catecismo_parts.each do |part| %>
-          <li>
-            <a class="book-part-link" href="<%= "/books/catecismo-pio-x/#{part}" %>">
-              <%= part.sub('-', ' ').gsub('_', ' ') %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
+      
+      <% @catecismo_parts.each_with_index do |part, index| %>
+        <div class="book-section">
+          <h3 class="book-title">
+            Parte <%= (index + 1).to_roman %> - <%= part.sub('-', ' ').gsub('_', ' ').titleize %>
+          </h3>
+          
+          <ul class="chapters-list">
+            <% chapters = @catecismo_books[part] || [] %>
+            <% chapters.each do |chapter| %>
+              <% chapter_num = chapter.split(':').first %>
+              <% chapter_title = chapter.split(':').last.strip %>
+              <li>
+                <a class="chapter-link" href="<%= "/books/catecismo-pio-x/#{part}/#{chapter_num}" %>">
+                  <span class="chapter-number"><%= chapter_num %></span>
+                  <span class="chapter-title"><%= chapter_title %></span>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     </section>
   </section>
 

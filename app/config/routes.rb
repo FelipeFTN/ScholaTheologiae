@@ -28,9 +28,6 @@ Rails.application.routes.draw do
   # Catecismo Pio X specific routes following the same pattern
   get "/books/catecismo-pio-x" => "catecismo_pio_x#index"
 
-  # This :part might contain a dot, so we need to use a regex to match it
-  get "/books/catecismo-pio-x/:part" => "catecismo_pio_x#get_chapters", constraints: { part: /[^\/]+/ }
-
   get "/books/catecismo-pio-x/:part/:chapter" => "catecismo_pio_x#get_chapter", constraints: { part: /[^\/]+/, chapter: /[^\/]+/ }
 
   # Confissões specific routes
