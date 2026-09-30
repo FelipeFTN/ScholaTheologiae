@@ -21,12 +21,11 @@
     </div>
     <ul class="chapters-list">
       <% @summa_questions.each do |question| %>
-        <% question_num = question.split(':').first %>
-        <% question_title = question.split(':').last.strip %>
+        <% question_num, question_title = str.split(':', 2) %>
         <li>
           <a class="chapter-link" href="<%= "/books/summa-theologiae/#{@part}/#{question_num}" %>">
             <span class="chapter-number"><%= question_num %></span>
-            <span class="chapter-title"><%= question_title %></span>
+            <span class="chapter-title"><%= question_title.strip %></span>
           </a>
         </li>
       <% end %>
