@@ -86,19 +86,17 @@ Visit `https://scholatheologiae.com` to explore the digital library!
 
 ## 📋 API Endpoints
 
-> Soon the API documentation will be available at `https://docs.scholatheologiae.com`, and the summa_theologiae endpoint will be merged into /v1/read.
+### Books
+Books are addressed by their database name: `summa_theologiae`, `catecismo_pio_x`, `confissoes`, `didaque`.
 
+- `GET /v1/books/{name}` - List the parts of a book
+- `GET /v1/books/{name}/{part}` - List the chapters of a part
+- `GET /v1/books/{name}/{part}/{chapter}` - Get a chapter body (markdown)
 
-### Summa Theologiae
-- `GET /v1/summa-theologiae` - List all parts
-- `GET /v1/summa-theologiae/{part}` - List questions for a part
-- `GET /v1/summa-theologiae/{part}/{question}` - Get specific question
-- `GET /v1/summa-theologiae/{part}/{question}/{article}` - Get specific article
+### Search
+- `GET /v1/search?q={query}` - Full-text search over every chapter title and body
 
-### Catecismo Pio X
-- `GET /v1/read/catecismo_pio_x` - List all parts
-- `GET /v1/read/catecismo_pio_x/{part}` - List chapters for a part
-- `GET /v1/read/catecismo_pio_x/{part}/{chapter}` - Get specific chapter
+Accent-insensitive, ordered by relevance inside each book, and returns a snippet with the matched terms wrapped in `<mark>`. It is backed by an FTS5 index that the API build (`make build`) creates from the chapter files; books without an index fall back to a title-only match. Article-level reads (`/v1/books/{name}/{part}/{chapter}/{article}`) answer 404 while no book ships articles.
 
 ### Health Check
 - `GET /v1/health` - API health status

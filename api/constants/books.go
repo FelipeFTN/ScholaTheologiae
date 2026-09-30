@@ -1,10 +1,15 @@
 package constants
 
-// TODO: change this to Enum later on
+// RequestType tells the data layer which call a request maps to.
+type RequestType int
+
 const (
-	TYPE_LIST_BOOKS    = "LIST_BOOKS"
-	TYPE_LIST_PARTS    = "LIST_PARTS"
-	TYPE_LIST_CHAPTERS = "LIST_CHAPTERS"
-	TYPE_GET_CHAPTER   = "GET_CHAPTER"
-	TYPE_GET_ARTICLE   = "GET_ARTICLE"
+	// ListParts lists the parts (books, books' sections) of one book.
+	ListParts RequestType = iota
+	// ListChapters lists the chapters of one part of a book.
+	ListChapters
+	// GetChapter returns the body of one chapter.
+	GetChapter
+	// GetArticle is reserved for article-level reads: no book ships articles yet.
+	GetArticle
 )

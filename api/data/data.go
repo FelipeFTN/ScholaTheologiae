@@ -12,6 +12,7 @@ func New() (*Data, error) {
 	}
 
 	return &Data{
-		SQLite: sqlite,
+		SQLite:  sqlite,
+		Library: &Library{db: sqlite},
 	}, nil
 }

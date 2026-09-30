@@ -1,42 +1,41 @@
 package models
 
 import (
-	"scholatheologiae-api/constants"
 	"strings"
+
+	"scholatheologiae-api/constants"
 )
 
 type BookRequest struct {
 	Name    string
 	Part    string
 	Chapter string
+	// Article is reserved for article-level routes. No book ships articles yet,
+	// so the API answers 404 when it is present (see controllers.Read).
 	Article string
-	Type    string
+	Type    constants.RequestType
 }
 
+// Validate normalizes the request values and decides which data call the request
+// maps to.
 func (b *BookRequest) Validate() {
 	b.Name = normalize(b.Name)
 	b.Part = normalize(b.Part)
 	b.Chapter = normalize(b.Chapter)
 	b.Article = normalize(b.Article)
 
-	if b.Name == "" {
-		b.Type = constants.TYPE_LIST_BOOKS
-		return
-	}
-
-	if b.Part == "" {
-		b.Type = constants.TYPE_LIST_PARTS
-		return
-	}
-
-	if b.Chapter == "" {
-		b.Type = constants.TYPE_LIST_CHAPTERS
-		return
-	}
-
-	if b.Article == "" {
-		b.Type = constants.TYPE_GET_CHAPTER
-		return
+	switch {
+	case b.Name == "":
+		// No book given at all: let the data layer answer "book not found".
+		b.Type = constants.ListParts
+	case b.Part == "":
+		b.Type = constants.ListParts
+	case b.Chapter == "":
+		b.Type = constants.ListChapters
+	case b.Article == "":
+		b.Type = constants.GetChapter
+	default:
+		b.Type = constants.GetArticle
 	}
 }
 

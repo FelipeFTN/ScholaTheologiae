@@ -3,35 +3,34 @@ package data
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
+
+	"scholatheologiae-api/models"
 )
+
+// safePathPart only accepts the identifiers the scripts/ processors produce
+// (letters, digits, underscores, dashes and dots), so a request can never walk
+// outside of the library directory.
+var safePathPart = regexp.MustCompile(`^[\p{L}\p{N}_.-]+$`)
 
 type Library struct {
 	db *SQLite
 }
 
-func (l *Library) GetBooks() []string {
-	files, err := os.ReadDir("./data/library")
-	if err != nil {
-		return nil
-	}
-
-	var books []string
-	for _, file := range files {
-		if !file.IsDir() {
-			books = append(books, file.Name())
+// GetChapter reads the markdown body of one chapter from disk.
+func (l *Library) GetChapter(name, part, chapter string) (string, error) {
+	for _, value := range []string{name, part, chapter} {
+		if !safePathPart.MatchString(value) || value == "." || value == ".." {
+			return "", fmt.Errorf("%w: invalid chapter path", models.ErrBadRequest)
 		}
 	}
 
-	return books
-}
-
-func (l *Library) GetChapter(name, part, chapter string) (string, error) {
-	filePath := fmt.Sprintf("./data/library/%s/content/%s/chapter_%s.md", name, part, chapter)
+	filePath := filepath.Join(".", "data", "library", name, "content", part, "chapter_"+chapter+".md")
 	content, err := os.ReadFile(filePath)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("%w: chapter %s/%s/%s (%v)", models.ErrNotFound, name, part, chapter, err)
 	}
 
 	// Process markdown content to fix line break issues

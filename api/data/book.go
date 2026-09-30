@@ -1,55 +1,22 @@
 package data
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
 
-func (d *Data) GetBooks() ([]string, error) {
-	// Prepare the statement
-	query := "SELECT name FROM master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY id"
-	stmt, err := d.SQLite.databases["master"].db.Prepare(query)
+	"scholatheologiae-api/models"
+)
+
+// GetBookParts lists the parts of a book.
+func (d *Data) GetBookParts(bookName string) ([]string, error) {
+	database, err := d.SQLite.book(bookName)
 	if err != nil {
 		return nil, err
 	}
-	defer stmt.Close()
 
-	// Execute the statement
-	rows, err := stmt.Query()
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
+	query := fmt.Sprintf("SELECT DISTINCT part_title FROM %s ORDER BY id", bookName)
 
-	// Scan the results into a slice
-	var books []string
-	for rows.Next() {
-		var book string
-		err = rows.Scan(&book)
-		if err != nil {
-			return nil, err
-		}
-		books = append(books, book)
-	}
-
-	return books, nil
-}
-
-func (d *Data) GetBookParts(book_name string) ([]string, error) {
-	// Prepare the statement
-	query := fmt.Sprintf("SELECT DISTINCT part_title FROM %s ORDER BY id", book_name)
-
-	// Check if the database for the book exists
-	database := d.SQLite.databases[book_name]
-	if database.db == nil {
-		return nil, fmt.Errorf("database for book '%s' not found", book_name)
-	}
-
-	stmt, err := database.db.Prepare(query)
-	if err != nil {
-		return nil, err
-	}
-	defer stmt.Close()
-
-	// Execute the statement
-	rows, err := stmt.Query()
+	rows, err := database.db.Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -65,21 +32,26 @@ func (d *Data) GetBookParts(book_name string) ([]string, error) {
 		}
 		parts = append(parts, part)
 	}
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
 
 	return parts, nil
 }
 
-func (d *Data) GetBookChapters(book_name, part string) (map[string]string, error) {
-	// Prepare the statement
-	query := fmt.Sprintf("SELECT DISTINCT chapter_number, chapter_title FROM %s WHERE part_title = ?", book_name)
-	stmt, err := d.SQLite.databases[book_name].db.Prepare(query)
+// GetBookChapters lists the chapters of one part as "chapter_number: title" pairs.
+func (d *Data) GetBookChapters(bookName, part string) (map[string]string, error) {
+	database, err := d.SQLite.book(bookName)
 	if err != nil {
 		return nil, err
 	}
-	defer stmt.Close()
 
-	// Execute the statement
-	rows, err := stmt.Query(part)
+	query := fmt.Sprintf(
+		"SELECT DISTINCT chapter_number, chapter_title FROM %s WHERE part_title = ? ORDER BY chapter_number, id",
+		bookName,
+	)
+
+	rows, err := database.db.Query(query, part)
 	if err != nil {
 		return nil, err
 	}
@@ -88,19 +60,20 @@ func (d *Data) GetBookChapters(book_name, part string) (map[string]string, error
 	// Scan the results into a map
 	chapters := make(map[string]string)
 	for rows.Next() {
-		var chapterNumber, chapterTitle string
+		var chapterNumber int
+		var chapterTitle string
 		err = rows.Scan(&chapterNumber, &chapterTitle)
 		if err != nil {
 			return nil, err
 		}
-		chapters[chapterNumber] = chapterTitle
+		chapters[strconv.Itoa(chapterNumber)] = chapterTitle
 	}
 
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}
 	if len(chapters) == 0 {
-		return nil, fmt.Errorf("no chapters found for part '%s' in book '%s '", part, book_name)
+		return nil, fmt.Errorf("%w: no chapters found for part '%s' in book '%s'", models.ErrNotFound, part, bookName)
 	}
 
 	return chapters, nil

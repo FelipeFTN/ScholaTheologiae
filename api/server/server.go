@@ -1,7 +1,10 @@
 package server
 
 import (
+	"errors"
+	"fmt"
 	"log/slog"
+	"net/http"
 
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
@@ -14,7 +17,6 @@ func Run(c *controllers.Controllers) {
 	// Set Gin mode
 	gin.SetMode(gin.ReleaseMode)
 	server := gin.Default()
-	server.Use(gin.Recovery())
 	rh := NewRouterHandler(c)
 
 	// V1
@@ -24,6 +26,7 @@ func Run(c *controllers.Controllers) {
 		v1.GET("/books/:name", rh.HandleBooks)
 		v1.GET("/books/:name/:part", rh.HandleBooks)
 		v1.GET("/books/:name/:part/:chapter", rh.HandleBooks)
+		// Reserved for article-level reads; answers 404 while no book ships articles.
 		v1.GET("/books/:name/:part/:chapter/:article", rh.HandleBooks)
 
 		v1.GET("/search", rh.HandleSearch)
@@ -44,69 +47,71 @@ func NewRouterHandler(c *controllers.Controllers) *RouterHandler {
 }
 
 func (r *RouterHandler) HandleBooks(c *gin.Context) {
-	book_request := models.BookRequest{
+	bookRequest := models.BookRequest{
 		Name:    c.Param("name"),
 		Part:    c.Param("part"),
 		Chapter: c.Param("chapter"),
 		Article: c.Param("article"),
 	}
-	book_request.Validate()
+	bookRequest.Validate()
 
-	response, err := r.Controllers.Read(book_request)
+	response, err := r.Controllers.Read(bookRequest)
 	if err != nil {
-		slog.Error("Error in Read", "error", err)
-		c.JSON(400, gin.H{
-			"status": false,
-			"error":  err.Error(),
-		})
+		r.fail(c, err)
 		return
 	}
 
 	if response == nil {
-		c.JSON(404, gin.H{
-			"status": false,
-			"error":  "book not found",
-		})
+		r.fail(c, fmt.Errorf("%w: no content for this request", models.ErrNotFound))
 		return
 	}
 
-	c.JSON(200, response)
+	c.JSON(http.StatusOK, response)
 }
 
 func (r *RouterHandler) HandleSearch(c *gin.Context) {
 	query := c.Query("q")
 	if query == "" {
-		c.JSON(400, gin.H{
-			"status": false,
-			"error":  "query parameter 'q' is required",
-		})
-
+		r.fail(c, fmt.Errorf("%w: query parameter 'q' is required", models.ErrBadRequest))
 		return
 	}
 
 	response, err := r.Controllers.Search(query)
 	if err != nil {
-		slog.Error("Error in Search", "error", err)
-		c.JSON(400, gin.H{
-			"status": false,
-			"error":  err.Error(),
-		})
+		r.fail(c, err)
 		return
 	}
 
+	// An empty result set is a valid answer to a valid query, not an error.
 	if response == nil {
-		c.JSON(404, gin.H{
-			"status": false,
-			"error":  "no results found",
-		})
-		return
+		response = []models.SearchResult{}
 	}
 
-	c.JSON(200, response)
+	c.JSON(http.StatusOK, response)
 }
 
 func (r *RouterHandler) HandleHealth(c *gin.Context) {
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"status": "ok",
+	})
+}
+
+// fail logs the error and answers with the status code the error maps to, so that
+// a missing book is not reported as a malformed request and a real failure is not
+// reported as "no results".
+func (r *RouterHandler) fail(c *gin.Context, err error) {
+	slog.Error("Request failed", "path", c.Request.URL.Path, "error", err)
+
+	status := http.StatusInternalServerError
+	switch {
+	case errors.Is(err, models.ErrNotFound):
+		status = http.StatusNotFound
+	case errors.Is(err, models.ErrBadRequest):
+		status = http.StatusBadRequest
+	}
+
+	c.JSON(status, gin.H{
+		"status": false,
+		"error":  err.Error(),
 	})
 }
