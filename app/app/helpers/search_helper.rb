@@ -93,6 +93,8 @@ module SearchHelper
       "/books/summa-theologiae/#{part}/#{chapter}"
     when 'catecismo_pio_x'
       "/books/catecismo-pio-x/#{part}/#{chapter}"
+    when 'didaque'
+      "/books/didaque/#{part}/#{chapter}"
     when 'confissoes'
       "/books/confissoes/#{part}/#{chapter}"
     else
