@@ -18,12 +18,3 @@ body {
   color: #333;
   background-color: #fcfad9;
 }
-
-@import "nav_bar.css";
-@import "pages.css";
-@import "books.css";
-@import "book.css";
-@import "home.css";
-@import "search.css";
-@import "footer.css";
-@import "exame_maturidade.css";
