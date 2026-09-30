@@ -9,6 +9,12 @@ jobs:
   scan_ruby:
     runs-on: ubuntu-latest
 
+    # The Rails application lives in app/, so the run steps and ruby/setup-ruby
+    # resolve .ruby-version, Gemfile, Gemfile.lock and bin/ from there.
+    defaults:
+      run:
+        working-directory: app
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,6 +23,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: app
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
@@ -27,6 +34,10 @@ jobs:
   scan_js:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: app
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,6 +46,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: app
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
@@ -42,6 +54,11 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: app
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -50,6 +67,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: app
           bundler-cache: true
 
       - name: Lint code for consistent style
@@ -58,15 +76,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: redis
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    defaults:
+      run:
+        working-directory: app
+
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,12 +91,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
+          working-directory: app
           bundler-cache: true
 
       - name: Run tests
         env:
           RAILS_ENV: test
-          # REDIS_URL: redis://localhost:6379/0
         # There are no ActiveRecord models or migrations yet, so the test database
         # has no schema to prepare.
         run: bin/rails test
@@ -90,5 +106,31 @@ jobs:
         if: failure()
         with:
           name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
+          path: ${{ github.workspace }}/app/tmp/screenshots
           if-no-files-found: ignore
+
+  api:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: api
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: api/go.mod
+          cache-dependency-path: api/go.sum
+
+      - name: Install SQLite headers
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libsqlite3-dev
+
+      - name: Vet the API
+        run: go vet -tags sqlite_fts5 ./...
+
+      - name: Build the API
+        run: CGO_ENABLED=1 go build -tags sqlite_fts5 -o bin/schola-theologiae-api main.go
