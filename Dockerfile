@@ -1,5 +1,5 @@
 # ---------- Build API ----------
-FROM golang:latest AS api-build
+FROM golang:1.24-bookworm AS api-build
 
 WORKDIR /app/api
 COPY ./api /app/api
@@ -14,7 +14,7 @@ RUN make build
 # RUN mkdir bin/ && echo "#!/bin/bash\necho 'Hello World!'" > bin/schola-theologiae-api && chmod +x bin/schola-theologiae-api
 
 # ---------- Final Container ----------
-FROM ubuntu:latest
+FROM ubuntu:24.04
 
 # Install necessary dependencies
 RUN apt update && apt install -y \
@@ -58,11 +58,8 @@ RUN bundle install
 # Generate secret key base
 RUN EDITOR="echo --wait" bin/rails credentials:edit
 
-# Move assets subfolders into assets/*
-RUN find /app/rails/app/assets -type f -exec cp {} /app/rails/public/ \;
-
-# Don't know if this is necessary, so i will comment it out for now
-# Update: It is necessary.
+# Stylesheets are served by Propshaft from public/assets (precompiled below), so
+# they are not flattened into the public root any more.
 RUN /app/rails/bin/rails assets:precompile --trace
 
 WORKDIR /app
