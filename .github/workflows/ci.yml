@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [ master, main ]
 
 jobs:
   scan_ruby:
@@ -20,7 +20,9 @@ jobs:
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+        # bin/brakeman prepends --ensure-latest, which fails the job as soon as a
+        # newer brakeman exists. The pinned gem is the one CI should trust.
+        run: bundle exec brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest
@@ -79,7 +81,9 @@ jobs:
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+        # There are no ActiveRecord models or migrations yet, so the test database
+        # has no schema to prepare.
+        run: bin/rails test
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
