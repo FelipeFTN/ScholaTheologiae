@@ -1,0 +1,20 @@
+<%# locals: (previous_path: nil, next_path: nil) %>
+<div class="chapter-nav">
+  <div class="chapter-nav-slot">
+    <% if previous_path %>
+      <a class="chapter-nav-link" href="<%= previous_path %>" rel="prev">
+        <i class="nf nf-md-arrow_left" aria-hidden="true"></i>
+        <span>Anterior</span>
+      </a>
+    <% end %>
+  </div>
+
+  <div class="chapter-nav-slot chapter-nav-slot-end">
+    <% if next_path %>
+      <a class="chapter-nav-link" href="<%= next_path %>" rel="next">
+        <span>Próximo</span>
+        <i class="nf nf-md-arrow_right" aria-hidden="true"></i>
+      </a>
+    <% end %>
+  </div>
+</div>

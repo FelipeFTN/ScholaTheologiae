@@ -1,0 +1,15 @@
+<%# locals: (title:, subtitle:, back_path: "/books/") %>
+<div class="book-header">
+  <div class="book-back-button">
+    <a href="<%= back_path %>" class="book-back-link" aria-label="Voltar">
+      <i class="nf nf-md-arrow_left" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  <div class="book-title-container">
+    <h1 class="book-title"><%= title %></h1>
+    <span class="book-subtitle"><%= subtitle %></span>
+  </div>
+
+  <div class="book-header-spacer"></div>
+</div>

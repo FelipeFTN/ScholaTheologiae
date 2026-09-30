@@ -1,4 +1,5 @@
-<!-- Modernized and mobile-friendly Confissões chapter page -->
+<% content_for :title, "Didaqué - Schola Theologiae" %>
+<% content_for :body_class, "book-page" %>
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
   <section class="book-content">
@@ -16,18 +17,18 @@
         <span class="book-parts-label">Capitulum</span>
       </div>
       <div class="part-container">
-        <span class="book-part-name"><%= @part.gsub("_", " ").titleize %></span>
-        <span class="book-chapter-number">Cap.<%= @chapter %></span>
+        <span class="book-part-name"><%= part_name("didaque", @part) %></span>
+        <span class="book-chapter-number">
+          Cap.<%= @chapter %><% if @chapter_progress %> &middot; <%= @chapter_progress %><% end %>
+        </span>
       </div>
     </div>
     <div class="book-chapter-content">
       <%= @content %>
-      
-      <div class="book-next-chapter">
-        <a href="<%= "/books/didaque/#{@part}/#{Integer(@chapter)+1}" %>">
-          Próximo Capítulo &rarr;
-        </a>
-      </div>
+
+      <%= render "components/chapter_nav",
+                 previous_path: @previous_chapter && "/books/didaque/#{@part}/#{@previous_chapter}",
+                 next_path: @next_chapter && "/books/didaque/#{@part}/#{@next_chapter}" %>
     </div>
   </section>
   <aside class="book-sidebar"></aside>

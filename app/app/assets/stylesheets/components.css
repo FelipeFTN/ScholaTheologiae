@@ -1,0 +1,138 @@
+/* Component-level styles: content states, chapter navigation, search snippets and
+   the small bits of chrome shared by every page. */
+
+.book-header-spacer {
+  width: 10px;
+}
+
+/* Unavailable / empty / not found states */
+.content-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2.5rem 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  background: #fffdf3;
+  border: 2px dashed #e6dbb8;
+  border-radius: 12px;
+}
+
+.content-state-icon {
+  font-size: 2rem;
+  color: #8b4513;
+}
+
+.content-state h2 {
+  font-family: 'MedievalSharp', serif;
+  color: #8b4513;
+  font-size: 1.35rem;
+}
+
+.content-state p {
+  color: #666;
+  max-width: 46ch;
+  line-height: 1.6;
+}
+
+.book-section-empty {
+  color: #666;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* Flash messages */
+.flash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  background: #f4d19b;
+  color: #4a2c12;
+  border-bottom: 1px solid #e0bd82;
+}
+
+/* Previous / next chapter navigation */
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2.5rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e6dbb8;
+}
+
+.chapter-nav-slot {
+  flex: 1 1 0;
+}
+
+.chapter-nav-slot-end {
+  text-align: right;
+}
+
+.chapter-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid #e0d5c7;
+  border-radius: 8px;
+  background: #fffdf3;
+  color: #8b4513;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.chapter-nav-link:hover {
+  border-color: #c1694f;
+  background: #f8f5e4;
+}
+
+/* Search result snippets */
+.result-snippet {
+  margin-top: 0.6rem;
+  color: #55504a;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.result-snippet mark {
+  background: #f7e6a2;
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 0.15rem;
+}
+
+/* Topic pills are a real list */
+.topic-tags {
+  list-style: none;
+}
+
+.topic-tags-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* The search toggle in the navbar is a real button */
+.search-toggle {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Keyboard focus is always visible */
+:focus-visible {
+  outline: 3px solid #d4af37;
+  outline-offset: 2px;
+}

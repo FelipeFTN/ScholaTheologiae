@@ -1,31 +1,16 @@
-<!-- Modernized and mobile-friendly Summa Theologiae index page -->
+<% content_for :title, "Suma Teológica - Schola Theologiae" %>
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
 
   <section class="book-content">
-    <div class="book-header">
-      <div class="book-back-button">
-        <a href="/books/" class="book-back-link">
-          <i class="nf nf-md-arrow_left"></i>
-        </a>
-      </div>
-
-      <div class="book-title-container">
-        <h1 class="book-title">Suma Teológica</h1>
-        <span class="book-subtitle">Summa Theologiae</span>
-      </div>
-
-      <div style="width: 10px;"></div>
-    </div>
+    <%= render "components/book_head", title: "Suma Teológica", subtitle: "Summa Theologiae" %>
 
     <hr class="book-divider">
 
-    <div class="book-info">
-      <%= image_tag("summa_theologiae_st_thomas_aquinas.jpg", class: "book-cover", skip_pipeline: true) %>
-      <p class="book-description">
-        A Suma Teológica é uma obra escrita por São Tomás de Aquino entre 1265 e 1274. É considerada uma das mais importantes obras da teologia cristã e da filosofia ocidental.
-      </p>
-    </div>
+    <%= render "components/book_info",
+               cover: "summa_theologiae_st_thomas_aquinas.webp",
+               alt: "São Tomás de Aquino escrevendo a Suma Teológica",
+               description: "A Suma Teológica é uma obra escrita por São Tomás de Aquino entre 1265 e 1274. É considerada uma das mais importantes obras da teologia cristã e da filosofia ocidental." %>
 
     <section class="book-parts">
       <div class="book-parts-header">
@@ -33,17 +18,23 @@
         <span class="book-parts-label">Pars</span>
       </div>
       <hr class="book-divider">
-      <ul class="book-parts-list">
-        <%# SORT part by number x.x  %>
-        <% @summa_parts = @summa_parts.sort_by { |part| part.split('.').map(&:to_i) } %>
-        <% @summa_parts.each do |part| %>
-          <li>
-            <a class="book-part-link" href="<%= "/books/summa-theologiae/#{part}" %>">
-              <%= part.sub('-', ' - ').gsub('_', ' ') %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
+
+      <% if @parts.blank? %>
+        <%= render "components/content_state",
+                   icon: "nf-md-cloud_off",
+                   title: "Conteúdo indisponível",
+                   message: "Não conseguimos carregar as partes da Suma Teológica agora. Tente novamente em instantes." %>
+      <% else %>
+        <ul class="book-parts-list">
+          <% @parts.each do |part| %>
+            <li>
+              <a class="book-part-link" href="/books/summa-theologiae/<%= part %>">
+                <%= part_name("summa_theologiae", part) %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </section>
   </section>
 

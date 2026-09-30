@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <title><%= content_for(:title) || "Schola Theologiae" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="<%= content_for(:description) || "Biblioteca digital de teologia católica: Suma Teológica, Catecismo de São Pio X, Confissões de Santo Agostinho e Didaqué, com busca em todo o texto." %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -12,6 +13,13 @@
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <%# Web fonts are requested in the head instead of @import inside a stylesheet,
+        so they no longer block the stylesheet itself from being applied. %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Eagle+Lake&family=MedievalSharp&family=Skranji:wght@400&family=Tagesschrift&display=swap">
+    <link rel="stylesheet" href="https://www.nerdfonts.com/assets/css/webfont.css">
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -23,9 +31,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= yield :body_class %>">
     <%# Nav Bar %>
     <%= render "components/navbar" %>
+
+    <% if flash[:alert].present? %>
+      <div class="flash flash-alert" role="status">
+        <i class="nf nf-md-alert_circle_outline" aria-hidden="true"></i>
+        <span><%= flash[:alert] %></span>
+      </div>
+    <% end %>
     
     <%# Search Modal %>
     <div id="search-modal" class="search-modal-overlay">

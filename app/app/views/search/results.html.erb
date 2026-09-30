@@ -33,7 +33,13 @@
         </div>
         
         <% if @query.length >= 2 %>
-          <% if @results.any? %>
+          <% if @unavailable %>
+          <!-- Search API unreachable -->
+          <%= render "components/content_state",
+                     icon: "nf-md-cloud_off",
+                     title: "Busca indisponível",
+                     message: "Não conseguimos consultar a biblioteca agora. Tente novamente em instantes." %>
+        <% elsif @results.any? %>
             <!-- Search results -->
             <div class="search-results-section">
               <div class="results-header">
@@ -47,8 +53,11 @@
                   <h3 class="result-title"><%= result[:title] %></h3>
                   <div class="result-meta">
                     <span class="result-source"><%= result[:book] %></span>
-                    <span class="result-location"><%= result[:part] %></span>
+                    <span class="result-location"><%= result[:part] %> &middot; Cap. <%= result[:chapter_number] %></span>
                   </div>
+                  <% if result[:snippet].present? %>
+                    <p class="result-snippet"><%= sanitize(result[:snippet], tags: ["mark"], attributes: []) %></p>
+                  <% end %>
                 </a>
               <% end %>
             </div>
@@ -56,10 +65,16 @@
             <!-- No results found -->
             <div class="search-no-results">
               <div class="empty-icon">
-                <i class="nf nf-md-book_search"></i>
+                <i class="nf nf-md-book_search" aria-hidden="true"></i>
               </div>
               <h2>Nenhum resultado encontrado</h2>
-              <p>Não encontramos resultados para "<%= @query %>". Tente usar termos diferentes ou verifique a ortografia.</p>
+              <p>Não encontramos resultados para "<%= @query %>". Tente usar termos diferentes ou explore um tema:</p>
+
+              <div class="topic-tags topic-tags-compact">
+                <% %w[graça sacramento batismo eucaristia virtude oração].each do |topic| %>
+                  <a class="topic-tag" href="<%= search_results_path(q: topic) %>"><%= topic.capitalize %></a>
+                <% end %>
+              </div>
             </div>
           <% end %>
         <% else %>

@@ -1,31 +1,16 @@
-<!-- Modernized and mobile-friendly Didaqué index page -->
+<% content_for :title, "Didaqué - Schola Theologiae" %>
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
 
   <section class="book-content">
-    <div class="book-header">
-      <div class="book-back-button">
-        <a href="/books/" class="book-back-link">
-          <i class="nf nf-md-arrow_left"></i>
-        </a>
-      </div>
-
-      <div class="book-title-container">
-        <h1 class="book-title">Didaqué</h1>
-        <span class="book-subtitle">Instrução dos Doze Apóstolos</span>
-      </div>
-
-      <div style="width: 10px;"></div>
-    </div>
+    <%= render "components/book_head", title: "Didaqué", subtitle: "Instrução dos Doze Apóstolos" %>
 
     <hr class="book-divider">
 
-    <div class="book-info">
-      <%= image_tag("didaque_cover.png", class: "book-cover", skip_pipeline: true) %>
-      <p class="book-description">
-        A Didaqué, também conhecida como "O Ensino dos Doze Apóstolos", é um antigo manual cristão, datado entre 60 e 90 d.C, que oferece orientações práticas sobre a vida cristã, incluindo ensinamentos sobre moralidade, liturgia e disciplina eclesiástica.
-      </p>
-    </div>
+    <%= render "components/book_info",
+               cover: "didaque_cover.webp",
+               alt: "Capa da Didaqué",
+               description: %(A Didaqué, também conhecida como "O Ensino dos Doze Apóstolos", é um antigo manual cristão, datado entre 60 e 90 d.C, que oferece orientações práticas sobre a vida cristã, incluindo ensinamentos sobre moralidade, liturgia e disciplina eclesiástica.) %>
 
     <section class="book-parts">
       <div class="book-parts-header">
@@ -33,32 +18,22 @@
         <span class="book-parts-label">Libri</span>
       </div>
       <hr class="book-divider">
-      
-      <% @didaque_parts.each_with_index do |part, index| %>
-        <div class="book-section">
-          <h3 class="book-title">
-            <% is_introduction = index == 0 %>
-            <% if is_introduction %>
-              <%= part.gsub('_', ' ').titleize %>
-            <% else %>
-              Livro <%= (index).to_roman %> - <%= part.gsub('_', ' ').titleize %>
-            <% end %>
-          </h3>
-          
-          <ul class="chapters-list">
-            <% chapters = @didaque_books[part] || [] %>
-            <% chapters.each do |chapter| %>
-              <% chapter_num = chapter.split(':').first %>
-              <% chapter_title = chapter.split(':').last.strip %>
-              <li>
-                <a class="chapter-link" href="<%= "/books/didaque/#{part}/#{chapter_num}" %>">
-                  <span class="chapter-number"><%= chapter_num %></span>
-                  <span class="chapter-title"><%= chapter_title %></span>
-                </a>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+
+      <% if @parts.nil? %>
+        <%= render "components/content_state",
+                   icon: "nf-md-cloud_off",
+                   title: "Conteúdo indisponível",
+                   message: "Não conseguimos carregar os capítulos da Didaqué agora. Tente novamente em instantes." %>
+      <% else %>
+        <% @parts.each_with_index do |part, index| %>
+          <%# The first section is the introduction, the others are the "books". %>
+          <% label = index.zero? ? humanize_slug(part) : "Livro #{to_roman(index)} - #{humanize_slug(part)}" %>
+          <%= render "components/chapter_section",
+                     title: label,
+                     part: part,
+                     chapters: @chapters[part],
+                     book_path: "/books/didaque" %>
+        <% end %>
       <% end %>
     </section>
   </section>

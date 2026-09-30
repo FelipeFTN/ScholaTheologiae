@@ -1,5 +1,5 @@
-<!-- Modernized and mobile-friendly Summa Theologiae question page -->
-<% content_for :body_class, 'book-page' %>
+<% content_for :title, "Suma Teológica - Schola Theologiae" %>
+<% content_for :body_class, "book-page" %>
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
   <section class="book-content">
@@ -8,25 +8,27 @@
     <hr class="book-divider">
     <div class="questions-header">
       <div class="back-container">
-        <a href="<%= "/books/summa-theologiae/#{@part}" %>" class="book-back-link">&larr;</a>
+        <a href="/books/summa-theologiae/<%= @part %>" class="book-back-link" aria-label="Voltar para as questões">
+          <i class="nf nf-md-arrow_left" aria-hidden="true"></i>
+        </a>
       </div>
       <div class="book-header-info">
         <h2>Questões</h2>
         <span class="book-parts-label">Quaestiones</span>
       </div>
       <div class="part-container">
-        <span class="book-part-name"><%= @part.split("-").last.gsub("_", " ") %></span>
-        <span class="book-chapter-number">Q.<%= @question %> <a href="<%=Integer(@question)+1%>">&rarr;</a></span>
+        <span class="book-part-name"><%= part_name("summa_theologiae", @part) %></span>
+        <span class="book-chapter-number">
+          Q.<%= @question %><% if @question_progress %> &middot; <%= @question_progress %><% end %>
+        </span>
       </div>
     </div>
     <div class="book-chapter-content">
       <%= @content %>
-      
-      <div class="book-next-chapter">
-        <a href="<%= "/books/summa-theologiae/#{@part}/#{Integer(@question)+1}" %>">
-          Próximo Capítulo &rarr;
-        </a>
-      </div>
+
+      <%= render "components/chapter_nav",
+                 previous_path: @previous_question && "/books/summa-theologiae/#{@part}/#{@previous_question}",
+                 next_path: @next_question && "/books/summa-theologiae/#{@part}/#{@next_question}" %>
     </div>
   </section>
   <aside class="book-sidebar"></aside>

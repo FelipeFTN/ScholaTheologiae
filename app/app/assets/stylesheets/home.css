@@ -113,6 +113,8 @@
   gap: 1rem;
   justify-content: center;
   margin-bottom: 2rem;
+  list-style: none;
+  padding-left: 0;
 }
 
 .topic-tag {

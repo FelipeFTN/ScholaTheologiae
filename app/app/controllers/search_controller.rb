@@ -3,6 +3,8 @@
 class SearchController < ApplicationController
   include SearchHelper
 
+  MIN_QUERY_LENGTH = 2
+
   # Just a placeholder for search page/modal
   def index
   end
@@ -11,10 +13,16 @@ class SearchController < ApplicationController
   def results
     @query = params[:q]&.strip
     @results = []
-    
+    @unavailable = false
+
     # Only search if we have a decent query
-    if @query.present? && @query.length >= 2
-      @results = search_texts(@query)
+    return if @query.blank? || @query.length < MIN_QUERY_LENGTH
+
+    hits = ApiClient.search(@query)
+    if hits.nil?
+      @unavailable = true
+    else
+      @results = format_search_results(hits)
     end
   end
 end

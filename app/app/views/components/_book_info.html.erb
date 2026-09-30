@@ -1,0 +1,5 @@
+<%# locals: (cover:, alt:, description:) %>
+<div class="book-info">
+  <%= image_tag(cover, class: "book-cover", alt: alt, skip_pipeline: true, loading: "lazy") %>
+  <p class="book-description"><%= description %></p>
+</div>

@@ -1,4 +1,4 @@
-<!-- Modernized and mobile-friendly Summa Theologiae questions list page -->
+<% content_for :title, "Questões - Suma Teológica - Schola Theologiae" %>
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
   <section class="book-content">
@@ -7,8 +7,8 @@
     <hr class="book-divider">
     <div class="questions-header">
       <div class="back-container">
-        <a href="<%= "/books/summa-theologiae" %>" class="book-back-link">
-          <i class="nf nf-md-arrow_left"></i>
+        <a href="/books/summa-theologiae" class="book-back-link" aria-label="Voltar para as partes">
+          <i class="nf nf-md-arrow_left" aria-hidden="true"></i>
         </a>
       </div>
       <div class="book-header-info">
@@ -16,20 +16,32 @@
         <span class="book-parts-label">Quaestiones</span>
       </div>
       <div class="part-container">
-        <span class="book-part-name"><%= @part.split("-").last.gsub("_", " ") %></span>
+        <span class="book-part-name"><%= part_name("summa_theologiae", @part) %></span>
       </div>
     </div>
-    <ul class="chapters-list">
-      <% @summa_questions.each do |question| %>
-        <% question_num, question_title = str.split(':', 2) %>
-        <li>
-          <a class="chapter-link" href="<%= "/books/summa-theologiae/#{@part}/#{question_num}" %>">
-            <span class="chapter-number"><%= question_num %></span>
-            <span class="chapter-title"><%= question_title.strip %></span>
-          </a>
-        </li>
-      <% end %>
-    </ul>
+
+    <% if @not_found %>
+      <%= render "components/content_state",
+                 icon: "nf-md-book_remove",
+                 title: "Parte não encontrada",
+                 message: "Não encontramos esta parte da Suma Teológica. Volte para a lista de partes." %>
+    <% elsif @questions.blank? %>
+      <%= render "components/content_state",
+                 icon: "nf-md-book_off",
+                 title: "Nenhuma questão publicada",
+                 message: "Ainda não há questões disponíveis nesta parte." %>
+    <% else %>
+      <ul class="chapters-list">
+        <% @questions.each do |question| %>
+          <li>
+            <a class="chapter-link" href="/books/summa-theologiae/<%= @part %>/<%= question[:number] %>">
+              <span class="chapter-number"><%= question[:number] %></span>
+              <span class="chapter-title"><%= question[:title] %></span>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </section>
   <aside class="book-sidebar"></aside>
 </div>

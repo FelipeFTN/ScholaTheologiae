@@ -10,6 +10,11 @@ function initializeSearchModal() {
   
   // Bail out if modal doesn't exist
   if (!searchModal || !searchIcon) return;
+
+  // Turbo swaps the body on navigation, so a fresh modal element is wired on every
+  // visit; skip the wiring when this element was already set up.
+  if (searchModal.dataset.ready === 'true') return;
+  searchModal.dataset.ready = 'true';
   
   // Close modal function
   function closeModal() {
@@ -17,24 +22,17 @@ function initializeSearchModal() {
     if (searchInput) searchInput.value = '';
   }
 
-  // Remove any existing event listeners by cloning elements
-  const newSearchIcon = searchIcon.cloneNode(true);
-  searchIcon.parentNode.replaceChild(newSearchIcon, searchIcon);
-  
   // Open modal and focus input
-  newSearchIcon.addEventListener('click', function(e) {
+  searchIcon.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
     searchModal.classList.add('show');
     searchInput?.focus();
   });
-  
+
   // Close with X button - prevent event bubbling
   if (closeSearch) {
-    const newCloseSearch = closeSearch.cloneNode(true);
-    closeSearch.parentNode.replaceChild(newCloseSearch, closeSearch);
-    
-    newCloseSearch.addEventListener('click', function(e) {
+    closeSearch.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       closeModal();

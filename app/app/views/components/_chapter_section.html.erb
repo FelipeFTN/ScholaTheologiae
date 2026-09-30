@@ -1,0 +1,19 @@
+<%# locals: (title:, part:, chapters:, book_path:) %>
+<div class="book-section">
+  <h3 class="book-title"><%= title %></h3>
+
+  <% if chapters.nil? %>
+    <p class="book-section-empty">Não foi possível carregar os capítulos desta parte.</p>
+  <% else %>
+    <ul class="chapters-list">
+      <% chapters.each do |chapter| %>
+        <li>
+          <a class="chapter-link" href="<%= "#{book_path}/#{part}/#{chapter[:number]}" %>">
+            <span class="chapter-number"><%= chapter[:number] %></span>
+            <span class="chapter-title"><%= chapter[:title] %></span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

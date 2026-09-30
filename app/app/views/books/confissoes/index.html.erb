@@ -1,31 +1,16 @@
-<!-- Modernized and mobile-friendly Confissões index page -->
+<% content_for :title, "Confissões - Schola Theologiae" %>
 <div class="book-main-container">
   <aside class="book-sidebar"></aside>
 
   <section class="book-content">
-    <div class="book-header">
-      <div class="book-back-button">
-        <a href="/books/" class="book-back-link">
-          <i class="nf nf-md-arrow_left"></i>
-        </a>
-      </div>
-
-      <div class="book-title-container">
-        <h1 class="book-title">Confissões</h1>
-        <span class="book-subtitle">Santo Agostinho</span>
-      </div>
-
-      <div style="width: 10px;"></div>
-    </div>
+    <%= render "components/book_head", title: "Confissões", subtitle: "Santo Agostinho" %>
 
     <hr class="book-divider">
 
-    <div class="book-info">
-      <%= image_tag("confissoes_cover.png", class: "book-cover", skip_pipeline: true) %>
-      <p class="book-description">
-        As Confissões de Santo Agostinho, obra-prima da literatura cristã e da autobiografia espiritual, retrata a jornada de conversão e a busca por Deus do grande Doutor da Igreja.
-      </p>
-    </div>
+    <%= render "components/book_info",
+               cover: "confissoes_cover.webp",
+               alt: "Capa das Confissões de Santo Agostinho",
+               description: "As Confissões de Santo Agostinho, obra-prima da literatura cristã e da autobiografia espiritual, retrata a jornada de conversão e a busca por Deus do grande Doutor da Igreja." %>
 
     <section class="book-parts">
       <div class="book-parts-header">
@@ -33,27 +18,20 @@
         <span class="book-parts-label">Libri</span>
       </div>
       <hr class="book-divider">
-      
-      <% @confissoes_parts.each_with_index do |part, index| %>
-        <div class="book-section">
-          <h3 class="book-title">
-            Livro <%= (index + 1).to_roman %> - <%= part.gsub('_', ' ').titleize %>
-          </h3>
-          
-          <ul class="chapters-list">
-            <% chapters = @confissoes_books[part] || [] %>
-            <% chapters.each do |chapter| %>
-              <% chapter_num = chapter.split(':').first %>
-              <% chapter_title = chapter.split(':').last.strip %>
-              <li>
-                <a class="chapter-link" href="<%= "/books/confissoes/#{part}/#{chapter_num}" %>">
-                  <span class="chapter-number"><%= chapter_num %></span>
-                  <span class="chapter-title"><%= chapter_title %></span>
-                </a>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+
+      <% if @parts.nil? %>
+        <%= render "components/content_state",
+                   icon: "nf-md-cloud_off",
+                   title: "Conteúdo indisponível",
+                   message: "Não conseguimos carregar os livros das Confissões agora. Tente novamente em instantes." %>
+      <% else %>
+        <% @parts.each_with_index do |part, index| %>
+          <%= render "components/chapter_section",
+                     title: "Livro #{to_roman(index + 1)} - #{humanize_slug(part)}",
+                     part: part,
+                     chapters: @chapters[part],
+                     book_path: "/books/confissoes" %>
+        <% end %>
       <% end %>
     </section>
   </section>

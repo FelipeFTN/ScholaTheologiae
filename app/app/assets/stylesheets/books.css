@@ -107,7 +107,7 @@
   height: 100%;
 }
 
-.book-card h1 {
+.book-card h2 {
   font-family: 'MedievalSharp', serif;
   font-size: 1.6rem;
   color: #8b4513;
@@ -116,7 +116,7 @@
   flex-shrink: 0;
 }
 
-.book-card:hover h1 {
+.book-card:hover h2 {
   color: #d4af37;
 }
 
@@ -318,7 +318,7 @@
     min-height: 380px;
   }
   
-  .book-card h1 {
+  .book-card h2 {
     font-size: 1.4rem;
     margin-bottom: 1rem;
   }
